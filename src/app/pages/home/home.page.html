@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Inicio
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,24 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Inicio</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
+    @if (userData) {
+      <p>{{userData.email}}</p>
+    }
     <strong>Ready to create an app?</strong>
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div>
+
+  <button (click)="enviarALogin()">
+    Volver al inicio de sesión
+  </button>
+
+  <ion-button (click)="cerrarSesion()" id="log-out-button">
+    <ion-icon slot="icon-only" name="power" id="log-out-icon"></ion-icon>
+  </ion-button>
+
 </ion-content>

@@ -1,0 +1,72 @@
+@use "../../../global.scss";
+$breakpoint-mobile: 480px;
+$breakpoint-small-mobile: 360px;
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 25dvw;
+    min-width: 300px;
+    margin: 3rem auto 1rem auto;
+}
+
+.submitButton {
+    padding: 1rem;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.button {
+    padding: 1rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.seccionRegistro {
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+}
+
+ion-segment {
+  --background: #FFFDDD;
+}
+
+ion-segment-view {
+    max-height: 30%;
+}
+
+.segment-buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    ion-button {
+        width: 45%;
+    }
+}
+
+ @media (max-width: $breakpoint-mobile) {
+    section {
+        padding: 12px;
+    }
+
+    #segments {
+      ion-segment-button {
+        min-height: 42px;
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-small-mobile) {
+    section {
+        padding: 8px;
+    }
+
+    #segments {
+      ion-label {
+        font-size: 10px;
+      }
+    }
+  }

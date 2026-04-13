@@ -1,0 +1,101 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Iniciar Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Iniciar Sesión</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form [formGroup]="loginForm" class="login" (ngSubmit)="IniciarSesion()">
+    
+    <ion-input label="Correo electrónico" type="email" placeholder="correo@dominio.com" autocomplete=email required label-placement="floating" fill="outline" formControlName=email></ion-input>
+  
+  
+    <ion-input mode="md" label="Contraseña" type="password" placeholder="********" autocomplete=password required label-placement="stacked" fill="outline" formControlName=password>
+      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+    </ion-input>
+    
+    
+    <ion-button type="submit" class="submitButton">Enviar</ion-button>
+
+    
+    
+  </form>
+
+  <section class="seccionRegistro">
+
+    <ion-button class="button">Registrarse</ion-button>
+  </section>
+
+  <ion-segment id="segments" value="owner">
+    <ion-segment-button value="owner" content-id="owner">
+      <ion-label>Dueños</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="worker" content-id="worker">
+      <ion-label>Empleados</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="customer" content-id="customer">
+      <ion-label>Clientes</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-segment-view>
+    <ion-segment-content id="owner">
+      <div class="segment-buttons">
+        <ion-button shape="round" color="tertiary" (click)="autoCompleteLogin('duenio@apprestaurante.com', '111111')">
+  
+          Dueño
+        </ion-button>
+        <ion-button shape="round" color="tertiary" (click)="autoCompleteLogin('supervisor@apprestaurante.com', '111111')">
+  
+          Supervisor
+        </ion-button>
+      </div>
+    </ion-segment-content>
+    <ion-segment-content id="worker">
+      <div class="segment-buttons">
+        <ion-button shape="round" color="primary" (click)="autoCompleteLogin('metre@apprestaurante.com', '111111')">
+  
+          Metre
+        </ion-button>
+  
+        <ion-button shape="round" color="primary" (click)="autoCompleteLogin('mozo@apprestaurante.com', '111111')">
+  
+          Mozo
+        </ion-button>
+  
+        <ion-button shape="round" color="secondary" (click)="autoCompleteLogin('cocinero@apprestaurante.com', '111111')">
+  
+          Cocinero
+        </ion-button>
+        <ion-button shape="round" color="secondary" (click)="autoCompleteLogin('cantinero@apprestaurante.com', '111111')">
+  
+          Cantinero
+        </ion-button>
+      </div>
+    </ion-segment-content>
+  
+    <ion-segment-content id="customer">
+      <div class="segment-buttons">
+        <ion-button shape="round" color="warning" (click)="autoCompleteLogin('cliente@cliente.com', '111111')">
+  
+          Cliente #1
+        </ion-button>
+        <ion-button shape="round" color="warning" (click)="autoCompleteLogin('anonimo@anonimo.com', '111111')">
+  
+          Cliente anónimo
+        </ion-button>
+      </div>
+    </ion-segment-content>
+  
+  
+  </ion-segment-view>
+
+  
+  
+</ion-content>

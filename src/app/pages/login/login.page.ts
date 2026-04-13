@@ -1,0 +1,112 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonInput,
+  IonInputPasswordToggle,
+  IonSegment,
+  IonTitle,
+  IonToolbar,
+  IonSegmentButton,
+  IonSegmentContent,
+  IonSegmentView,
+  IonLabel,
+} from '@ionic/angular/standalone';
+import { AuthService } from 'src/app/services/auth.service';
+import { DatabaseService } from 'src/app/services/database.service';
+import { DialogService } from 'src/app/services/dialog.service';
+import { FirebaseError } from '@angular/fire/app';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
+  standalone: true,
+  imports: [
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    IonInputPasswordToggle,
+    IonButton,
+    IonInput,
+    IonSegment,
+    IonSegmentButton,
+    IonSegmentContent,
+    IonSegmentView,
+    IonLabel,
+  ],
+})
+export class LoginPage implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private databaseService: DatabaseService,
+    private dialogService: DialogService,
+    private router: Router
+  ) {}
+
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+    //  Validators.pattern('(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$')
+  });
+
+  ngOnInit() {}
+
+  async IniciarSesion() {
+    if (this.loginForm.valid) {
+      try {
+        const userCredentials =
+          await this.authService.iniciarSesionConContrasenia(
+            this.loginForm.value.email || '',
+            this.loginForm.value.password || ''
+          );
+
+        console.log('USER CREDENTIALS');
+        console.log(userCredentials);
+
+        const user = this.databaseService.obtenerUsuarioPorEmail(
+          this.loginForm.value.email || ''
+        );
+
+        console.log('USUARIO');
+        console.log(user);
+
+        this.loginForm.reset();
+
+        this.router.navigate(['/home']);
+      } catch (error) {
+        // ERR INICIO SESION INVALIDO
+
+        if (error instanceof FirebaseError) {
+          this.dialogService.presentToast('Credenciales inválidas.', 'danger');
+        } else {
+          this.dialogService.presentToast(String(error), 'danger');
+        }
+
+        console.log(error);
+      }
+    } else {
+      // ERR FORM INVALIDO
+
+      this.dialogService.presentToast(
+        'Complete el formulario con correo y contraseña.',
+        'warning'
+      );
+    }
+  }
+
+  autoCompleteLogin(mail: string, password: string) {
+    this.loginForm.setValue({
+      email: mail,
+      password: password,
+    });
+  }
+}
