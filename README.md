@@ -22,7 +22,10 @@ Primer cuatrimestre 2026
 
 <img src="imgs\splash.png" alt="Splashscreen de la aplicacion" width="50%">
 
-![GIF Animación](https://github.com/gabriel-g4/app-restaurante-2026/tree/main/imgs/animacion.gif)
+<img 
+  src="https://github.com/gabriel-g4/app-restaurante-2026/blob/main/imgs/animacion.gif?raw=true" 
+  alt="GIF Animación" 
+  width="50%">
 
 ##  Tareas a desarrollar
 
