@@ -35,7 +35,7 @@ Primer cuatrimestre 2026
 | Gabriel García     | Login (diseño)                      |     01/04            | -   | main       | :construction:
 | Anahí González, Gabriel García, Mariano Novak     | Splashscreen e icono                         |     01/04            | 15/04   | main       | :white_check_mark:
 | Mariano Novak     | Agregar empleado (funcionalidad)                      |     -         | -  | -       | :red_circle:
-| Anahí González     | Agregar empleado (diseño)                      |     -         | -  | -       | :red_circle:
+| Anahí González     | Agregar empleado (diseño)                      |     20/04         | -  | -       | :construction:
 | Gabriel García     | Agregar plato (funcionalidad)                      |     -         | -  | -       | :red_circle:
 | Mariano Novak     | Agregar plato (diseño)                      |     -         | -  | -       | :red_circle:
 | Anahí González     | Agregar bebida (funcionalidad)                      |     -         | -  | -       | :red_circle:
