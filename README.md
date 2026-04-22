@@ -1,18 +1,53 @@
 # App Restaurante TFI 2026
 
+Primer cuatrimestre 2026
+
+### Profesores
+
+* Maximiliano Neiner
+* Alejandro Constanzo
+* Nicolás Ferrero
+* Augusto Morelli
+* Octavio Villegas
+* Alejandro Loredo
+
 ## Integrantes
+### Gabriel García (gbgarcia642@gmail.com)
+### Anahí González (anahigonzalezj@gmail.com)
+### Mariano Novak (marianogarcianovak@gmail.com)
 
-### Gabriel García
+## Ícono y splash
 
-Puntos 1, 4, 7, 10, 13, 16, 19, 22
+<img src="imgs\icono.png" alt="Icono de la aplicacion" width="50%">
 
-### Anahí González
+<img src="imgs\splash.png" alt="Splashscreen de la aplicacion" width="50%">
 
-Puntos 2, 5, 8, 11, 14, 17, 20
+<img 
+  src="https://github.com/gabriel-g4/app-restaurante-2026/blob/main/imgs/animacion.gif?raw=true" 
+  alt="GIF Animación" 
+  width="50%">
 
-### Mariano Novak
+##  Tareas a desarrollar
 
-Puntos 3, 6, 9, 12, 15, 18, 21
+| Integrante/s         | Tarea                                | Inicio                | Finalización  | Rama | Estado
+|--------------------|-----------------------------------------------|----------------------|---------|--------------|---|
+| Gabriel García     | Login (funcionalidad)                      |     01/04            | 12/04   | main       | :white_check_mark:
+| Gabriel García     | Login (diseño)                      |     01/04            | -   | main       | :construction:
+| Anahí González, Gabriel García, Mariano Novak     | Splashscreen e icono                         |     01/04            | 15/04   | main       | :white_check_mark:
+| Mariano Novak     | Agregar empleado (funcionalidad)                      |     -         | -  | -       | :red_circle:
+| Anahí González     | Agregar empleado (diseño)                      |     20/04         | -  | -       | :construction:
+| Gabriel García     | Agregar plato (funcionalidad)                      |     -         | -  | -       | :red_circle:
+| Mariano Novak     | Agregar plato (diseño)                      |     -         | -  | -       | :red_circle:
+| Anahí González     | Agregar bebida (funcionalidad)                      |     -         | -  | -       | :red_circle:
+| Gabriel García     | Agregar bebida (diseño)                      |     -         | -  | -       | :red_circle:
+| Mariano Novak     | Agregar mesa (funcionalidad)                      |     -         | -  | -       | :red_circle:
+| Anahí González     | Agregar mesa (diseño)                      |     -         | -  | -       | :red_circle:
+| Gabriel García     | Registro (funcionalidad)                      |     15/04         | -  | -       | :construction:
+| Mariano Novak     | Registro (diseño)                      |     -         | -  | -       | :red_circle:
+| Anahí González     | Listado clientes pendientes (funcionalidad)                      |     -         | -  | -       | :red_circle:
+| Gabriel García     | Listado clientes pendientes (diseño)                      |     -         | -  | -       | :red_circle:
+
+
 
 
 ## Pautas de desarrollo
