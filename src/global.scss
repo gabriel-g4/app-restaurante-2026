@@ -41,3 +41,12 @@ $secondary-color: #0c53b0;
 $tertiary-color: #FFFDDD;
 $fourth-color: #918B99;
 $fifth-color: #C9A7C2;
+
+
+.spinner-modal {
+  --width: 220px;
+  --height: 200px;
+
+  --border-radius: 16px;
+  --box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}

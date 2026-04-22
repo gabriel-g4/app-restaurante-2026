@@ -1,0 +1,28 @@
+.spinner-container {
+  background-color: #0c53b0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  text-align: center;
+}
+
+img {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+p {
+  margin: 1rem;
+  color: #fffddd;
+  margin-top: 10px;
+}
+
+ion-spinner {
+  color: #fffddd;
+  margin-bottom: 1rem;
+}

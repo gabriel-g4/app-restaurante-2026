@@ -14,12 +14,15 @@ import {
   IonSegmentContent,
   IonSegmentView,
   IonLabel,
+  ModalController
 } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { FirebaseError } from '@angular/fire/app';
 import { Router } from '@angular/router';
+import { SpinnerModalComponent } from 'src/app/components/spinner-modal/spinner-modal.component';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 @Component({
   selector: 'app-login',
@@ -41,7 +44,7 @@ import { Router } from '@angular/router';
     IonSegmentButton,
     IonSegmentContent,
     IonSegmentView,
-    IonLabel,
+    IonLabel
   ],
 })
 export class LoginPage implements OnInit {
@@ -49,7 +52,8 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private databaseService: DatabaseService,
     private dialogService: DialogService,
-    private router: Router
+    private router: Router,
+    private modalController: ModalController
   ) {}
 
   loginForm = new FormGroup({
@@ -62,7 +66,17 @@ export class LoginPage implements OnInit {
 
   async IniciarSesion() {
     if (this.loginForm.valid) {
+      const loading = await this.modalController.create({
+        component: SpinnerModalComponent,
+        cssClass: 'spinner-modal',
+        backdropDismiss: false
+      });
+
+      loading.present();
+
       try {
+
+
         const userCredentials =
           await this.authService.iniciarSesionConContrasenia(
             this.loginForm.value.email || '',
@@ -81,9 +95,15 @@ export class LoginPage implements OnInit {
 
         this.loginForm.reset();
 
+        loading.dismiss();
         this.router.navigate(['/home']);
       } catch (error) {
         // ERR INICIO SESION INVALIDO
+
+        loading.dismiss();
+
+        // Vibracion
+        await Haptics.impact({ style: ImpactStyle.Heavy })
 
         if (error instanceof FirebaseError) {
           this.dialogService.presentToast('Credenciales inválidas.', 'danger');
@@ -96,6 +116,7 @@ export class LoginPage implements OnInit {
     } else {
       // ERR FORM INVALIDO
 
+      await Haptics.impact({ style: ImpactStyle.Heavy })
       this.dialogService.presentToast(
         'Complete el formulario con correo y contraseña.',
         'warning'
@@ -109,4 +130,6 @@ export class LoginPage implements OnInit {
       password: password,
     });
   }
+
+  
 }

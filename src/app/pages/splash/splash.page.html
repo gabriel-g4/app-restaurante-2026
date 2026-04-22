@@ -1,0 +1,25 @@
+<ion-content class="splash-content">
+  <div class="centered-container">
+    <div #contentBox class="content-box">
+      <img src="assets/icon/favicon.png" alt="Logo" class="logo" />
+
+<h2 class="empresa">
+  <span *ngFor="let letra of empresa.split(''); let i = index"
+        [style.animationDelay]="(3.2 + i * 0.08) + 's'">
+    {{ letra === ' ' ? '\u00A0' : letra }}
+  </span>
+</h2>
+
+<h1 class="creator-name"
+    *ngFor="let creador of creadores; let idx = index"
+    [ngClass]="'creator-' + idx">
+
+  <span *ngFor="let letra of creador.split(''); let i = index"
+        [style.animationDelay]="(2 + i * 0.05) + 's'">
+    {{ letra === ' ' ? '\u00A0' : letra }}
+  </span>
+
+</h1>
+    </div>
+  </div>
+</ion-content>
