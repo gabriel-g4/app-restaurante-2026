@@ -1,32 +1,33 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Inicio
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<!---
+@if (userData) {
+  
+  @if (userData === "dueño" || userData === "supervisor" ) {
+    <app-home-admin></app-home-admin>
+  } @else if (userData === "cocinero") {
+    <app-home-cocinero></app-home-cocinero>
+  } @else if (userData === "mozo") {
+    <app-home-mozo></app-home-mozo>
+  }
+  
+} @else {
+  <p>Cargando vista del usuario...</p>
+}
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Inicio</ion-title>
-    </ion-toolbar>
-  </ion-header>
+LOS BOTONES ESTAN SOLO COMO ATAJOS RAPIDOS, DESPUES TIENE QUE SER SACADOS
+--->
+<ion-footer>
+<div style="background: red; padding: 10px; text-align: center;">
+  <button (click)="userData = 'dueño'">Ver Dueño</button>
+  <button (click)="userData = 'cocinero'">Ver Cocinero</button>
+  <button (click)="userData = 'mozo'">Ver Mozo</button>
+</div>
+<hr>
 
-  <div id="container">
-    @if (userData) {
-      <p>{{userData.email}}</p>
-    }
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-
-  <button (click)="enviarALogin()">
-    Volver al inicio de sesión
-  </button>
-
-  <ion-button (click)="cerrarSesion()" id="log-out-button">
-    <ion-icon slot="icon-only" name="power" id="log-out-icon"></ion-icon>
-  </ion-button>
-
-</ion-content>
+@if (userData === 'dueño') {
+  <app-home-admin></app-home-admin>
+  } @else if (userData === "cocinero") {
+    <app-home-cocinero></app-home-cocinero>
+  } @else if (userData === "mozo") {
+    <app-home-mozo></app-home-mozo>
+  }
+</ion-footer>

@@ -1,0 +1,38 @@
+.icono-personalizado {
+  width: 40px;           
+  height: 40px;
+  margin-bottom: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: contain;
+}
+
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px; 
+  padding: 16px;
+}
+
+.action-button {
+  height: 110px; 
+  margin: 0; 
+  --border-radius: 16px;
+  --box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+}
+
+.contenido-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.contenido-button span {
+  font-size: 14px;
+  text-align: center;
+  white-space: normal;
+  line-height: 1.2;
+}

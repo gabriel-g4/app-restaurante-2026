@@ -30,8 +30,9 @@ form {
     width: 100%;
 }
 
+
 ion-segment {
-  --background: #FFFDDD;
+  --background: #{global.$fourth-color};
 }
 
 ion-segment-view {
@@ -70,3 +71,10 @@ ion-segment-view {
       }
     }
   }
+
+  .logo {
+  display: block;      
+  margin: 0 auto;     
+  margin-top: 2rem;   
+  border-radius: 1rem;
+}

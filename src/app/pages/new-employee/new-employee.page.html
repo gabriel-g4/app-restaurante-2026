@@ -1,0 +1,96 @@
+<ion-header [translucent]="false">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Registrar Empleado</ion-title>
+
+    <!--
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="qr-code-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <section id="cart-section"> <!--agragar funcionalidad form-->
+    <div class="container">
+      <div class="row">
+        <div class="cart cart2">
+          <div style="z-index: 1" class="column">
+            <div class="log-in-area column">
+              
+              <label class="column">
+                Nombre
+                <input type="text" id="nombre" /> <!--agragar funcionalidad(validar)-->
+              </label>
+
+              <label class="column">
+                Apellido
+                <input type="text" id="apellido" /> <!--agragar funcionalidad(validar)-->
+              </label>
+
+              <div class="fila-datos">
+                <label class="column">
+                  DNI
+                  <input type="text" id="dni" maxlength="8" /> <!--agragar funcionalidad(validar)-->
+                </label>
+
+                <label class="column" id="cuil">
+                  CUIL
+                  <input type="text" id="cuil" maxlength="11" /> <!--agragar funcionalidad(validar)-->
+                </label>
+              </div>
+
+              <label class="column">
+                Correo electrónico
+                <input type="email" id="email" /> <!--agragar funcionalidad-->
+              </label>
+
+              <label class="column">
+                Contraseña
+                <input type="password" id="password" /> <!--agragar funcionalidad-->
+              </label>
+
+              <label class="column">
+                Repetir Contraseña
+                <input type="password" id="repeatPassword" /> <!--agragar funcionalidad(validar)-->
+              </label>
+
+              <label class="column">
+                Perfil
+                <select name="perfil" id="perfil"> <!--revisar-->
+                  <option value="" disabled selected>Selecciona un rol</option>
+                  <option value="maitre">Maitre</option> <!--esto es solo por ahora-->
+                  <option value="mozo">Mozo</option>
+                  <option value="cocinero">Cocinero</option>
+                </select>
+              </label>
+
+              <label class="column">
+                Tomar foto
+                <div id="img-tomar" style="display: flex; justify-content: center; align-items: center; background: #f0f0f0; height: 60px; border-radius: 8px; margin-top: 5px; cursor: pointer;">
+                  <ion-icon slot="icon-only" name="camera" style="font-size: 30px;"></ion-icon>
+                </div>
+              </label>
+              
+            </div>
+            <!--falta la foto-->
+            <div class="button-area column">
+              <button> <!--agragar funcionalidad-->
+                Registrar
+              </button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+</ion-content>
