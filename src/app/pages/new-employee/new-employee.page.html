@@ -6,13 +6,6 @@
 
     <ion-title class="ion-text-center">Registrar Empleado</ion-title>
 
-    <!--
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon slot="icon-only" name="qr-code-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    -->
   </ion-toolbar>
 </ion-header>
 
@@ -35,17 +28,22 @@
                 <input type="text" id="apellido" /> <!--agragar funcionalidad(validar)-->
               </label>
 
-              <div class="fila-datos">
-                <label class="column">
-                  DNI
-                  <input type="text" id="dni" maxlength="8" /> <!--agragar funcionalidad(validar)-->
-                </label>
+              <label class="column">
+                DNI
+                <div class="input-dni">
+                  <input type="text" id="dni" maxlength="8" /> 
+                  
+                  <ion-button class="boton-qr">
+                    <ion-icon slot="icon-only" name="qr-Code-Outline"></ion-icon>
+                  </ion-button>
+                </div>
+              </label>
 
-                <label class="column" id="cuil">
-                  CUIL
-                  <input type="text" id="cuil" maxlength="11" /> <!--agragar funcionalidad(validar)-->
-                </label>
-              </div>
+              <label class="column" id="cuil">
+                CUIL
+                <input type="text" id="cuil" maxlength="11" /> <!--agragar funcionalidad(validar)-->
+              </label>
+
 
               <label class="column">
                 Correo electrónico

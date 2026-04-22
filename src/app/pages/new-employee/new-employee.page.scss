@@ -49,7 +49,7 @@ option.gerencia {
   }
 
   label {
-    flex: 1; /* Ambos labels ocupan el mismo ancho */
+    flex: 1; 
   }
 }
 
@@ -69,7 +69,7 @@ ion-header {
   ion-toolbar {
     padding-top: var(--ion-safe-area-top);
     min-height: calc(56px + var(--ion-safe-area-top));
-    --background: #1d2f41;
+    --background: #{global.$primary-color};
     --color: white;
     
     ion-title {
@@ -86,12 +86,13 @@ ion-header {
     ion-button {
       --color: white;
     }
+  
   }
 }
 
 /* Ion-content manteniendo su color actual (#f5f5f5) */
 ion-content {
-  --background: #4A4E69;  // Mantenido como estaba
+  --background: #{global.$fourth-color}; 
 }
 
 /* Estructura principal */
@@ -101,14 +102,16 @@ ion-content {
   align-items: flex-start;
   padding: 1rem;
   min-height: calc(100vh - 56px - var(--ion-safe-area-top));
+  
 
   .container {
     max-width: 600px;
     width: 100%;
-    background-color: $primary-bg;
+    background: #{global.$primary-color};
     border-radius: 1rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
+    
     // margin-top: 1rem;
     
   }
@@ -174,7 +177,7 @@ ion-content {
   button {
     padding: 0.85rem 2.5rem;
     font-size: 2.1rem !important;
-    background-color: $button-bg;
+    background-color: #{global.$secondary-color};
     color: white;
     border: none;
     border-radius: 0.5rem;
@@ -183,7 +186,7 @@ ion-content {
     font-weight: 600;  // Negrita para mejor legibilidad
     width: 100%;
     max-width: 300px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);  // Sombra para mejor contraste
+    box-shadow: 0 2px 5px #{global.$primary-color}; 
     
     &:hover {
       background-color: $button-hover;
@@ -212,7 +215,29 @@ ion-button svg {
   height: 28px;
 }
 
+.input-dni {
+  display: flex;
+  align-items: center; 
+  gap: 8px; 
+  width: 100%;
+  padding-top: 6px;
+}
 
+.input-dni input {
+  flex: 1; 
+  width: 100%;
+}
+
+.boton-qr {
+  margin: 0; 
+  height: 40px;
+  width: 40px;
+  margin-top: 3px;
+  --padding-start: 0;
+  --padding-end: 0;
+  --background: #{global.$secondary-color};
+  color: white;
+}
 
 /* Responsive */
 @media (max-width: 480px) {
