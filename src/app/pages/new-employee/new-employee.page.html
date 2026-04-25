@@ -11,84 +11,98 @@
 
 <ion-content [fullscreen]="true">
 
-  <section id="cart-section"> <!--agragar funcionalidad form-->
+  <section id="cart-section">
     <div class="container">
       <div class="row">
         <div class="cart cart2">
           <div style="z-index: 1" class="column">
-            <div class="log-in-area column">
-              
-              <label class="column">
-                Nombre
-                <input type="text" id="nombre" /> <!--agragar funcionalidad(validar)-->
-              </label>
+            <form [formGroup]="empleadoForm" (ngSubmit)="registrar()">
+              <div class="log-in-area column">
 
-              <label class="column">
-                Apellido
-                <input type="text" id="apellido" /> <!--agragar funcionalidad(validar)-->
-              </label>
+                <label class="column">
+                  Nombre
+                  <input type="text" id="nombre" formControlName="nombre"
+                    [class.input-error]="empleadoForm.get('nombre')?.invalid && empleadoForm.get('nombre')?.touched" />
+                </label>
 
-              <label class="column">
-                DNI
-                <div class="input-dni">
-                  <input type="text" id="dni" maxlength="8" /> 
-                  
-                  <ion-button class="boton-qr">
-                    <ion-icon slot="icon-only" name="qr-Code-Outline"></ion-icon>
-                  </ion-button>
-                </div>
-              </label>
+                <label class="column">
+                  Apellido
+                  <input type="text" id="apellido" formControlName="apellido"
+                    [class.input-error]="empleadoForm.get('apellido')?.invalid && empleadoForm.get('apellido')?.touched" />
+                </label>
 
-              <label class="column" id="cuil">
-                CUIL
-                <input type="text" id="cuil" maxlength="11" /> <!--agragar funcionalidad(validar)-->
-              </label>
+                <label class="column">
+                  DNI
+                  <div class="input-dni">
+                    <input type="text" id="dni" maxlength="8" formControlName="dni"
+                      [class.input-error]="empleadoForm.get('dni')?.invalid && empleadoForm.get('dni')?.touched" />
 
+                    <ion-button class="boton-qr" (click)="escanearQR()" type="button">
+                      <ion-icon slot="icon-only" name="qr-code-outline"></ion-icon>
+                    </ion-button>
+                  </div>
+                </label>
 
-              <label class="column">
-                Correo electrónico
-                <input type="email" id="email" /> <!--agragar funcionalidad-->
-              </label>
+                <label class="column" id="cuil">
+                  CUIL
+                  <input type="text" id="cuil-input" maxlength="11" formControlName="cuil"
+                    [class.input-error]="empleadoForm.get('cuil')?.invalid && empleadoForm.get('cuil')?.touched" />
+                </label>
 
-              <label class="column">
-                Contraseña
-                <input type="password" id="password" /> <!--agragar funcionalidad-->
-              </label>
+                <label class="column">
+                  Correo electrónico
+                  <input type="email" id="email" formControlName="correo"
+                    [class.input-error]="empleadoForm.get('correo')?.invalid && empleadoForm.get('correo')?.touched" />
+                </label>
 
-              <label class="column">
-                Repetir Contraseña
-                <input type="password" id="repeatPassword" /> <!--agragar funcionalidad(validar)-->
-              </label>
+                <label class="column">
+                  Contraseña
+                  <input type="password" id="password" formControlName="clave"
+                    [class.input-error]="empleadoForm.get('clave')?.invalid && empleadoForm.get('clave')?.touched" />
+                </label>
 
-              <label class="column">
-                Perfil
-                <select name="perfil" id="perfil"> <!--revisar-->
-                  <option value="" disabled selected>Selecciona un rol</option>
-                  <option value="maitre">Maitre</option> <!--esto es solo por ahora-->
-                  <option value="mozo">Mozo</option>
-                  <option value="cocinero">Cocinero</option>
-                </select>
-              </label>
+                <label class="column">
+                  Repetir Contraseña
+                  <input type="password" id="repeatPassword" formControlName="repetirClave"
+                    [class.input-error]="empleadoForm.get('repetirClave')?.invalid && empleadoForm.get('repetirClave')?.touched" />
+                </label>
 
-              <label class="column">
-                Tomar foto
-                <div id="img-tomar" style="display: flex; justify-content: center; align-items: center; background: #f0f0f0; height: 60px; border-radius: 8px; margin-top: 5px; cursor: pointer;">
-                  <ion-icon slot="icon-only" name="camera" style="font-size: 30px;"></ion-icon>
-                </div>
-              </label>
-              
-            </div>
-            <!--falta la foto-->
-            <div class="button-area column">
-              <button> <!--agragar funcionalidad-->
-                Registrar
-              </button>
-            </div>
-            
+                <label class="column">
+                  Perfil
+                  <select name="perfil" id="perfil" formControlName="perfil">
+                    <option value="maitre">Maitre</option>
+                    <option value="mozo">Mozo</option>
+                    <option value="cocinero" selected>Cocinero</option>
+                    <option value="dueño">Dueño</option>
+                    <option value="supervisor">Supervisor</option>
+                  </select>
+                </label>
+
+                <label class="column">
+                  Tomar foto
+                  @if (fotoTomada) {
+                  <img [src]="fotoTomada" id="img-preview" (click)="tomarFoto()"
+                    style="cursor: pointer; margin-top: 10px;" />
+                  }
+                  @else {
+                  <div id="img-tomar" (click)="tomarFoto()"
+                    style="display: flex; justify-content: center; align-items: center; background: #f0f0f0; height: 60px; border-radius: 8px; margin-top: 5px; cursor: pointer;"
+                    [class.input-error]="empleadoForm.get('foto')?.invalid && empleadoForm.get('foto')?.touched">
+                    <ion-icon slot="icon-only" name="camera" style="font-size: 30px; color: black;"></ion-icon>
+                  </div>
+                  }
+                </label>
+              </div>
+              <div class="button-area column">
+                <button type="submit">
+                  Registrar
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </section>
-  
+
 </ion-content>

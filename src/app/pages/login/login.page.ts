@@ -20,7 +20,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { FirebaseError } from '@angular/fire/app';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SpinnerModalComponent } from 'src/app/components/spinner-modal/spinner-modal.component';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
@@ -44,7 +44,8 @@ import { Haptics, ImpactStyle } from '@capacitor/haptics';
     IonSegmentButton,
     IonSegmentContent,
     IonSegmentView,
-    IonLabel
+    IonLabel,
+    RouterLink
   ],
 })
 export class LoginPage implements OnInit {
@@ -54,7 +55,7 @@ export class LoginPage implements OnInit {
     private dialogService: DialogService,
     private router: Router,
     private modalController: ModalController
-  ) {}
+  ) { }
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -62,7 +63,7 @@ export class LoginPage implements OnInit {
     //  Validators.pattern('(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$')
   });
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async IniciarSesion() {
     if (this.loginForm.valid) {
@@ -131,5 +132,5 @@ export class LoginPage implements OnInit {
     });
   }
 
-  
+
 }

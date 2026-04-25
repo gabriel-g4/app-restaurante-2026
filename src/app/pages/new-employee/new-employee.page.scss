@@ -3,9 +3,9 @@
 $primary-bg: #1d2f41;
 $input-border: #ccc;
 $focus-color: #4a90e2;
-$button-bg: #000000;  
-$button-hover: #333333;  
-$disabled-bg: #555555; 
+$button-bg: #000000;
+$button-hover: #333333;
+$disabled-bg: #555555;
 $text-color: #ffffff;
 $label-color: #ede1e1;
 $input-text-color: #000000;
@@ -49,7 +49,7 @@ option.gerencia {
   }
 
   label {
-    flex: 1; 
+    flex: 1;
   }
 }
 
@@ -64,35 +64,35 @@ option.gerencia {
 
 /* Header con safe area aumentada en 20px */
 ion-header {
-  --ion-safe-area-top: env(safe-area-inset-top);  
-  
+  --ion-safe-area-top: env(safe-area-inset-top);
+
   ion-toolbar {
     padding-top: var(--ion-safe-area-top);
     min-height: calc(56px + var(--ion-safe-area-top));
     --background: #{global.$primary-color};
     --color: white;
-    
+
     ion-title {
       padding-left: 0;
       padding-right: 0;
       font-weight: 500;
       font-size: 1.5rem;
     }
-    
+
     ion-back-button {
       --color: white;
     }
-    
+
     ion-button {
       --color: white;
     }
-  
+
   }
 }
 
 /* Ion-content manteniendo su color actual (#f5f5f5) */
 ion-content {
-  --background: #{global.$fourth-color}; 
+  --background: #{global.$fourth-color};
 }
 
 /* Estructura principal */
@@ -102,7 +102,7 @@ ion-content {
   align-items: flex-start;
   padding: 1rem;
   min-height: calc(100vh - 56px - var(--ion-safe-area-top));
-  
+
 
   .container {
     max-width: 600px;
@@ -111,9 +111,9 @@ ion-content {
     border-radius: 1rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
-    
+
     // margin-top: 1rem;
-    
+
   }
 }
 
@@ -122,14 +122,14 @@ ion-content {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  
+
   label {
     display: flex;
     flex-direction: column;
     font-weight: 500;
     color: $label-color;
     font-size: 0.95rem;
-    
+
     input {
       font-family: monospace;
       margin-top: 0.5rem;
@@ -139,8 +139,8 @@ ion-content {
       font-size: 1rem;
       transition: all 0.3s ease;
       background-color: white;
-      color: $input-text-color;  // Texto negro en inputs
-      
+      color: $input-text-color; // Texto negro en inputs
+
       &:focus {
         border-color: $focus-color;
         outline: none;
@@ -149,18 +149,18 @@ ion-content {
     }
 
     .input-error {
-      border: 1px solid rgb(255, 57, 57);
+      border: 2px solid rgb(255, 57, 57);
       border-radius: 0.5rem;
     }
   }
-  
+
   .form-group {
     margin-top: 0.5rem;
-    
+
     label {
       margin-bottom: 0.5rem;
     }
-    
+
     input[type="file"] {
       padding: 0.5rem;
       color: $label-color;
@@ -173,7 +173,7 @@ ion-content {
   margin-top: 2rem;
   display: flex;
   justify-content: center;
-  
+
   button {
     padding: 0.85rem 2.5rem;
     font-size: 2.1rem !important;
@@ -183,22 +183,22 @@ ion-content {
     border-radius: 0.5rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-weight: 600;  // Negrita para mejor legibilidad
+    font-weight: 600; // Negrita para mejor legibilidad
     width: 100%;
     max-width: 300px;
-    box-shadow: 0 2px 5px #{global.$primary-color}; 
-    
+    box-shadow: 0 2px 5px #{global.$primary-color};
+
     &:hover {
       background-color: $button-hover;
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
-    
+
     &:active {
       transform: translateY(0);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
-    
+
     &:disabled {
       background-color: $disabled-bg;
       color: #aaaaaa;
@@ -217,19 +217,19 @@ ion-button svg {
 
 .input-dni {
   display: flex;
-  align-items: center; 
-  gap: 8px; 
+  align-items: center;
+  gap: 8px;
   width: 100%;
   padding-top: 6px;
 }
 
 .input-dni input {
-  flex: 1; 
+  flex: 1;
   width: 100%;
 }
 
 .boton-qr {
-  margin: 0; 
+  margin: 0;
   height: 40px;
   width: 40px;
   margin-top: 3px;
@@ -244,25 +244,25 @@ ion-button svg {
   #cart-section {
     padding: 0.5rem;
     padding-bottom: 55px;
-    
+
     .container {
       padding: 1rem;
       border-radius: 0.75rem;
     }
   }
-  
+
   .log-in-area {
     gap: 1rem;
-    
+
     label {
       font-size: 1.2rem;
-      
+
       input {
         padding: 0.65rem 0.9rem;
       }
     }
   }
-  
+
   .button-area button {
     padding: 0.75rem;
     font-size: 1rem;
@@ -270,11 +270,13 @@ ion-button svg {
 }
 
 
-@media screen and (min-height: 812px) {  /* iPhone X y superiores */
+@media screen and (min-height: 812px) {
+
+  /* iPhone X y superiores */
   ion-header {
-    --ion-safe-area-top: calc(max(env(safe-area-inset-top), 30px)); 
+    --ion-safe-area-top: calc(max(env(safe-area-inset-top), 30px));
   }
-  
+
   #cart-section {
     min-height: calc(100vh - 88px - var(--ion-safe-area-top));
   }
