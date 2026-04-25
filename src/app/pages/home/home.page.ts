@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonFooter } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonIcon } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -10,53 +10,72 @@ import { HomeAdminComponent } from './components/home-admin/home-admin.component
 import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.component';
 import { HomeMozoComponent } from "./components/home-mozo/home-mozo.component";
 
-
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [ HomeAdminComponent,
-    HomeCocineroComponent, HomeMozoComponent, IonFooter],
-    //CommonModule
+  standalone: true,
+  imports: [
+    HomeAdminComponent, HomeCocineroComponent, HomeMozoComponent,
+    IonFooter, IonHeader, IonToolbar, IonTitle, IonContent, IonIcon
+  ]
 })
 export class HomePage implements OnInit, OnDestroy {
-  constructor(private router: Router, private authService: AuthService, private databaseService: DatabaseService) {
-    addIcons({power})
-  }
-
-  userData: any;
+  userData: any = null;
+  rolUsuario: string = '';
   usuario!: Subscription;
 
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private databaseService: DatabaseService
+  ) {
+    addIcons({ power });
+  }
+
   async ngOnInit() {
-    this.usuario = this.authService.usuario$.subscribe(usuario => {
-      console.log(usuario);
-      this.cargarUsuario(usuario);
+    // Nos suscribimos a los cambios de estado de Firebase Auth
+    this.usuario = this.authService.usuario$.subscribe(usuarioAuth => {
+      this.cargarUsuario(usuarioAuth);
     });
   }
 
   ngOnDestroy() {
-    this.usuario.unsubscribe();
+    if (this.usuario) {
+      this.usuario.unsubscribe();
+    }
   }
 
+  async cargarUsuario(usuarioAuth: any) {
+    if (usuarioAuth) {
+      let rolEnMemoria = this.authService.getRol();
+      if (rolEnMemoria) {
+        this.rolUsuario = rolEnMemoria;
+      }
 
+      if (usuarioAuth.email) {
+        this.userData = await this.databaseService.obtenerUsuarioPorEmail(usuarioAuth.email);
 
-  async cargarUsuario(usuario: any) {
-    if (usuario) {
-      this.userData = await this.databaseService.obtenerUsuarioPorId(usuario.uid);
+        if (this.userData && this.userData.rol) {
+          this.rolUsuario = this.userData.rol;
+          this.authService.setRol(this.rolUsuario);
+        }
+      }
+
     } else {
       this.userData = null;
+      this.rolUsuario = '';
       this.router.navigate(['/login']);
     }
   }
 
   enviarALogin() {
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
 
   cerrarSesion() {
     this.userData = null;
+    this.rolUsuario = '';
     return this.authService.cerrarSesion();
   }
-
 }

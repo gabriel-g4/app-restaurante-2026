@@ -1,33 +1,30 @@
-<!---
-@if (userData) {
-  
-  @if (userData === "dueño" || userData === "supervisor" ) {
-    <app-home-admin></app-home-admin>
-  } @else if (userData === "cocinero") {
-    <app-home-cocinero></app-home-cocinero>
-  } @else if (userData === "mozo") {
-    <app-home-mozo></app-home-mozo>
-  }
-  
-} @else {
-  <p>Cargando vista del usuario...</p>
-}
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Inicio - {{ rolUsuario }}</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-LOS BOTONES ESTAN SOLO COMO ATAJOS RAPIDOS, DESPUES TIENE QUE SER SACADOS
---->
-<ion-footer>
-<div style="background: red; padding: 10px; text-align: center;">
-  <button (click)="userData = 'dueño'">Ver Dueño</button>
-  <button (click)="userData = 'cocinero'">Ver Cocinero</button>
-  <button (click)="userData = 'mozo'">Ver Mozo</button>
-</div>
-<hr>
+<ion-content [fullscreen]="true">
 
-@if (userData === 'dueño') {
+  @if (rolUsuario === 'dueño' || rolUsuario === 'supervisor') {
   <app-home-admin></app-home-admin>
-  } @else if (userData === "cocinero") {
-    <app-home-cocinero></app-home-cocinero>
-  } @else if (userData === "mozo") {
-    <app-home-mozo></app-home-mozo>
+  } @else if (rolUsuario === 'cocinero') {
+  <app-home-cocinero></app-home-cocinero>
+  } @else if (rolUsuario === 'mozo') {
+  <app-home-mozo></app-home-mozo>
+  } @else if (!rolUsuario) {
+  <div id="container">
+    <p>Cargando vista del usuario...</p>
+  </div>
   }
+
+</ion-content>
+
+<ion-footer>
+  <div style="padding: 10px; text-align: center; background-color: var(--ion-color-light);">
+    <button id="log-out-button" (click)="cerrarSesion()" style="padding: 10px 20px; cursor: pointer; border: none;">
+      <ion-icon id="log-out-icon" name="power" style="font-size: 24px; vertical-align: middle;"></ion-icon>
+      <span style="vertical-align: middle; margin-left: 8px;">Cerrar Sesión</span>
+    </button>
+  </div>
 </ion-footer>

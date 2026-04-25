@@ -2,25 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
-  IonButton,
-  IonContent,
-  IonHeader,
-  IonInput,
-  IonInputPasswordToggle,
-  IonSegment,
-  IonTitle,
-  IonToolbar,
-  IonSegmentButton,
-  IonSegmentContent,
-  IonSegmentView,
-  IonLabel,
-  ModalController
+  IonButton, IonContent, IonHeader, IonInput, IonInputPasswordToggle,
+  IonSegment, IonTitle, IonToolbar, IonSegmentButton, IonSegmentContent,
+  IonSegmentView, IonLabel, ModalController
 } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { FirebaseError } from '@angular/fire/app';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { SpinnerModalComponent } from 'src/app/components/spinner-modal/spinner-modal.component';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
@@ -30,22 +20,10 @@ import { Haptics, ImpactStyle } from '@capacitor/haptics';
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonInputPasswordToggle,
-    IonButton,
-    IonInput,
-    IonSegment,
-    IonSegmentButton,
-    IonSegmentContent,
-    IonSegmentView,
-    IonLabel,
-    RouterLink
+    IonContent, IonHeader, IonTitle, IonToolbar, CommonModule,
+    FormsModule, ReactiveFormsModule, IonInputPasswordToggle,
+    IonButton, IonInput, IonSegment, IonSegmentButton,
+    IonSegmentContent, IonSegmentView, IonLabel
   ],
 })
 export class LoginPage implements OnInit {
@@ -60,7 +38,6 @@ export class LoginPage implements OnInit {
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
-    //  Validators.pattern('(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$')
   });
 
   ngOnInit() { }
@@ -76,23 +53,24 @@ export class LoginPage implements OnInit {
       loading.present();
 
       try {
-
-
-        const userCredentials =
-          await this.authService.iniciarSesionConContrasenia(
-            this.loginForm.value.email || '',
-            this.loginForm.value.password || ''
-          );
+        const userCredentials = await this.authService.iniciarSesionConContrasenia(
+          this.loginForm.value.email || '',
+          this.loginForm.value.password || ''
+        );
 
         console.log('USER CREDENTIALS');
         console.log(userCredentials);
 
-        const user = this.databaseService.obtenerUsuarioPorEmail(
+        const user = await this.databaseService.obtenerUsuarioPorEmail(
           this.loginForm.value.email || ''
         );
 
         console.log('USUARIO');
         console.log(user);
+
+        if (user && user['rol']) {
+          this.authService.setRol(user['rol']);
+        }
 
         this.loginForm.reset();
 
@@ -100,7 +78,6 @@ export class LoginPage implements OnInit {
         this.router.navigate(['/home']);
       } catch (error) {
         // ERR INICIO SESION INVALIDO
-
         loading.dismiss();
 
         // Vibracion
@@ -116,7 +93,6 @@ export class LoginPage implements OnInit {
       }
     } else {
       // ERR FORM INVALIDO
-
       await Haptics.impact({ style: ImpactStyle.Heavy })
       this.dialogService.presentToast(
         'Complete el formulario con correo y contraseña.',
@@ -131,6 +107,4 @@ export class LoginPage implements OnInit {
       password: password,
     });
   }
-
-
 }
