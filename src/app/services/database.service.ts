@@ -79,5 +79,17 @@ async obtenerUsuarioPorId(uid: string): Promise<any> {
       return null;
     }
   }
+
+  async agregarProducto(producto: any, coleccion: string) {
+    try {
+      const col = collection(this.firestore, coleccion);
+      const docRef = await addDoc(col, producto);
+
+      console.log('Producto agregado exitosamente con ID:', docRef.id);
+    } catch (error) {
+      console.error('Error al agregar el producto:', error);
+    }
+  }
+
   
 }

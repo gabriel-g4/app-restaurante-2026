@@ -18,7 +18,10 @@ export const routes: Routes = [
     path: 'new-employee',
     loadComponent: () => import('./pages/new-employee/new-employee.page').then( m => m.NewEmployeePage)
   },
-
+  {
+    path: 'new-dish',
+    loadComponent: () => import('./pages/new-dish/new-dish.page').then( m => m.NewDishPage)
+  },
 
 
   {
