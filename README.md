@@ -29,23 +29,24 @@ Primer cuatrimestre 2026
 
 ##  Tareas a desarrollar
 
-| Integrante/s         | Tarea                                | Inicio                | Finalización  | Rama | Estado
-|--------------------|-----------------------------------------------|----------------------|---------|--------------|---|
-| Gabriel García     | Login (funcionalidad)                      |     01/04            | 12/04   | main       | :white_check_mark:
-| Gabriel García     | Login (diseño)                      |     01/04            | -   | main       | :construction:
-| Anahí González, Gabriel García, Mariano Novak     | Splashscreen e icono                         |     01/04            | 15/04   | main       | :white_check_mark:
-| Mariano Novak     | Agregar empleado (funcionalidad)                      |     -         | -  | -       | :red_circle:
-| Anahí González     | Agregar empleado (diseño)                      |     20/04         | -  | -       | :construction:
-| Gabriel García     | Agregar plato (funcionalidad)                      |     -         | -  | -       | :red_circle:
-| Mariano Novak     | Agregar plato (diseño)                      |     -         | -  | -       | :red_circle:
-| Anahí González     | Agregar bebida (funcionalidad)                      |     -         | -  | -       | :red_circle:
-| Gabriel García     | Agregar bebida (diseño)                      |     -         | -  | -       | :red_circle:
-| Mariano Novak     | Agregar mesa (funcionalidad)                      |     -         | -  | -       | :red_circle:
-| Anahí González     | Agregar mesa (diseño)                      |     -         | -  | -       | :red_circle:
-| Gabriel García     | Registro (funcionalidad)                      |     15/04         | -  | -       | :construction:
-| Mariano Novak     | Registro (diseño)                      |     -         | -  | -       | :red_circle:
-| Anahí González     | Listado clientes pendientes (funcionalidad)                      |     -         | -  | -       | :red_circle:
-| Gabriel García     | Listado clientes pendientes (diseño)                      |     -         | -  | -       | :red_circle:
+| Integrante/s                                  | Tarea                                       | Inicio | Finalización | Rama | Estado             |
+| --------------------------------------------- | ------------------------------------------- | ------ | ------------ | ---- | ------------------ |
+| Gabriel García                                | Login (funcionalidad)                       | 01/04  | 12/04        | main | :white_check_mark: |
+| Gabriel García                                | Login (diseño)                              | 01/04  | -            | main | :construction:     |
+| Anahí González, Gabriel García, Mariano Novak | Splashscreen e icono                        | 01/04  | 15/04        | main | :white_check_mark: |
+| Mariano Novak                                 | Agregar empleado (funcionalidad)            | 25/04  | 25/04        | main | :white_check_mark: |
+| Anahí González                                | Agregar empleado (diseño)                   | 20/04  | -            | -    | :construction:     |
+| Gabriel García                                | Agregar plato (funcionalidad)               | 25/04  | 25/04        | feature/agregar-plato    | :white_check_mark: |
+| Mariano Novak                                 | Agregar plato (diseño)                      | -      | -            | -    | :red_circle:       |
+| Anahí González                                | Agregar bebida (funcionalidad)              | -      | -            | -    | :red_circle:       |
+| Gabriel García                                | Agregar bebida (diseño)                     | -      | -            | -    | :red_circle:       |
+| Mariano Novak                                 | Agregar mesa (funcionalidad)                | -      | -            | -    | :red_circle:       |
+| Anahí González                                | Agregar mesa (diseño)                       | -      | -            | -    | :red_circle:       |
+| Mariano Novak                                 | Registro (funcionalidad)                    | -      | -            | -    | :construction:     |
+| Gabriel García                                | Registro (diseño)                           | -      | -            | -    | :red_circle:       |
+| Anahí González                                | Listado clientes pendientes (funcionalidad) | -      | -            | -    | :red_circle:       |
+| Gabriel García                                | Listado clientes pendientes (diseño)        | -      | -            | -    | :red_circle:       |
+
 
 
 
