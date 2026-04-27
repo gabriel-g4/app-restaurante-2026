@@ -1,0 +1,103 @@
+<ion-header [translucent]="false">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+
+    <!-- agrandar  el texto de aca-->
+    <ion-title class="ion-text-center">Agregar plato</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <section id="cart-section" [formGroup]="formularioPlato">
+    <div class="container">
+      <div class="row">
+        <div class="cart cart2">
+          <div style="z-index: 1" class="column">
+            <div class="log-in-area column">
+              <label class="column">
+                Nombre
+                <input type="text" formControlName="nombre" id="nombre"  (input)="soloLetras($event)" [class.input-error]="formularioPlato.get('nombre')?.invalid && formularioPlato.get('nombre')?.touched"/>
+              </label>
+
+              <label class="column">
+                Descripción
+                <textarea rows="2" formControlName="descripcion" id="descripcion" [class.input-error]="formularioPlato.get('descripcion')?.invalid && formularioPlato.get('descripcion')?.touched"></textarea>
+              </label>
+
+              <label class="column">
+                Tipo
+                <select 
+                  name="tipo" 
+                  id="tipo" 
+                  formControlName="tipo" 
+                  [class.input-error]="formularioPlato.get('tipo')?.invalid && formularioPlato.get('tipo')?.touched">
+
+                  @for (tipo of tiposPlato; track tipo) {
+                    <option [value]="tipo"> {{ tipo | titlecase }} </option>
+                  }
+                </select>
+              </label>
+
+              
+              <label class="column">
+                Tiempo de elaboración - (minutos)
+                <input 
+                [class.input-error]="formularioPlato.get('tiempo')?.invalid && formularioPlato.get('tiempo')?.touched"
+                  type="text" 
+                  formControlName="tiempo" 
+                  id="tiempo"
+                  (input)="soloNumeros($event)" />
+              </label>
+
+              <label class="column" id="cuil">
+                Precio
+                <input 
+                [class.input-error]="formularioPlato.get('precio')?.invalid && formularioPlato.get('precio')?.touched"
+                  type="text" 
+                  formControlName="precio" 
+                  id="precio"
+                  (input)="soloNumeros($event)" />
+              </label>
+            
+
+              <label class="column">
+                Imágenes descriptivas
+                
+                <section class="container-imagenes">
+                  
+                  @for (imagen of imagenes; track $index) {
+
+                    @if (imagenes[$index].preview) {
+                      <img [src]="imagenes[$index].preview" alt="Vista previa" class="img-preview">
+                    } @else {
+                      <div class="img-tomar" (click)="seleccionarFoto($index)">
+                        <ion-icon slot="icon-only" name="camera">
+                        </ion-icon>
+                      </div>
+                    }
+
+                  }
+                </section>
+              </label>
+              
+              
+            </div>
+
+            <div class="button-area column">
+              <button
+                (click)="agregarPlato()"
+                [disabled]="botonDeshabilitado"
+              >
+                Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ion-content>
