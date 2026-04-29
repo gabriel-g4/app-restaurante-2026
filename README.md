@@ -32,7 +32,7 @@ Primer cuatrimestre 2026
 | Integrante/s                                  | Tarea                                       | Inicio | Finalización | Rama | Estado             |
 | --------------------------------------------- | ------------------------------------------- | ------ | ------------ | ---- | ------------------ |
 | Gabriel García                                | Login (funcionalidad)                       | 01/04  | 12/04        | main | :white_check_mark: |
-| Gabriel García                                | Login (diseño)                              | 01/04  | -            | main | :construction:     |
+| Gabriel García, Anahí González                | Login (diseño)                              | 01/04  | 29/04        | main | :white_check_mark:     |
 | Anahí González, Gabriel García, Mariano Novak | Splashscreen e icono                        | 01/04  | 15/04        | main | :white_check_mark: |
 | Mariano Novak                                 | Agregar empleado (funcionalidad)            | 25/04  | 25/04        | main | :white_check_mark: |
 | Anahí González                                | Agregar empleado (diseño)                   | 20/04  | -            | -    | :construction:     |
