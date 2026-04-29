@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   IonButton, IonContent, IonHeader, IonInput, IonInputPasswordToggle,
-  IonSegment, IonTitle, IonToolbar, IonSegmentButton, IonSegmentContent,
+  IonSegment, IonSegmentButton, IonSegmentContent,
   IonSegmentView, IonLabel, ModalController
 } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
@@ -20,7 +20,7 @@ import { Haptics, ImpactStyle } from '@capacitor/haptics';
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [
-    IonContent, IonHeader, IonTitle, IonToolbar, CommonModule,
+    IonContent, IonHeader, CommonModule,
     FormsModule, ReactiveFormsModule, IonInputPasswordToggle,
     IonButton, IonInput, IonSegment, IonSegmentButton,
     IonSegmentContent, IonSegmentView, IonLabel

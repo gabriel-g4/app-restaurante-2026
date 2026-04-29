@@ -4,44 +4,78 @@ $breakpoint-small-mobile: 360px;
 
 
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
     width: 25dvw;
-    min-width: 300px;
-    margin: 3rem auto 1rem auto;
+    min-width: 315px;
+    margin: 1.5rem auto 1rem auto;
 }
 
-.submitButton {
-    padding: 1rem;
-    width: 50%;
+.boton-inicio {
+  width: 315px;
+  margin: 0 auto;
+  margin-top: 2rem;
+    --background: #fffddd;
+    color: #0c53b0;
+    font-size: 1.25rem;
+}
+
+.boton-registro {
+    width: 315px;
+    font-size: 1rem;
     margin: 0 auto;
+    --background: #253c70;
+    color: #fffddd;
 }
 
-.button {
-    padding: 1rem;
-    margin: 0 auto;
-    text-align: center;
+#title {
+  color: #fffddd;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 1rem;
 }
 
-.seccionRegistro {
+.seccion-registro {
     display: flex;
     margin: 0 auto;
     width: 100%;
 }
 
+ion-content {
+  --background: #0c53b0;
+}
+
+ion-input {
+  width: 90%;
+  margin: 0 auto;
+  --background: white;
+  --border-radius: 1rem;
+}
+
+.input-container {
+  display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  border-radius: 1rem;
+}
 
 ion-segment {
-  --background: #{global.$fourth-color};
+  --background: #C9A7C2;
+  border-radius: 2rem;
+  margin-top: 2rem;
 }
 
 ion-segment-view {
-    max-height: 30%;
+    max-height: 25%;
+}
+
+ion-segment-content {
+  margin-top: 1rem;
 }
 
 .segment-buttons {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
 
     ion-button {
         width: 45%;
@@ -49,9 +83,6 @@ ion-segment-view {
 }
 
  @media (max-width: $breakpoint-mobile) {
-    section {
-        padding: 12px;
-    }
 
     #segments {
       ion-segment-button {
@@ -75,6 +106,6 @@ ion-segment-view {
   .logo {
   display: block;      
   margin: 0 auto;     
-  margin-top: 2rem;   
+  margin-top: 6rem;   
   border-radius: 1rem;
 }

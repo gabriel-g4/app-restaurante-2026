@@ -1,37 +1,37 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Iniciar Sesión</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense"></ion-header>
 
   <img src="assets/icon/favicon.png" alt="Logo" class="logo" width="150" height="150" loading="lazy" />
+  <h1 id="title">Iniciar sesión</h1>
 
   <form [formGroup]="loginForm" class="login" (ngSubmit)="IniciarSesion()">
+    
+    <div class="input-container">
 
-    <ion-input label="Correo electrónico" type="email" placeholder="correo@dominio.com" autocomplete=email required
-      label-placement="floating" fill="outline" formControlName=email></ion-input>
-
-
-    <ion-input mode="md" label="Contraseña" type="password" placeholder="********" autocomplete=password required
-      label-placement="stacked" fill="outline" formControlName=password>
-      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-    </ion-input>
+      <ion-input aria-label="Correo electrónico" type="email" placeholder="Correo electrónico" autocomplete=email required
+         fill="outline" formControlName=email></ion-input>
+    
 
 
-    <ion-button type="submit" class="submitButton">Enviar</ion-button>
+    
+      <ion-input mode="md" aria-label="Contraseña" type="password" placeholder="Contraseña" autocomplete=password required
+         fill="outline" formControlName=password>
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+    </div>
+
+
+    <ion-button type="submit" class="boton-inicio">Iniciar sesión</ion-button>
 
 
 
   </form>
 
-  <section class="seccionRegistro">
-    <ion-button class="button">Registrarse</ion-button>
+  <section class="seccion-registro">
+    <ion-button class="boton-registro">Registrarse</ion-button>
   </section>
 
-  <ion-segment id="segments" value="owner">
+  <ion-segment color="light" id="segments" value="owner">
     <ion-segment-button value="owner" content-id="owner">
       <ion-label>Dueños</ion-label>
     </ion-segment-button>
@@ -46,11 +46,11 @@
   <ion-segment-view>
     <ion-segment-content id="owner">
       <div class="segment-buttons">
-        <ion-button shape="round" color="tertiary" (click)="autoCompleteLogin('duenio@apprestaurante.com', '111111')">
+        <ion-button shape="round" color="dark" (click)="autoCompleteLogin('duenio@apprestaurante.com', '111111')">
 
           Dueño
         </ion-button>
-        <ion-button shape="round" color="tertiary"
+        <ion-button shape="round" color="dark"
           (click)="autoCompleteLogin('supervisor@apprestaurante.com', '111111')">
 
           Supervisor
@@ -59,22 +59,22 @@
     </ion-segment-content>
     <ion-segment-content id="worker">
       <div class="segment-buttons">
-        <ion-button shape="round" color="primary" (click)="autoCompleteLogin('metre@apprestaurante.com', '111111')">
+        <ion-button shape="round" color="tertiary" (click)="autoCompleteLogin('metre@apprestaurante.com', '111111')">
 
           Metre
         </ion-button>
 
-        <ion-button shape="round" color="primary" (click)="autoCompleteLogin('mozo@apprestaurante.com', '111111')">
+        <ion-button shape="round" color="success" (click)="autoCompleteLogin('mozo@apprestaurante.com', '111111')">
 
           Mozo
         </ion-button>
 
-        <ion-button shape="round" color="secondary"
+        <ion-button shape="round" color="danger"
           (click)="autoCompleteLogin('cocinero@apprestaurante.com', '111111')">
 
           Cocinero
         </ion-button>
-        <ion-button shape="round" color="secondary"
+        <ion-button shape="round" color="warning"
           (click)="autoCompleteLogin('cantinero@apprestaurante.com', '111111')">
 
           Cantinero
@@ -84,11 +84,11 @@
 
     <ion-segment-content id="customer">
       <div class="segment-buttons">
-        <ion-button shape="round" color="warning" (click)="autoCompleteLogin('cliente@cliente.com', '111111')">
+        <ion-button shape="round" color="light" (click)="autoCompleteLogin('cliente@cliente.com', '111111')">
 
           Cliente #1
         </ion-button>
-        <ion-button shape="round" color="warning" (click)="autoCompleteLogin('anonimo@anonimo.com', '111111')">
+        <ion-button shape="round" color="light" (click)="autoCompleteLogin('anonimo@anonimo.com', '111111')">
 
           Cliente anónimo
         </ion-button>
