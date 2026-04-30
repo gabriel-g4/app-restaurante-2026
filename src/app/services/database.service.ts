@@ -91,5 +91,16 @@ async obtenerUsuarioPorId(uid: string): Promise<any> {
     }
   }
 
+  async agregarUsuario(user: any, coleccion: string) {
+    try {
+      const userRef = doc(this.firestore, `${coleccion}/${user.id}`);
+      await setDoc(userRef, { ...user });
+
+      console.log('Usuario agregado exitosamente con ID:', user.id);
+    } catch (error) {
+      console.error('Error al agregar el usuario:', error);
+    }
+  }
+
   
 }
