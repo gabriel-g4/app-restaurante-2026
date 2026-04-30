@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, signOut, authState } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, signOut, authState, createUserWithEmailAndPassword } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,10 @@ export class AuthService {
 
   iniciarSesionConContrasenia(correo: string, contrasenia: string) {
     return signInWithEmailAndPassword(this.auth, correo, contrasenia);
+  }
+
+  register(email: string, password: string) {
+    return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
   cerrarSesion() {

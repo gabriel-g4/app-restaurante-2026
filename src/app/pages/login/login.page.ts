@@ -42,6 +42,10 @@ export class LoginPage implements OnInit {
 
   ngOnInit() { }
 
+  irARegistro() {
+    this.router.navigate(['/register']);
+  }
+
   async IniciarSesion() {
     if (this.loginForm.valid) {
       const loading = await this.modalController.create({
