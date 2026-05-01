@@ -27,32 +27,32 @@ export class DatabaseService {
 
   async obtenerUsuarioPorEmail(email: string) {
 
-  try {
-    const usersRef = collection(this.firestore, 'usuarios');
+    try {
+      const usersRef = collection(this.firestore, 'usuarios');
 
-    const q = query(usersRef, where('email', '==', email));
+      const q = query(usersRef, where('email', '==', email));
 
-    const querySnapshot = await getDocs(q);
+      const querySnapshot = await getDocs(q);
 
-    if (querySnapshot.empty) {
-      return null;
+      if (querySnapshot.empty) {
+        return null;
+      }
+
+      querySnapshot.docs.forEach((doc, index) => {
+        console.log(`🔍 Doc ${index}: id=${doc.id}, data=`, doc.data());
+      });
+
+      const userData = querySnapshot.docs[0].data();
+
+      return userData;
+
+    } catch (error) {
+      console.error("🛑 Error en obtenerUsuarioPorEmail:", error);
+      throw error;
     }
-
-    querySnapshot.docs.forEach((doc, index) => {
-      console.log(`🔍 Doc ${index}: id=${doc.id}, data=`, doc.data());
-    });
-
-    const userData = querySnapshot.docs[0].data();
-
-    return userData;
-
-  } catch (error) {
-    console.error("🛑 Error en obtenerUsuarioPorEmail:", error);
-    throw error;
   }
-}
 
-async obtenerUsuarioPorId(uid: string): Promise<any> {
+  async obtenerUsuarioPorId(uid: string): Promise<any> {
     try {
 
       const col = collection(this.firestore, 'usuarios');
@@ -102,5 +102,42 @@ async obtenerUsuarioPorId(uid: string): Promise<any> {
     }
   }
 
-  
+  obtenerClientesPendientes(): Observable<any[]> {
+    const usersRef = collection(this.firestore, 'usuarios');
+    // Busca a los que tengan el perfil 'cliente' y su estado sea 'pendiente'
+    const q = query(
+      usersRef,
+      where('perfil', '==', 'cliente'),
+      where('estado', '==', 'pendiente')
+    );
+
+    return collectionData(q, { idField: 'id' });
+  }
+
+  async rechazarCliente(usuarioId: string): Promise<void> {
+    try {
+      const userDocRef = doc(this.firestore, `usuarios/${usuarioId}`);
+      await updateDoc(userDocRef, {
+        estado: 'rechazado'
+      });
+      console.log(`Cliente ${usuarioId} rechazado con éxito.`);
+    } catch (error) {
+      console.error("Error al rechazar cliente:", error);
+      throw error;
+    }
+  }
+
+  async aceptarCliente(usuarioId: string): Promise<void> {
+    try {
+      const userDocRef = doc(this.firestore, `usuarios/${usuarioId}`);
+      await updateDoc(userDocRef, {
+        estado: 'aprobado'
+      });
+      console.log(`Cliente ${usuarioId} aprobado con éxito.`);
+    } catch (error) {
+      console.error("Error al aprobar cliente:", error);
+      throw error;
+    }
+  }
+
 }

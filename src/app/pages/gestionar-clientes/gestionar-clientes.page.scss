@@ -1,0 +1,110 @@
+@use "../../../global.scss";
+
+ion-header {
+    --ion-safe-area-top: calc(max(env(safe-area-inset-top), 30px));
+
+    ion-toolbar {
+        padding-top: var(--ion-safe-area-top);
+        min-height: calc(56px + var(--ion-safe-area-top));
+        --background: #{global.$card-background};
+        --color: #{global.$text-light};
+
+        ion-title {
+            font-weight: 500;
+            font-size: 1.5rem;
+        }
+
+        ion-back-button {
+            --color: #{global.$text-light};
+        }
+    }
+}
+
+ion-content {
+    --background: #{global.$app-background};
+}
+
+#lista-clientes {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.empty-state {
+    text-align: center;
+    margin-top: 4rem;
+    color: #{global.$text-light};
+
+    ion-icon {
+        font-size: 4rem;
+        opacity: 0.6;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+        opacity: 0.8;
+    }
+}
+
+.clientes-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cliente-card {
+    background: #{global.$card-background};
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cliente-foto {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #{global.$button-primary-bg};
+}
+
+.cliente-info {
+    flex: 1;
+
+    h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: #{global.$text-light};
+    }
+
+    p {
+        margin: 5px 0 0;
+        font-size: 0.85rem;
+        color: rgba(203, 247, 237, 0.7);
+    }
+}
+
+.cliente-actions {
+    display: flex;
+    gap: 0.5rem;
+
+    .btn-rechazar {
+        --color: #{global.$error-border};
+        --border-color: #{global.$error-border};
+        --border-radius: 50%;
+        width: 45px;
+        height: 45px;
+    }
+
+    .btn-aceptar {
+        --background: #{global.$button-primary-bg};
+        --color: #{global.$button-primary-text};
+        --border-radius: 50%;
+        width: 45px;
+        height: 45px;
+    }
+}

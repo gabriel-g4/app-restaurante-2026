@@ -25,4 +25,8 @@ export class HomeAdminComponent implements OnInit {
   agregarMesa() {
     this.router.navigate(['new-table']);
   }
+
+  gestionarClientes() {
+    this.router.navigate(['gestionar-clientes']);
+  }
 }

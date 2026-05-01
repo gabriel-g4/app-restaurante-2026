@@ -27,6 +27,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/new-table/new-table.page').then(m => m.NewTablePage)
   },
   {
+    path: 'gestionar-clientes',
+    loadComponent: () => import('./pages/gestionar-clientes/gestionar-clientes.page').then(m => m.GestionarClientesPage)
+  },
+  {
     path: 'register',
     loadComponent: () => import('./pages/register/register.page').then(m => m.RegisterPage)
   },
@@ -37,5 +41,6 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: 'home',
-  }
+  },
+
 ];
