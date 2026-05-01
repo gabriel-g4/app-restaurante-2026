@@ -1,3 +1,22 @@
-<p>
-  home-cocinero works!
-</p>
+<ion-content id="main-content" [fullscreen]="true">
+  <div class="container">
+
+    <div class="action-buttons">
+      
+      <ion-button type="button" class="action-button" (click)="agregarPlato()">
+        <div class="contenido-button">
+          <img src="assets/imgs/plato.png" class="icono-personalizado" alt="Agregar plato" />
+          <span>Agregar plato</span>
+        </div>
+      </ion-button>
+      
+      <ion-button type="button" class="action-button" (click)="accederPedidosPendientes()">
+        <div class="contenido-button">
+          <img src="" class="icono-personalizado" alt="Pedidos pendientes" />
+          <span>Pedidos pendientes</span>
+        </div>
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

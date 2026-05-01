@@ -5,7 +5,7 @@ import {
   IonContent, IonHeader, IonTitle, IonToolbar, IonButton,
   IonButtons, IonBackButton, IonIcon, ToastController
 } from '@ionic/angular/standalone';
-import { QRCodeComponent } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode'; //module
 import { Camera } from '@capacitor/camera';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
