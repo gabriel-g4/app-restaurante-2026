@@ -42,8 +42,8 @@ Primer cuatrimestre 2026
 | Gabriel García                                | Agregar bebida (diseño)                     | -      | -            | -    | :red_circle:       |
 | Mariano Novak                                 | Agregar mesa (funcionalidad)                | -      | -            | -    | :red_circle:       |
 | Anahí González                                | Agregar mesa (diseño)                       | -      | -            | -    | :red_circle:       |
-| Mariano Novak                                 | Registro (funcionalidad)                    | -      | -            | -    | :construction:     |
-| Gabriel García                                | Registro (diseño)                           | -      | -            | -    | :red_circle:       |
+| Gabriel García                                | Registro (funcionalidad)                    | 15/04      | 30/04            | feature/registro    | :white_check_mark:     |
+| Mariano Novak                                | Registro (diseño)                           | -      | -            | -    | :red_circle:       |
 | Anahí González                                | Listado clientes pendientes (funcionalidad) | -      | -            | -    | :red_circle:       |
 | Gabriel García                                | Listado clientes pendientes (diseño)        | -      | -            | -    | :red_circle:       |
 | Mariano Novak                                | Rechazar clientes pendientes (funcionalidad)        | -      | -            | -    | :red_circle:       |
