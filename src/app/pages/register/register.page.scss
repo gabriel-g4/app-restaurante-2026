@@ -1,255 +1,231 @@
-/* Variables de color actualizadas */
-$primary-bg: #1d2f41;
-$input-border: #ccc;
-$focus-color: #4a90e2;
-$button-bg: #000000;  // Cambiado a negro
-$button-hover: #333333;  // Tonos de gris oscuro para el hover
-$disabled-bg: #555555;  // Gris más oscuro para estado deshabilitado
-$text-color: #ffffff;
-$label-color: #ede1e1;
-$input-text-color: #000000;  // Color negro para texto en inputs
+@use "../../../global.scss";
 
-/* Fondo general de la app */
-ion-app {
-  background-color: #000000;  // Fondo negro como solicitaste
-}
-
-/* Header con safe area aumentada en 20px */
 ion-header {
-  --ion-safe-area-top: calc(env(safe-area-inset-top));  // +20px como solicitaste
-  
+  --ion-safe-area-top: calc(max(env(safe-area-inset-top), 30px));
+
   ion-toolbar {
     padding-top: var(--ion-safe-area-top);
     min-height: calc(56px + var(--ion-safe-area-top));
-    --background: #1d2f41;
-    --color: white;
-    
+    --background: #{global.$card-background};
+    --color: #{global.$text-light};
+
     ion-title {
-      padding-left: 0;
-      padding-right: 0;
       font-weight: 500;
       font-size: 1.5rem;
     }
-    
-    ion-back-button {
-      --color: white;
-    }
-    
+
+    ion-back-button,
     ion-button {
-      --color: white;
+      --color: #{global.$text-light};
     }
   }
 }
 
-/* Ion-content manteniendo su color actual (#f5f5f5) */
 ion-content {
-  --background: #4A4E69;;  // Mantenido como estaba
+  --background: #{global.$app-background};
 }
 
-/* Estructura principal */
-#cart-section {
+#cart-section,
+#form-section {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   min-height: calc(100vh - 56px - var(--ion-safe-area-top));
 
   .container {
     max-width: 600px;
     width: 100%;
-    background-color: $primary-bg;
+    background-color: #{global.$card-background};
     border-radius: 1rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     padding: 1.5rem;
-    // margin-top: 1rem;
-    
   }
 }
 
-/* Formulario con texto negro en inputs */
-.log-in-area {
+.log-in-area,
+.input-area {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  
+
   label {
     display: flex;
     flex-direction: column;
     font-weight: 500;
-    color: $label-color;
+    color: #{global.$text-light};
     font-size: 0.95rem;
-    
-    input {
+
+    input,
+    select,
+    textarea {
       font-family: monospace;
       margin-top: 0.5rem;
       padding: 0.75rem 1rem;
-      border: 1px solid $input-border;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 0.5rem;
       font-size: 1rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #{global.$text-light};
       transition: all 0.3s ease;
-      background-color: white;
-      color: $input-text-color;  // Texto negro en inputs
-      
+
       &:focus {
-        border-color: $focus-color;
+        border-color: #{global.$button-primary-bg};
         outline: none;
-        box-shadow: 0 0 0 2px rgba($focus-color, 0.2);
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      option {
+        color: #000000;
       }
     }
 
     .input-error {
-      border: 1px solid rgb(255, 57, 57);
-      border-radius: 0.5rem;
-    }
-  }
-  
-  .form-group {
-    margin-top: 0.5rem;
-    
-    label {
-      margin-bottom: 0.5rem;
-    }
-    
-    input[type="file"] {
-      padding: 0.5rem;
-      color: $label-color;
+      border: 2px solid #{global.$error-border};
+      background-color: rgba(164, 3, 31, 0.2);
     }
   }
 }
 
-/* Botón negro con mejor contraste */
-.button-area {
-  margin-top: 2rem;
+.fila-datos,
+.input-dni {
   display: flex;
-  justify-content: center;
-  
-  button {
-    padding: 0.85rem 2.5rem;
-    font-size: 2.1rem !important;
-    background-color: $button-bg;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 600;  // Negrita para mejor legibilidad
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+
+  input {
+    flex: 1;
     width: 100%;
-    max-width: 300px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);  // Sombra para mejor contraste
-    
-    &:hover {
-      background-color: $button-hover;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-    
-    &:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-    
-    &:disabled {
-      background-color: $disabled-bg;
-      color: #aaaaaa;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
   }
 }
 
-/* Iconos */
-ion-button svg {
-  width: 28px;
-  height: 28px;
+.boton-qr {
+  margin: 0;
+  height: 40px;
+  width: 40px;
+  margin-top: 3px;
+  --padding-start: 0;
+  --padding-end: 0;
+  --background: #{global.$button-primary-bg};
+  color: #{global.$button-primary-text};
 }
 
 .anonimo-checkbox {
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
-  color: $label-color;
-  
+  color: #{global.$text-light};
+
   ion-checkbox {
     margin-right: 0.9rem;
     --size: 25px;
-    --checkbox-background-checked: #1d2f41;  // Color del header
-    --border-color: #{$label-color};  // Color del borde cuando no está marcado
-    --border-color-checked: #040404;  
-    --checkmark-color: white;  
-  }
-  
-  ion-label {
-    font-size: 1.2rem;
-    font-weight: 500;
+    --checkbox-background-checked: #{global.$app-background};
+    --border-color: #{global.$text-light};
+    --border-color-checked: #{global.$text-light};
+    --checkmark-color: #{global.$text-light};
   }
 }
 
-
-
-#img-preview {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
+#img-tomar,
+.img-tomar {
+  width: 100%;
+  max-width: 150px;
+  height: 150px;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px dashed rgba(255, 255, 255, 0.4);
   margin: 0 auto;
-}
-
-#img-tomar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: gray;
-  margin: 0 auto;
-  display: flex;               /* 🔹 Centra contenido horizontal y vertical */
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  color: #{global.$text-light};
+  transition: all 0.3s ease;
 
-  cursor: pointer;             /* para que parezca clickeable */
+  ion-icon {
+    font-size: 64px;
+    margin-bottom: 5px;
+  }
+
+  &:active {
+    background: rgba(255, 255, 255, 0.2);
+  }
 }
 
-#img-tomar ion-icon {
-  font-size: 64px;             /* ajustá el tamaño del ícono */
-  color: $primary-bg;
+#img-preview,
+.img-preview {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive */
+.container-imagenes {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.button-area {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+
+  button {
+    padding: 0.85rem 2.5rem;
+    font-size: 1.5rem !important;
+    background-color: #{global.$button-primary-bg};
+    color: #{global.$button-primary-text};
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+    max-width: 300px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
 @media (max-width: 480px) {
-  #cart-section {
+
+  #cart-section,
+  #form-section {
     padding: 0.5rem;
     padding-bottom: 55px;
-    
+
     .container {
       padding: 1rem;
       border-radius: 0.75rem;
     }
   }
-  
-  .log-in-area {
-    gap: 1rem;
-    
-    label {
-      font-size: 1.2rem;
-      
-      input {
-        padding: 0.65rem 0.9rem;
-      }
+
+  .log-in-area label {
+    font-size: 1rem;
+
+    input {
+      padding: 0.65rem 0.9rem;
     }
   }
-  
+
   .button-area button {
     padding: 0.75rem;
-    font-size: 1rem;
-  }
-}
-
-/* Ajustes específicos para dispositivos con notch */
-@media screen and (min-height: 812px) {  /* iPhone X y superiores */
-  ion-header {
-    --ion-safe-area-top: calc(max(env(safe-area-inset-top), 30px));  // +20px también en dispositivos con notch
-  }
-  
-  #cart-section {
-    min-height: calc(100vh - 88px - var(--ion-safe-area-top));
+    font-size: 1.2rem !important;
   }
 }

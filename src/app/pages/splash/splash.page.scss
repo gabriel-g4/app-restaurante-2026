@@ -1,9 +1,8 @@
 @use "../../../global.scss";
 
-/* Fondo principal */
 .splash-content {
   --background: none;
-  background: radial-gradient(circle at center, #0c53b0, #253c70);
+  background: radial-gradient(circle at center, #{global.$button-primary-bg}, #{global.$app-background});
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +10,6 @@
   overflow: hidden;
 }
 
-/* Contenedor */
 .centered-container {
   display: flex;
   justify-content: center;
@@ -20,7 +18,6 @@
   height: 100%;
 }
 
-/* Caja */
 .content-box {
   display: flex;
   flex-direction: column;
@@ -29,55 +26,42 @@
   text-align: center;
 }
 
-/* Logo */
 .logo {
   width: 250px;
   height: 250px;
   object-fit: contain;
   border-radius: 8%;
-  background-color: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 50px rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 50px rgba(42, 45, 67, 0.8);
 }
 
-/* Empresa */
 .empresa {
   font-size: 3rem;
   font-weight: 700;
-  color: global.$tertiary-color;
+  color: #{global.$card-background};
 }
 
-/* Nombres */
 .creator-name {
-  // font-size: 2.3rem;
-  // font-weight: 300;
-  // color: white;
-
-  font-weight: 300 ;  
+  font-weight: 300;
   font-size: 2.3rem;
-  color: #FFFDDD;
+  color: #{global.$text-light};
   margin: 15px 0;
   opacity: 1;
   flex-shrink: 0;
   padding: 10px 0;
   transform: translateY(0);
-   text-shadow: 
-    2px 2px 4px rgba(0, 0, 0), /* Sombra principal */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-/* Pulse de letras nombres */
 .creator-name span {
   display: inline-block;
   animation: letterPulse 0.15s ease-in-out forwards;
 }
 
-/* Pulse empresa */
 .empresa span {
   display: inline-block;
   animation: letterPulse 0.25s ease-in-out forwards;
 }
-
-/* SALIDA BLOQUE COMPLETO */
-
 
 .creator-0 {
   animation: moveLeft 0.8s ease-in forwards;
@@ -89,13 +73,11 @@
   animation-delay: 4.8s;
 }
 
-
 .creator-2 {
   animation: moveDown 0.8s ease-in forwards;
   animation-delay: 4.8s;
 }
 
-/* Pulso */
 @keyframes letterPulse {
   0% {
     transform: scale(1);
@@ -110,7 +92,6 @@
   }
 }
 
-/* Salidas */
 @keyframes moveLeft {
   to {
     transform: translateX(-120vw);

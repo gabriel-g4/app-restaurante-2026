@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {IonicModule} from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 
@@ -10,15 +10,19 @@ import { Router } from '@angular/router';
   standalone: true, //independiente 
   imports: [IonicModule]
 })
-export class HomeAdminComponent  implements OnInit {
+export class HomeAdminComponent implements OnInit {
 
   constructor(private router: Router,
 
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   agregarEmpleado() {
-  this.router.navigate(['new-employee']);
+    this.router.navigate(['new-employee']);
+  }
+
+  agregarMesa() {
+    this.router.navigate(['new-table']);
   }
 }

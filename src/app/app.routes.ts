@@ -12,22 +12,24 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+    loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage)
   },
   {
     path: 'new-employee',
-    loadComponent: () => import('./pages/new-employee/new-employee.page').then( m => m.NewEmployeePage)
+    loadComponent: () => import('./pages/new-employee/new-employee.page').then(m => m.NewEmployeePage)
   },
   {
     path: 'new-dish',
-    loadComponent: () => import('./pages/new-dish/new-dish.page').then( m => m.NewDishPage)
+    loadComponent: () => import('./pages/new-dish/new-dish.page').then(m => m.NewDishPage)
+  },
+  {
+    path: 'new-table',
+    loadComponent: () => import('./pages/new-table/new-table.page').then(m => m.NewTablePage)
   },
   {
     path: 'register',
-    loadComponent: () => import('./pages/register/register.page').then( m => m.RegisterPage)
+    loadComponent: () => import('./pages/register/register.page').then(m => m.RegisterPage)
   },
-
-
   {
     path: 'splash',
     loadComponent: () => import('./pages/splash/splash.page').then((m) => m.SplashPage),
@@ -36,6 +38,4 @@ export const routes: Routes = [
     path: '**',
     redirectTo: 'home',
   }
-
-  
 ];

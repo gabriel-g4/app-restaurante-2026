@@ -36,12 +36,31 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
-$primary-color: #253c70;
-$secondary-color: #0c53b0;
-$tertiary-color: #FFFDDD;
-$fourth-color: #918B99;
-$fifth-color: #C9A7C2;
+$shadow-grey: #161925;
+$twilight-indigo: #23395b;
+$rich-cerulean: #406e8e;
+$powder-blue: #8ea8c3;
+$frozen-water: #cbf7ed;
 
+$app-background: $rich-cerulean;
+$card-background: $twilight-indigo;
+$button-primary-bg: $powder-blue;
+$button-primary-text: $shadow-grey;
+$text-light: $frozen-water;
+$error-border: #ff4a4a;
+
+ion-content {
+  --background: #{$app-background};
+  --color: #{$text-light};
+  color: $text-light;
+}
+
+ion-title,
+label,
+p,
+span {
+  color: $text-light;
+}
 
 .spinner-modal {
   --width: 220px;

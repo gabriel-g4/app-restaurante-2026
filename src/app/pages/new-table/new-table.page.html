@@ -1,0 +1,77 @@
+<ion-header [translucent]="false">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Agregar Mesa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <section id="form-section">
+    <div class="container">
+
+      <form [formGroup]="mesaForm" (ngSubmit)="registrarMesa()">
+        <div class="input-area column">
+
+          <label class="column">
+            Número de Mesa
+            <input type="number" formControlName="numero" min="1" placeholder="Ej: 5"
+              [class.input-error]="mesaForm.get('numero')?.invalid && mesaForm.get('numero')?.touched" />
+          </label>
+
+          <label class="column">
+            Cantidad de Comensales
+            <input type="number" formControlName="comensales" min="1" placeholder="Ej: 4"
+              [class.input-error]="mesaForm.get('comensales')?.invalid && mesaForm.get('comensales')?.touched" />
+          </label>
+
+          <label class="column">
+            Tipo de Mesa
+            <select formControlName="tipo"
+              [class.input-error]="mesaForm.get('tipo')?.invalid && mesaForm.get('tipo')?.touched">
+              <option value="" disabled selected>Seleccione un tipo...</option>
+              <option value="estandar">Estándar</option>
+              <option value="vip">VIP</option>
+              <option value="discapacitados">Movilidad Reducida</option>
+            </select>
+          </label>
+
+          <label class="column">
+            Foto de la Mesa
+            @if (fotoTomada) {
+            <img [src]="fotoTomada" id="img-preview" (click)="tomarFoto()" />
+            }
+            @else{
+            <div id="img-tomar" (click)="tomarFoto()"
+              [class.input-error]="mesaForm.get('foto')?.invalid && mesaForm.get('foto')?.touched">
+              <ion-icon slot="icon-only" name="camera"></ion-icon>
+              <span>Tomar Foto</span>
+            </div>
+            }
+          </label>
+          @if (qrDataString !== '') {
+          <div class="qr-container">
+            <p>QR de la Mesa generado:</p>
+
+            <div class="qr-box">
+              <qrcode [qrdata]="qrDataString" [width]="180" [errorCorrectionLevel]="'M'"></qrcode>
+            </div>
+
+            <small>{{ qrDataString }}</small>
+          </div>
+          }
+
+        </div>
+
+        <div class="button-area column">
+          <button type="submit">Guardar Mesa</button>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+</ion-content>
