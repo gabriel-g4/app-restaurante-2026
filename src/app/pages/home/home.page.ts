@@ -10,6 +10,7 @@ import { HomeAdminComponent } from './components/home-admin/home-admin.component
 import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.component';
 import { HomeMozoComponent } from "./components/home-mozo/home-mozo.component";
 import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
+import { HomeBartenderComponent } from "./components/home-bartender/home-bartender.component";
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ import { HomeClienteComponent } from './components/home-cliente/home-cliente.com
   standalone: true,
   imports: [
     HomeAdminComponent, HomeCocineroComponent, HomeMozoComponent, HomeClienteComponent,
-    IonFooter, IonHeader, IonToolbar, IonTitle, IonContent, IonIcon
+    IonFooter, IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, HomeBartenderComponent
   ]
 })
 export class HomePage implements OnInit, OnDestroy {
