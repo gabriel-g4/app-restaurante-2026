@@ -1,3 +1,31 @@
-<p>
-  home-mozo works!
-</p>
+<div class="action-buttons">
+
+  <ion-button class="action-button" (click)="irAlChat()">
+    <div class="contenido-button">
+      <ion-icon class="icono-personalizado" name="chatbubbles-outline"></ion-icon>
+      <span>Consultas de Clientes</span>
+    </div>
+  </ion-button>
+
+  <ion-button class="action-button" (click)="navegar('pedidos-listos')">
+    <div class="contenido-button">
+      <ion-icon class="icono-personalizado" name="notifications-outline"></ion-icon>
+      <span>Pedidos Listos</span>
+    </div>
+  </ion-button>
+
+  <ion-button class="action-button" (click)="navegar('confirmar-pagos')">
+    <div class="contenido-button">
+      <ion-icon class="icono-personalizado" name="cash-outline"></ion-icon>
+      <span>Confirmar Pagos</span>
+    </div>
+  </ion-button>
+
+  <ion-button class="action-button" (click)="navegar('escanear-mesa')">
+    <div class="contenido-button">
+      <ion-icon class="icono-personalizado" name="qr-code-outline"></ion-icon>
+      <span>Escanear Mesa</span>
+    </div>
+  </ion-button>
+
+</div>

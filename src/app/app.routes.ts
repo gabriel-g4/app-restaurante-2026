@@ -39,8 +39,13 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/splash/splash.page').then((m) => m.SplashPage),
   },
   {
+    path: 'chat',
+    loadComponent: () => import('./pages/chat/chat.page').then(m => m.ChatPage)
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },
+
 
 ];

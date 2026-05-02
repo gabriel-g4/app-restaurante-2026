@@ -12,6 +12,8 @@
   <app-home-cocinero></app-home-cocinero>
   } @else if (rolUsuario === 'mozo') {
   <app-home-mozo></app-home-mozo>
+  } @else if (rolUsuario === 'cliente') {
+  <app-home-cliente></app-home-cliente>
   } @else if (!rolUsuario) {
   <div id="container">
     <p>Cargando vista del usuario...</p>

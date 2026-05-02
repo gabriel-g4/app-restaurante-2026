@@ -1,0 +1,130 @@
+@use "../../../global.scss";
+
+ion-header {
+    --ion-safe-area-top: calc(max(env(safe-area-inset-top), 30px));
+
+    ion-toolbar {
+        padding-top: var(--ion-safe-area-top);
+        min-height: calc(56px + var(--ion-safe-area-top));
+        --background: #{global.$card-background};
+        --color: #{global.$text-light};
+    }
+}
+
+ion-content {
+    --background: #{global.$app-background};
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-bottom: 20px;
+}
+
+.mensaje-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+
+    &.mio {
+        justify-content: flex-end;
+
+        .mensaje-burbuja {
+            background: #{global.$button-primary-bg};
+            color: #{global.$button-primary-text};
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 15px;
+
+            .remitente {
+                color: rgba(22, 25, 37, 0.6);
+            }
+
+            .hora {
+                color: rgba(22, 25, 37, 0.7);
+            }
+        }
+    }
+}
+
+.mensaje-burbuja {
+    max-width: 75%;
+    background: #{global.$card-background};
+    color: #{global.$text-light};
+    padding: 10px 15px;
+    border-radius: 15px;
+    border-bottom-left-radius: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+
+    .remitente {
+        font-size: 0.75rem;
+        font-weight: bold;
+        margin-bottom: 4px;
+        color: rgba(203, 247, 237, 0.6);
+    }
+
+    p {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.3;
+    }
+
+    .hora {
+        align-self: flex-end;
+        font-size: 0.7rem;
+        margin-top: 5px;
+        color: rgba(203, 247, 237, 0.6);
+    }
+}
+
+ion-footer {
+    .footer-toolbar {
+        --background: #{global.$card-background};
+        padding: 8px;
+    }
+
+    .input-area {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 12px 15px;
+            color: #{global.$text-light};
+            outline: none;
+
+            &:focus {
+                border-color: #{global.$button-primary-bg};
+            }
+        }
+
+        button {
+            background: #{global.$button-primary-bg};
+            color: #{global.$button-primary-text};
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+
+            &:disabled {
+                opacity: 0.5;
+            }
+
+            &:active:not(:disabled) {
+                transform: scale(0.9);
+            }
+        }
+    }
+}

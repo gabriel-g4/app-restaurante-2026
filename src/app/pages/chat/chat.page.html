@@ -1,0 +1,37 @@
+<ion-header [translucent]="false">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Chat de Consulta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="chat-container">
+
+    @for (msg of mensajes; track msg.id) {
+    <div class="mensaje-wrapper" [class.mio]="msg.emisorId === usuarioActual.id">
+
+      <div class="mensaje-burbuja">
+        <span class="remitente">{{ msg.emisorPerfil | titlecase }}</span>
+        <p>{{ msg.texto }}</p>
+        <small class="hora">{{ msg.fecha | date:'HH:mm' }}</small>
+      </div>
+
+    </div>
+    }
+
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="footer-toolbar">
+    <form [formGroup]="chatForm" (ngSubmit)="enviarMensaje()" class="input-area">
+      <input type="text" formControlName="texto" placeholder="Escribe un mensaje..." autocomplete="off">
+      <button type="submit" [disabled]="chatForm.invalid">
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </form>
+  </ion-toolbar>
+</ion-footer>

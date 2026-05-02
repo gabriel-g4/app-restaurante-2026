@@ -1,0 +1,48 @@
+@use "../../../../../global.scss";
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 16px;
+    padding-bottom: 80px;
+}
+
+.action-button {
+    height: 110px;
+    margin: 0;
+    --border-radius: 16px;
+    --background: #{global.$button-primary-bg};
+    --color: #{global.$button-primary-text};
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.icono-personalizado {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
+}
+
+.contenido-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    span {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        white-space: normal;
+    }
+}
+
+.fab-chat {
+    margin-bottom: 70px;
+    margin-right: 5px;
+
+    ion-fab-button {
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+}

@@ -140,4 +140,32 @@ export class DatabaseService {
     }
   }
 
+  // --- CHAT CLIENTE - MOZO ---
+  async enviarMensajeChat(emisorId: string, emisorPerfil: string, texto: string, mesaId: string) {
+    try {
+      const chatRef = collection(this.firestore, 'chat');
+      await addDoc(chatRef, {
+        emisorId: emisorId,
+        emisorPerfil: emisorPerfil,
+        texto: texto,
+        mesaId: mesaId,
+        fecha: new Date().getTime()
+      });
+    } catch (error) {
+      console.error('Error enviando mensaje: ', error);
+      throw error;
+    }
+  }
+
+  obtenerMensajesMesa(mesaId: string): Observable<any[]> {
+    const chatRef = collection(this.firestore, 'chat');
+    const q = query(
+      chatRef,
+      where('mesaId', '==', mesaId),
+      orderBy('fecha', 'asc')
+    );
+
+    return collectionData(q, { idField: 'id' });
+  }
+
 }

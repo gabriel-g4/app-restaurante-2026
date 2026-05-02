@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { HomeAdminComponent } from './components/home-admin/home-admin.component';
 import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.component';
 import { HomeMozoComponent } from "./components/home-mozo/home-mozo.component";
+import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ import { HomeMozoComponent } from "./components/home-mozo/home-mozo.component";
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [
-    HomeAdminComponent, HomeCocineroComponent, HomeMozoComponent,
+    HomeAdminComponent, HomeCocineroComponent, HomeMozoComponent, HomeClienteComponent,
     IonFooter, IonHeader, IonToolbar, IonTitle, IonContent, IonIcon
   ]
 })

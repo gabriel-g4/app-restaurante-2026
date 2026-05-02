@@ -16,7 +16,7 @@ import { Haptics, ImpactStyle } from '@capacitor/haptics';
   standalone: true,
   imports: [
     IonContent, IonHeader, IonTitle, IonToolbar, CommonModule,
-    FormsModule, ReactiveFormsModule, IonButton, IonButtons,
+    FormsModule, ReactiveFormsModule, IonButtons,
     IonBackButton, IonIcon, QRCodeComponent
   ]
 })
