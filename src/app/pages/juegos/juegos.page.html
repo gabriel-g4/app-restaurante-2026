@@ -1,0 +1,41 @@
+<ion-header [translucent]="false">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      @if (vistaActual === 'menu') {
+      <ion-back-button defaultHref="home"></ion-back-button>
+      } @else {
+      <ion-button (click)="volverAlMenu()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      }
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{ tituloHeader }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  @if (vistaActual === 'menu') {
+  <section id="juegos-container">
+    <div class="juego-card">
+      <div class="juego-header">
+        <h3>La Balanza del Chef</h3>
+        <span class="badge diez">10% OFF</span>
+      </div>
+      <p class="juego-desc">Adivina si el siguiente plato tiene más o menos calorías.</p>
+      <ion-button class="btn-jugar" expand="block" (click)="abrirJuego('balanza', 'La Balanza del Chef')">
+        Jugar
+      </ion-button>
+    </div>
+  </section>
+  }
+
+  @else if (vistaActual === 'balanza') {
+
+  <app-juego-balanza [esAnonimo]="esAnonimo" [yaJugo]="yaJugo" [descuentoGanado]="descuentoGanado"
+    (resultado)="procesarResultadoJuego($event)">
+  </app-juego-balanza>
+
+  }
+
+</ion-content>

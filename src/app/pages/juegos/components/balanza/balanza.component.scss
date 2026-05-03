@@ -1,0 +1,162 @@
+@use "../../../../../global.scss";
+
+ion-header {
+    --ion-safe-area-top: calc(max(env(safe-area-inset-top), 30px));
+
+    ion-toolbar {
+        padding-top: var(--ion-safe-area-top);
+        min-height: calc(56px + var(--ion-safe-area-top));
+        --background: #{global.$card-background};
+        --color: #{global.$text-light};
+    }
+}
+
+ion-content {
+    --background: #{global.$app-background};
+}
+
+.juego-container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+}
+
+.header-juego {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    color: #{global.$text-light};
+
+    p {
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+    .badge {
+        background: #{global.$button-primary-bg};
+        color: #{global.$button-primary-text};
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-weight: bold;
+    }
+}
+
+.carta-plato {
+    width: 100%;
+    max-width: 350px;
+    background: #{global.$card-background};
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    color: #{global.$text-light};
+
+    .emoji {
+        font-size: 4rem;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+
+    .calorias {
+        margin-top: 10px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #{global.$button-primary-bg};
+    }
+
+    .pregunta {
+        margin-top: 10px;
+        font-style: italic;
+        opacity: 0.8;
+    }
+}
+
+.vs-divider {
+    margin: 15px 0;
+    width: 40px;
+    height: 40px;
+    background: #{global.$button-primary-bg};
+    color: #{global.$button-primary-text};
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.controles {
+    display: flex;
+    width: 100%;
+    max-width: 350px;
+    gap: 10px;
+    margin-top: 20px;
+
+    ion-button {
+        flex: 1;
+        margin: 0;
+        --border-radius: 12px;
+        font-weight: bold;
+    }
+
+    .btn-mayor {
+        --background: #4caf50;
+        --color: white;
+    }
+
+    .btn-menor {
+        --background: #{global.$error-border};
+        --color: white;
+    }
+}
+
+.resultado-card {
+    width: 100%;
+    max-width: 350px;
+    background: rgba(22, 25, 37, 0.9);
+    border: 2px solid #{global.$error-border};
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    color: #{global.$text-light};
+    margin-top: 2rem;
+
+    &.ganado {
+        border-color: #{global.$button-primary-bg};
+
+        ion-icon {
+            color: #{global.$button-primary-bg};
+        }
+    }
+
+    ion-icon {
+        font-size: 5rem;
+        color: #{global.$error-border};
+        margin-bottom: 1rem;
+    }
+
+    h2 {
+        margin: 0 0 1rem;
+        font-weight: bold;
+    }
+
+    p {
+        line-height: 1.4;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+    }
+
+    .btn-reiniciar {
+        --background: #{global.$button-primary-bg};
+        --color: #{global.$button-primary-text};
+    }
+}

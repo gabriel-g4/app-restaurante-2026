@@ -1,0 +1,43 @@
+<div class="juego-container">
+  <div class="header-juego">
+    <p>Aciertos: <strong>{{ puntos }} / 3</strong></p>
+    <span class="badge diez">Premio: 10% OFF</span>
+  </div>
+
+  @if (estado === 'jugando') {
+  <div class="carta-plato referencia">
+    <div class="emoji">{{ alimentoActual.emoji }}</div>
+    <h2>{{ alimentoActual.nombre }}</h2>
+    <p class="calorias">{{ alimentoActual.calorias }} Kcal</p>
+  </div>
+
+  <div class="vs-divider"><span>VS</span></div>
+
+  <div class="carta-plato incognita">
+    <div class="emoji">{{ siguienteAlimento.emoji }}</div>
+    <h2>{{ siguienteAlimento.nombre }}</h2>
+    <p class="pregunta">¿Tiene más o menos calorías?</p>
+  </div>
+
+  <div class="controles">
+    <ion-button class="btn-mayor" (click)="evaluar('mayor')">
+      <ion-icon slot="start" name="arrow-up-outline"></ion-icon>
+      MÁS
+    </ion-button>
+    <ion-button class="btn-menor" (click)="evaluar('menor')">
+      <ion-icon slot="start" name="arrow-down-outline"></ion-icon>
+      MENOS
+    </ion-button>
+  </div>
+
+  } @else {
+  <div class="resultado-card" [class.ganado]="estado === 'ganado'">
+    <ion-icon [name]="estado === 'ganado' ? 'restaurant-outline' : 'refresh-outline'"></ion-icon>
+    <h2>{{ estado === 'ganado' ? '¡Excelente Chef!' : '¡Plato Rechazado!' }}</h2>
+    <p>{{ mensajeFinal }}</p>
+    <ion-button class="btn-reiniciar" expand="block" (click)="iniciarJuego()">
+      Jugar otra vez
+    </ion-button>
+  </div>
+  }
+</div>

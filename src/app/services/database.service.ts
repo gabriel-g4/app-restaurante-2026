@@ -13,7 +13,8 @@ import {
   addDoc,
   runTransaction,
   orderBy,
-  getDoc
+  getDoc,
+  docData
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
@@ -168,4 +169,34 @@ export class DatabaseService {
     return collectionData(q, { idField: 'id' });
   }
 
+
+  // --- JUEGOS Y DESCUENTOS ---
+
+  obtenerDescuentoCliente(clienteId: string): Observable<any> {
+    const userDocRef = doc(this.firestore, `usuarios/${clienteId}`);
+    return docData(userDocRef);
+  }
+
+  async guardarDescuentoGanado(clienteId: string, porcentaje: number) {
+    try {
+      const userDocRef = doc(this.firestore, `usuarios/${clienteId}`);
+      await updateDoc(userDocRef, {
+        descuentoGanado: porcentaje,
+        juegoJugado: true
+      });
+    } catch (error) {
+      console.error("Error guardando descuento:", error);
+    }
+  }
+
+  async registrarIntentoFallido(clienteId: string) {
+    try {
+      const userDocRef = doc(this.firestore, `usuarios/${clienteId}`);
+      await updateDoc(userDocRef, {
+        juegoJugado: true
+      });
+    } catch (error) {
+      console.error("Error registrando intento:", error);
+    }
+  }
 }
