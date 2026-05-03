@@ -13,7 +13,9 @@
   } @else if (rolUsuario === 'mozo') {
   <app-home-mozo></app-home-mozo>
   } @else if (rolUsuario === 'cliente') {
-  <app-home-cliente></app-home-cliente>
+  <app-home-cliente></app-home-cliente> 
+  }@else if (rolUsuario === 'cantinero') {
+  <app-home-bartender></app-home-bartender>
   } @else if (!rolUsuario) {
   <div id="container">
     <p>Cargando vista del usuario...</p>

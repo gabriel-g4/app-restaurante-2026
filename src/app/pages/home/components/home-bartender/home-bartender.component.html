@@ -1,0 +1,23 @@
+
+<ion-content id="main-content" [fullscreen]="true">
+  <div class="container">
+
+
+    <div class="action-buttons">
+      <ion-button type="button" class="action-button" (click)="agregarBebida()">
+          <div clase="contenido-button">
+            <img src="assets/imgs/agregar_mesa.png" class="icono-personalizado" alt="Agregar bebida" />
+            <span>Agregar bebida</span>
+          </div>
+        </ion-button>
+
+      <ion-button expand="block" class="action-button" (click)="accederPedidosPendientes()">
+        <div clase="contenido-button">
+          <img src="assets/imgs/agregar_empleado.png" class="icono-personalizado" alt="Agregar empleado" />
+          <span>Pedidos pendietes</span>
+        </div>
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

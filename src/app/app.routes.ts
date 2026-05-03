@@ -43,6 +43,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/chat/chat.page').then(m => m.ChatPage)
   },
   {
+    path: 'new-beverage',
+    loadComponent: () => import('./pages/new-beverage/new-beverage.page').then(m => m.NewBeveragePage)
+  },
+  {
     path: 'juegos',
     loadComponent: () => import('./pages/juegos/juegos.page').then(m => m.JuegosPage)
   },
