@@ -49,25 +49,26 @@ Primer cuatrimestre 2026
 | Mariano Novak                                | Rechazar clientes pendientes (funcionalidad)        | 01/05      | 01/05            | main    | :white_check_mark:       |
 | Mariano Novak                                | Aceptar clientes pendientes (funcionalidad)        | 01/05      | 01/05            | main    | :white_check_mark:       |
 | Gabriel García                                | Listado clientes metre (funcionalidad) | -      | -            | -    | :red_circle:       |
-| Mariano Novak                                | Listado clientes metre (diseño)        | -      | -            | -    | :red_circle:       |
+| Gabriel García                                | Listado clientes metre (diseño)        | -      | -            | -    | :red_circle:       |
 | Anahí González                                | Menú de productos (diseño)                 | -      | -            | -    | :red_circle:       |
-| Gabriel García                                | Chat cliente-mozo (diseño)                 | -      | -            | -    | :red_circle:       |
-| Mariano Novak                                | Chat cliente-mozo (funcionalidad)                 | -      | -            | -    | :red_circle:       |
 | Anahí González                                | Pedido de productos (funcionalidad)                 | -      | -            | -    | :red_circle:       |
+| Mariano Novak                                | Chat cliente-mozo (diseño)                 | -      | -            | -    | :red_circle:       |
+| Mariano Novak                                | Chat cliente-mozo (funcionalidad)                 | -      | -            | -    | :red_circle:       |
 | Gabriel García                                | Listado de pedidos (mozo) (funcionalidad)                 | -      | -            | -    | :red_circle:       |
-| Mariano Novak                                | Rechazar pedido (funcionalidad)                 | -      | -            | -    | :red_circle:       |
+| Gabriel García                                | Listado de pedidos (mozo) (diseño)                 | -      | -            | -    | :red_circle:       |
+| Anahí González                                 | Rechazar pedido (funcionalidad)                 | -      | -            | -    | :red_circle:       |
 | Anahí González                                | Confirmar pedido (funcionalidad)                 | -      | -            | -    | :red_circle:       |
-| Gabriel García                                | Listado pedidos cocina (diseño)                 | -      | -            | -    | :red_circle:       |
 | Mariano Novak                                | Listado pedidos bar (diseño)                 | -      | -            | -    | :red_circle:       |
-| Anahí González                                | Listado pedidos cocina (funcionalidad)                 | -      | -            | -    | :red_circle:       |
-| Gabriel García                                | Listado pedidos bar (funcionalidad)                 | -      | -            | -    | :red_circle:       |
+| Mariano Novak                                | Listado pedidos bar (funcionalidad)                 | -      | -            | -    | :red_circle:       |
+| Gabriel García                                | Listado pedidos cocina (diseño)                 | -      | -            | -    | :red_circle:       |
+| Gabriel García                                | Listado pedidos cocina (funcionalidad)                 | -      | -            | -    | :red_circle:       |
 | Mariano Novak                                | Juego 1            | 03/05      | 03/05             | main    | :white_check_mark:       |
 | Anahí González                                | Juego 2                  | -      | -            | -    | :red_circle:       |
-| Anahí González                                | Juego 3                  | -      | -            | -    | :red_circle:       |
-| Gabriel García                                | Listado pedidos listos (mozo) (funcionalidad)                 | -      | -            | -    | :red_circle:       |
-| Mariano Novak                                | Listado pedidos listos (mozo) (diseño)                 | -      | -            | -    | :red_circle:       |
-| Anahí González                                | Recepcion pedido del cliente (funcionalidad)                 | -      | -            | -    | :red_circle:       |
-| Gabriel García                                | Encuestas (funcionalidad)                 | -      | -            | -    | :red_circle:       |
+| Gabriel García                                | Juego 3                  | -      | -            | -    | :red_circle:       |
+| Anahí González                                | Listado pedidos listos (mozo) (funcionalidad)                 | -      | -            | -    | :red_circle:       |
+| Anahí González                               | Listado pedidos listos (mozo) (diseño)                 | -      | -            | -    | :red_circle:       |
+| Gabriel García                                | Recepcion pedido del cliente (funcionalidad)                 | -      | -            | -    | :red_circle:       |
+| Mariano Novak                                | Encuestas (funcionalidad)                 | -      | -            | -    | :red_circle:       |
 | Mariano Novak                                | Encuestas (diseño)                 | -      | -            | -    | :red_circle:       |
 | Anahí González                                | Solicitar cuenta (funcionalidad)                 | -      | -            | -    | :red_circle:       |
 | Gabriel García                                | Confirmar pago (funcionalidad)                 | -      | -            | -    | :red_circle:       |
