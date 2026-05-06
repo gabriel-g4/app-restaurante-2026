@@ -14,7 +14,9 @@ import {
   runTransaction,
   orderBy,
   getDoc,
-  docData
+  docData,
+  and,
+  or
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
@@ -108,10 +110,14 @@ export class DatabaseService {
     // Busca a los que tengan el perfil 'cliente' y su estado sea 'pendiente'
     const q = query(
       usersRef,
-      where('perfil', '==', 'cliente'),
-      where('estado', '==', 'pendiente')
+      and(
+        or(
+          where('perfil', '==', 'cliente'),
+          where('rol', '==', 'cliente')
+        ),
+        where('estado', '==', 'pendiente')
+      )
     );
-
     return collectionData(q, { idField: 'id' });
   }
 
