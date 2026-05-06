@@ -72,6 +72,12 @@ export class LoginPage implements OnInit {
         console.log('USUARIO');
         console.log(user);
 
+        if (user!['estado'] == 'rechazado') {
+          throw new Error("Su usuario ha sido rechazado.")
+        } else if (user!['estado'] == 'pendiente') {
+          throw new Error("Su cuenta está pendiente de aprobación.")
+        }
+
         if (user && user['rol']) {
           this.authService.setRol(user['rol']);
         }
