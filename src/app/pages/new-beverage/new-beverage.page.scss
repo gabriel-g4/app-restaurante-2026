@@ -1,0 +1,215 @@
+@use "../../../global.scss";
+
+ion-header {
+  --ion-safe-area-top: calc(max(env(safe-area-inset-top), 30px));
+
+  ion-toolbar {
+    padding-top: var(--ion-safe-area-top);
+    min-height: calc(56px + var(--ion-safe-area-top));
+    --background: #{global.$card-background};
+    --color: #{global.$text-light};
+
+    ion-title {
+      font-weight: 500;
+      font-size: 1.5rem;
+    }
+
+    ion-back-button,
+    ion-button {
+      --color: #{global.$text-light};
+    }
+  }
+}
+
+ion-content {
+  --background: #{global.$app-background};
+}
+
+#cart-section,
+#form-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.5rem 1rem;
+  min-height: calc(100vh - 56px - var(--ion-safe-area-top));
+
+  .container {
+    max-width: 600px;
+    width: 100%;
+    background-color: #{global.$card-background};
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    padding: 1.5rem;
+  }
+}
+
+.log-in-area,
+.input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    color: #{global.$text-light};
+    font-size: 0.95rem;
+
+    input,
+    select,
+    textarea {
+      font-family: monospace;
+      margin-top: 0.5rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #{global.$text-light};
+      transition: all 0.3s ease;
+
+      &:focus {
+        border-color: #{global.$button-primary-bg};
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      option {
+        color: #000000;
+      }
+    }
+
+    .input-error {
+      border: 2px solid #{global.$error-border};
+      background-color: rgba(164, 3, 31, 0.2);
+    }
+  }
+}
+
+.fila-datos,
+.input-dni {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+
+  input {
+    flex: 1;
+    width: 100%;
+  }
+}
+
+.boton-qr {
+  margin: 0;
+  height: 40px;
+  width: 40px;
+  margin-top: 3px;
+  --padding-start: 0;
+  --padding-end: 0;
+  --background: #{global.$button-primary-bg};
+  color: #{global.$button-primary-text};
+}
+
+#img-tomar,
+.img-tomar {
+  width: 100%;
+  max-width: 150px;
+  height: 150px;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px dashed rgba(255, 255, 255, 0.4);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #{global.$text-light};
+  transition: all 0.3s ease;
+
+  ion-icon {
+    font-size: 64px;
+    margin-bottom: 5px;
+  }
+
+  &:active {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+#img-preview,
+.img-preview {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.container-imagenes {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.button-area {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+
+  button {
+    padding: 0.85rem 2.5rem;
+    font-size: 1.5rem !important;
+    background-color: #{global.$button-primary-bg};
+    color: #{global.$button-primary-text};
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+    max-width: 300px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+
+  #cart-section,
+  #form-section {
+    padding: 0.5rem;
+    padding-bottom: 55px;
+
+    .container {
+      padding: 1rem;
+      border-radius: 0.75rem;
+    }
+  }
+
+  .log-in-area label {
+    font-size: 1rem;
+
+    input {
+      padding: 0.65rem 0.9rem;
+    }
+  }
+
+  .button-area button {
+    padding: 0.75rem;
+    font-size: 1.2rem !important;
+  }
+}
