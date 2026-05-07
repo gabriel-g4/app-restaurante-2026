@@ -2,14 +2,15 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatabaseService } from '../../services/database.service';
 import { AlertController } from '@ionic/angular';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons,IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons,IonIcon, ModalController  } from '@ionic/angular/standalone';
 import {  LoadingController,ToastController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline, hourglassOutline, statsChartOutline, logOutOutline } from 'ionicons/icons';
-import { ModalController } from '@ionic/angular';
 import { NotificationSenderService } from 'src/app/services/notification-sender.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { RespuestaEncuestaModal } from 'src/app/components/respuesta-encuesta/respuesta-encuesta.modal';
+import { SpinnerModalComponent } from 'src/app/components/spinner-modal/spinner-modal.component';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-wait-list',
@@ -30,24 +31,26 @@ export class WaitListPage {
     private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
     private notificationSenderService: NotificationSenderService,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialogService: DialogService
   ) {
       addIcons({ arrowBackOutline, hourglassOutline, statsChartOutline, logOutOutline });
 
   }
 
     async entrarListaEspera(): Promise<void> {
-    const loading = await this.loadingCtrl.create({
-      message: 'Verificando tus pedidos...',
-      spinner: 'crescent'
-    });
+    const loading = await this.modalCtrl.create({
+            component: SpinnerModalComponent,
+            cssClass: 'spinner-modal',
+            backdropDismiss: false
+          });
     await loading.present();
 
     try {
       const user = this.authService.getCurrentUser();
       if (!user) {
         await loading.dismiss();
-        await this.mostrarError('Usuario no autenticado. Vuelva a intentar');
+        this.dialogService.presentToast('Usuario no autenticado. Vuelva a intentar');
         return;
       }
 
@@ -55,7 +58,7 @@ export class WaitListPage {
       
       if (!puedePedir) {
         await loading.dismiss();
-        await this.mostrarToast('Usted ya tiene un pedido en orden.', 5000);
+        this.dialogService.presentToast('Usted ya tiene un pedido en orden.', "warning", 5000);
         return;
       }
 
@@ -71,7 +74,7 @@ export class WaitListPage {
 
       await this.databaseService.agregarLog(pedidoData, 'pedidos');
       await loading.dismiss();
-      await this.mostrarToast('Ya está en lista de espera, dentro de poco se le asigna una mesa.', 5000);
+      this.dialogService.presentToast('Ya está en lista de espera, dentro de poco se le asigna una mesa.', "success" , 5000)
       this.notificationSenderService.enviarNotificacion({
               title: 'Cliente en lista de espera',
               body: `El cliente: ${user.email} esta esperando una mesa.`,
@@ -82,39 +85,12 @@ export class WaitListPage {
 
     } catch (error) {
       await loading.dismiss();
-      await this.mostrarError('Error al procesar la solicitud');
+      this.dialogService.presentToast('Error al procesar la solicitud');
       console.error(error);
     }
     
   }
-    private async mostrarToast(mensaje: string, duracion: number = 3000): Promise<void> {
-    const toast = await this.toastCtrl.create({
-      message: mensaje,
-      duration: duracion,
-      position: 'middle',
-      color: 'dark',       // Cambiado a 'dark' para fondo negro
-      cssClass: 'custom-toast', // Clase CSS adicional para personalización
-      buttons: [
-        {
-          icon: 'close',
-          role: 'cancel'
-        }
-      ]
-    });
-    await toast.present();
-  }
-
-
-
-  private async mostrarError(mensaje: string): Promise<void> {
-    const alert = await this.alertCtrl.create({
-      header: 'Error',
-      message: mensaje,
-      buttons: ['Entendido'],
-      cssClass: 'custom-alert'
-    });
-    await alert.present();
-  }
+   
 
 
   volverAHome(): void {
