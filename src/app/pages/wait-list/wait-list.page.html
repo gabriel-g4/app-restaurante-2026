@@ -1,0 +1,26 @@
+<ion-header class="custom-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volverAHome()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="header-title" >Lista de espera</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding">
+  <div class="container">
+    <ion-button expand="block" size="large" class="btn-grande espera-button" (click)="entrarListaEspera()">
+      <div class="button-content">
+        <ion-icon name="hourglass-outline" class="espera-icon"></ion-icon>
+        <span>ENTRAR A LISTA DE ESPERA</span>
+      </div>
+    </ion-button>
+
+    <ion-button expand="block" size="default" class="btn-chico" (click)="verEncuesta()" style="padding-bottom: 10px;">
+      <ion-icon slot="start" name="stats-chart-outline"></ion-icon>
+      VER ENCUESTA
+    </ion-button>
+  </div>
+</ion-content>

@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonButton, IonIcon, IonContent, IonHeader, IonToolbar } from '@ionic/angular/standalone';
+import { IonButton, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { arrowUpOutline, arrowDownOutline, restaurantOutline, refreshOutline } from 'ionicons/icons';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
@@ -10,7 +10,7 @@ import { Haptics, ImpactStyle } from '@capacitor/haptics';
   templateUrl: './balanza.component.html',
   styleUrls: ['./balanza.component.scss'],
   standalone: true,
-  imports: [IonToolbar, IonHeader, IonContent, CommonModule, IonButton, IonIcon]
+  imports: [CommonModule, IonButton, IonIcon]
 })
 export class BalanzaComponent implements OnInit {
   @Input() esAnonimo: boolean = false;

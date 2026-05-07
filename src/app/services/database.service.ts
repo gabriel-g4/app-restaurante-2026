@@ -243,4 +243,65 @@ export class DatabaseService {
       throw error;
     }
   }
+
+  // 
+  async generarIdSecuencial(
+    coleccion: string,
+    prefijo: string = 'p'
+  ): Promise<string> {
+    const counterRef = doc(this.firestore, 'counters', coleccion);
+
+    try {
+      return await runTransaction(this.firestore, async (transaction) => {
+        const counterDoc = await transaction.get(counterRef);
+        let nuevoNumero = 1;
+
+        if (counterDoc.exists()) {
+          nuevoNumero = counterDoc.data()['ultimoNumero'] + 1;
+        }
+
+        // Actualiza el contador
+        transaction.set(counterRef, { ultimoNumero: nuevoNumero });
+
+        // Formatea el número con ceros a la izquierda
+        const numeroFormateado = nuevoNumero.toString().padStart(4, '0');
+        return `${prefijo}${numeroFormateado}`;
+      });
+    } catch (error) {
+      console.error('Error generando ID secuencial:', error);
+      throw error;
+    }
+  }
+
+  async puedeHacerNuevoPedido(uid: string): Promise<boolean> {
+    try {
+      // 1. Traer TODOS los pedidos del usuario
+      const col = collection(this.firestore, 'pedidos');
+      const q = query(col, where('idUsuario', '==', uid));
+      const snapshot = await getDocs(q);
+
+      // 2. Si no tiene pedidos, puede hacer uno nuevo
+      if (snapshot.empty) return true;
+
+      // 3. Verificar que TODOS estén en 'pago confirmado'
+      const todosConfirmados = snapshot.docs.every(doc =>
+        doc.data()['estado'] === 'pago confirmado'
+      );
+
+      return todosConfirmados;
+    } catch (error) {
+      console.error('Error verificando pedidos:', error);
+      throw error;
+    }
+  }
+
+  async agregarLog(log: any, coleccion: string) {
+    try {
+      const col = collection(this.firestore, coleccion);
+      const docRef = await addDoc(col, log);
+      console.log('Log agregado exitosamente con ID:', docRef.id);
+    } catch (error) {
+      console.error('Error al agregar el log:', error);
+    }
+  }
 }

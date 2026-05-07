@@ -32,4 +32,8 @@ export class AuthService {
     return this.rolActual;
   }
 
+  getCurrentUser(): any {
+    return this.auth.currentUser;
+  }
+
 }

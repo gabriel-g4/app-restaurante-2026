@@ -51,6 +51,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/juegos/juegos.page').then(m => m.JuegosPage)
   },
   {
+    path: 'wait-list',
+    loadComponent: () => import('./pages/wait-list/wait-list.page').then(m => m.WaitListPage)
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },

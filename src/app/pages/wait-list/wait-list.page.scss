@@ -1,0 +1,128 @@
+:host {
+  display: block;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+ion-content {
+  --background: #4A4E69;  // Mantenido como estaba
+}
+  
+
+
+ion-header {
+  --ion-safe-area-top: env(safe-area-inset-top);  
+  
+  ion-toolbar {
+    padding-top: var(--ion-safe-area-top);
+    min-height: calc(56px + var(--ion-safe-area-top));
+    --background: #1d2f41;
+    --color: white;
+    
+    ion-title {
+      padding-left: 0;
+      padding-right: 0;
+      font-weight: 500;
+      font-size: 1.5rem;
+      text-align: center;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%); 
+      width: 100%;
+    }
+    
+    ion-back-button {
+      --color: white;
+    }
+    
+    ion-button {
+      --color: white;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 56px); /* Resta la altura del header */
+  padding: 0 16px;
+  gap: 16px;
+  justify-content: center;
+}
+
+.btn-grande {
+  flex-grow: 3;
+  font-size: 2.5rem;
+  --background: #1d2f41 !important;
+  --color: #ffffff;
+  text-transform: uppercase;
+  
+  &.espera-button {
+    .button-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .espera-icon {
+      font-size: 18rem; 
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+  }
+}
+
+.btn-chico {
+  flex-grow: 1;
+  font-size: 1.8rem !important;
+  --background: #1d2f41 !important;
+  --color: #ffffff;
+  text-transform: uppercase;
+  
+  ion-icon {
+    font-size: 3.4rem !important; 
+    color: #ffffff;
+  }
+}
+
+
+
+  @media screen and (min-height: 812px) {  /* iPhone X y superiores */
+  ion-header {
+    --ion-safe-area-top: calc(max(env(safe-area-inset-top), 30px));  // +20px también en dispositivos con notch
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 12px 12px 20px;
+    padding-bottom: 75px;
+  }
+
+  .action-buttons {
+    gap: 8px;
+    padding-bottom: 12px;
+
+    ion-button {
+      min-height: 55px;
+      font-size: 0.95rem;
+
+      ion-icon {
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  .status-card {
+    ion-card {
+      ion-card-header {
+        ion-card-title {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}
