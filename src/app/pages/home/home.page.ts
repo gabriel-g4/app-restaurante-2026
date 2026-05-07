@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonIcon } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonIcon, IonSpinner } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -11,6 +11,8 @@ import { HomeCocineroComponent } from './components/home-cocinero/home-cocinero.
 import { HomeMozoComponent } from "./components/home-mozo/home-mozo.component";
 import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
 import { HomeBartenderComponent } from "./components/home-bartender/home-bartender.component";
+import { HomeMaitreComponent } from './components/home-maitre/home-maitre.component';
+
 
 @Component({
   selector: 'app-home',
@@ -19,7 +21,8 @@ import { HomeBartenderComponent } from "./components/home-bartender/home-bartend
   standalone: true,
   imports: [
     HomeAdminComponent, HomeCocineroComponent, HomeMozoComponent, HomeClienteComponent,
-    IonFooter, IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, HomeBartenderComponent
+    IonFooter, IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, HomeBartenderComponent, HomeMaitreComponent,
+    IonSpinner
   ]
 })
 export class HomePage implements OnInit, OnDestroy {

@@ -1,0 +1,248 @@
+@use "../../../../../global.scss";
+/* Estilos base */
+:host {
+  display: block;
+  height: 100%;
+  background: #{global.$app-background};
+}
+
+/* Menú lateral - Mismo color que header */
+ion-menu {
+  --width: 280px;
+  --background:#{global.$app-background};
+  
+  .menu-content {
+    --background:#{global.$app-background};
+  }
+  
+  ion-list {
+    background: transparent;
+    padding: 0;
+  }
+
+    ion-label.menu-title {
+    display: block;
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: white;
+    padding: 16px 0;
+  }
+  
+  ion-item.menu-item {
+    --background: #1d2f41; /* Color de fondo del item */
+    --color: white; /* Color del texto */
+    --padding-start: 20px;
+    --min-height: 56px;
+    --border-width: 0;
+    --detail-icon-color: white;
+    
+    ion-icon {
+      color: white;
+      font-size: 1.7rem;
+      margin-right: 16px;
+    }
+    
+    ion-label {
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+    
+    
+    &:active, &:hover {
+      --background: rgba(255, 255, 255, 0.1); /* Efecto al presionar */
+    }
+  }
+}
+
+/* Header */
+ion-header {
+  ion-toolbar {
+    --background: #253c70;
+    --color: white;
+    
+    
+    ion-title {
+      font-size: 1.8rem;
+      font-weight: 500;
+      text-align: center;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%); 
+      width: 100%;
+    }
+    
+    ion-menu-button {
+      --color: white;
+    }
+  }
+}
+
+/* Contenido principal */
+ion-content {
+  // --background: #4A4E69;
+  // --color: #4A4E69;
+   --background: #{global.$app-background};
+   --color: #{global.$app-background};
+}
+
+
+.custom-header {
+  ion-toolbar {
+    --background:#253c70;
+    --color: white;
+    --min-height: 64px;
+    padding-top: 30px;
+
+    ion-title {
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    ion-menu-button {
+      --color: white;
+    }
+  }
+}
+
+
+
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  
+  ion-spinner {
+    margin-bottom: 16px;
+    color: #1d2f41;
+  }
+  
+  p {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.estado-button {
+  --border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 120px;
+  
+  &[disabled] {
+    opacity: 1; // Mantener visible pero deshabilitado
+  }
+}
+
+/* Estilos para los diferentes estados */
+.estado-button[color="success"] {
+  --background: var(--ion-color-success);
+  --background-activated: var(--ion-color-success-shade);
+  --background-hover: var(--ion-color-success-tint);
+}
+
+.estado-button[color="warning"] {
+  --background: var(--ion-color-warning);
+  --background-activated: var(--ion-color-warning-shade);
+  --background-hover: var(--ion-color-warning-tint);
+}
+
+#log-out-button {
+  --background: #333333; 
+  --color: white;         
+  --border-radius: 50%;   
+  margin-right: 5px;
+}
+#log-out-icon{
+  color: rgb(255, 64, 64);
+}
+
+.container {
+    
+  padding: 24px 24px 32px;
+  height: calc(100% - 64px);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Contenedor de botones */
+.action-buttons {
+  flex: 1;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px;
+  padding-bottom: 16px;
+  overflow-y: auto;
+
+  /* Estilo base para todos los botones */
+  ion-button {
+    --border-radius: 8px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    height: auto;
+    min-height: 60px;
+    font-weight: 500;
+    text-transform: none;
+    font-size: 2.3rem !important;
+
+    ion-icon {
+      font-size: 3.4rem !important;
+      margin-right: 8px;
+    }
+  }
+
+  /* Todos los botones con el mismo color */
+  .action-button,
+  .serve-button,
+  .bill-button,
+  .pay-button,
+  .survey-button,
+  .game-button {
+    --background:#{global.$button-primary-bg};
+    --color: #{global.$button-primary-text};
+    --background-activated: #{global.$button-primary-bg};
+    --background-hover: #{global.$button-primary-bg};
+  }
+}
+
+/* Ajustes para móviles */
+@media (max-width: 600px) {
+  .container {
+    padding: 12px 12px 20px;
+    padding-bottom: 75px;
+  }
+
+  .action-buttons {
+    gap: 8px;
+    padding-bottom: 12px;
+
+    ion-button {
+      min-height: 55px;
+      font-size: 0.95rem;
+
+      ion-icon {
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  .status-card {
+    ion-card {
+      ion-card-header {
+        ion-card-title {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}

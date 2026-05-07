@@ -1,0 +1,280 @@
+/* ================================================== */
+/* ESTILOS PRINCIPALES - HOME MAITRE (ANDROID - OSCURO) */
+/* ================================================== */
+
+@use "../../../global.scss";
+
+ion-spinner {
+  margin-top: 1rem;
+  height: 4rem;
+}
+
+:host {
+  display: block;
+  height: 100vh;
+  background: #{global.$app-background};
+
+  --swiper-theme-color:  #{global.$app-background};
+  --swiper-pagination-color: #ffffff;
+}
+
+swiper-container::part(pagination) {
+  transform: none !important;
+  top: 30% !important;
+}
+
+.main-swiper {
+  height: 100%;
+  box-sizing: border-box;
+  --swiper-pagination-right: 0px !important;
+}
+
+
+swiper-container::part(bullet-active) {
+  border: 1px solid white;
+  width: 10px;
+  height: 10px;
+}
+
+swiper-container::part(bullet) {
+  border: 1px solid white;
+}
+
+
+/* ==================== HEADER ==================== */
+ion-header {
+  ion-toolbar {
+    --background: #{global.$card-background};
+    --color: #{global.$text-light};
+    --min-height: 56px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    padding-top: 30px;
+    
+    ion-title {
+      font-size: 1.8rem;
+      font-weight: 500;
+      text-align: center;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%); 
+      width: 100%;
+    }
+    
+    ion-menu-button {
+      --color: white;
+      --padding-start: 8px;
+      --padding-end: 8px;
+      
+      ion-icon {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+/* ==================== CONTENIDO PRINCIPAL ==================== */
+ion-content {
+  --background: #{global.$app-background};
+  --padding-top: 30px;
+  --padding-bottom: 150px;
+  --color: #{global.$text-light};
+}
+
+/* ==================== ESTADO VACÍO ==================== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+  
+  .empty-icon {
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 16px;
+  }
+  
+  p {
+    font-size: 3.2rem;
+    color: #{global.$text-light};
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+/* ==================== CARDS DE CLIENTES ==================== */
+
+
+.client-card {
+
+  margin-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+
+  ion-card {
+    margin: 20px;
+    height: 70vh;
+    background-color: #{global.$card-background};
+    min-height: 500px;
+    /* NECESARIO para que el contenido pueda ocupar la altura completa */
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  ion-card-content {
+    /* Hace que ocupe todo el alto del card */
+    height: 100%;
+    padding: 0 !important;
+    /* opcional, pero recomendado */
+    flex: 1;
+    /* estira el contenido */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    justify-content: space-evenly;
+
+    @media (min-width: 576px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+  }
+
+  .client-photo {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .button-group {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    color: #{global.$text-light};
+    justify-content: space-around;
+
+    ion-button {
+      --border-radius: 20px;
+      --padding-top: 16px;
+      --padding-bottom: 16px;
+      --padding-start: 24px;
+      --padding-end: 24px;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+
+  ion-card-title,
+  ion-card-subtitle {
+    font-size: 2rem !important;
+    color: #{global.$text-light};
+    text-align: center;
+    margin: 5px;
+  }
+
+
+  .card-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Selector de mesas */
+  .select-item {
+    --background: transparent;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    flex: 1;
+    
+    ion-select {
+      width: 100%;
+      --background: rgba(255, 255, 255, 0.1);
+      --border-radius: 8px;
+      --padding-start: 12px;
+      --padding-end: 12px;
+      --color: white;
+      
+      &::part(placeholder),
+      &::part(text) {
+        color: white;
+        font-weight: 500;
+      }
+      
+      &::part(icon) {
+        color: white;
+        opacity: 1;
+      }
+    }
+  }
+
+  .select-button {
+    font-size: 1.5rem;
+    margin: 25px;
+    --background: #{global.$button-primary-bg};
+    --color: #{global.$button-primary-text};
+    --border-radius: 8px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 120px;
+    margin: 0;
+    
+    &:active {
+      --background: #e0e0e0;
+    }
+  }
+
+  /* Botón Asignar */
+  .assign-button {
+    font-size: 1.5rem;
+    --background: var(--ion-color-success);
+    --color: #ffffff;
+    --border-radius: 8px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 120px;
+    margin: 0;
+    
+    &:active {
+      --background: #e0e0e0;
+    }
+  }
+}
+
+/* ==================== MEDIA QUERIES ==================== */
+@media (max-width: 480px) {
+  .client-card {
+    padding: 0 8px;
+    margin-bottom: 12px;
+    
+    .card-actions {
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .assign-button {
+      width: 60%;
+    }
+
+    .select-button {
+      width: 60%;
+    }
+  }
+  
+  ion-header ion-toolbar ion-title {
+    font-size: 1.5rem;
+  }
+}

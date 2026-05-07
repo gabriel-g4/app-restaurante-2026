@@ -69,3 +69,9 @@ span {
   --border-radius: 16px;
   --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
+
+ion-alert.mi-alerta {
+  .alert-radio-label.sc-ion-alert-md {
+    color:#{$text-light}  !important;
+  }
+}

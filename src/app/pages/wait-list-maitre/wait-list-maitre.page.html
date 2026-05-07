@@ -1,0 +1,59 @@
+
+<ion-header id="main-content">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Lista de espera</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    @if (!cargo) {
+      <div class="empty-state">
+        <p>Cargando vista del usuario...</p>
+        <ion-spinner></ion-spinner>
+      </div>
+    }
+   @else if (listaEspera.length === 0) {
+    <div class="empty-state">
+      <ion-icon name="people-outline" class="empty-icon"></ion-icon>
+      <p>No hay clientes en la lista de espera</p>
+    </div>
+  }@else {
+    <swiper-container [slidesPerView]="1" [pagination]="true" class="main-swiper" direction="vertical" >
+      @for (cliente of listaEspera; track $index) {
+        <swiper-slide>
+          <div class="client-card">
+            <ion-card>
+        
+              <ion-card-content>
+
+                @if (cliente.foto) {
+                  <img [src]="cliente.foto" alt="Foto del cliente" class="client-photo" />
+                } @else {
+                  <ion-icon name="person-circle-outline" class="client-photo"></ion-icon>
+                }
+
+                 <ion-card-title>{{ cliente.clienteInfo.nombre }} {{ cliente.clienteInfo.apellido }}</ion-card-title>
+                  
+                
+                  <ion-button expand="block" class="select-button" (click)="mostrarSelectorMesas(cliente)" [disabled]="mesasDisponibles.length === 0">
+                    {{ cliente.mesaSeleccionada ? 'Mesa ' + getNumeroMesa(cliente.mesaSeleccionada) : 'Seleccionar mesa' }}
+                  </ion-button>
+        
+                  <ion-button expand="block" class="assign-button" (click)="asignarMesa(cliente)"
+                    [disabled]="!cliente.mesaSeleccionada || mesasDisponibles.length === 0">
+                    ASIGNAR
+                  </ion-button>
+                
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </swiper-slide>
+      }
+    </swiper-container>
+  }
+
+
+</ion-content>

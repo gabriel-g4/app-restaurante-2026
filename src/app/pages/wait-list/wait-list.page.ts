@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatabaseService } from '../../services/database.service';
-import { AlertController } from '@ionic/angular';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons,IonIcon, ModalController  } from '@ionic/angular/standalone';
-import {  LoadingController,ToastController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline, hourglassOutline, statsChartOutline, logOutOutline } from 'ionicons/icons';
 import { NotificationSenderService } from 'src/app/services/notification-sender.service';
@@ -26,9 +24,6 @@ export class WaitListPage {
   constructor(
     private router: Router,
     private databaseService: DatabaseService,
-    private alertCtrl: AlertController,
-    private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
     private notificationSenderService: NotificationSenderService,
     private authService: AuthService,

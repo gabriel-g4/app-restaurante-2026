@@ -16,9 +16,12 @@
   <app-home-cliente></app-home-cliente> 
   }@else if (rolUsuario === 'cantinero') {
   <app-home-bartender></app-home-bartender>
+  } @else if (rolUsuario === 'metre') {
+  <app-home-maitre></app-home-maitre>
   } @else if (!rolUsuario) {
   <div id="container">
     <p>Cargando vista del usuario...</p>
+    <ion-spinner></ion-spinner>
   </div>
   }
 
