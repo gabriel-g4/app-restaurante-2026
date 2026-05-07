@@ -205,4 +205,42 @@ export class DatabaseService {
       console.error("Error registrando intento:", error);
     }
   }
+
+  // MESAS
+
+  async verificarExistenciaMesa(numero: number): Promise<boolean> {
+    try {
+      const col = collection(this.firestore, 'mesas');
+      const q = query(col, where('idMesa', '==', numero));
+      const snapshot = await getDocs(q);
+      return !snapshot.empty; // true si ya existe
+    } catch (error) {
+      console.error('Error verificando existencia de la mesa:', error);
+      return false;
+    }
+  }
+
+
+  async agregarMesa(newTable: any): Promise<string> {
+    try {
+      const numeroMesa = newTable.numero; // número que ingresa el usuario
+      if (!numeroMesa) throw new Error('El número de mesa es obligatorio');
+
+      // Creamos la mesa con idMesa = numero de mesa
+      const mesaData = {
+        ...newTable,
+        idMesa: numeroMesa,         // usamos el número de mesa como ID
+        estado: newTable.estado || 'libre', // Default
+      };
+
+      // Guardamos en Firestore usando el idMesa como ID de documento
+      await setDoc(doc(this.firestore, 'mesas', numeroMesa.toString()), mesaData);
+
+      console.log('Mesa agregada exitosamente con idMesa:', numeroMesa);
+      return numeroMesa.toString(); // Devuelve el idMesa
+    } catch (error) {
+      console.error('Error al agregar la mesa:', error);
+      throw error;
+    }
+  }
 }
