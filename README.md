@@ -48,8 +48,8 @@ Primer cuatrimestre 2026
 | Mariano Novak, Gabriel García                 | Listado clientes pendientes (diseño)          | 01/05  | -            | main                  | :construction:     |
 | Mariano Novak                                 | Rechazar clientes pendientes (funcionalidad)  | 01/05  | 01/05        | main                  | :white_check_mark: |
 | Mariano Novak                                 | Aceptar clientes pendientes (funcionalidad)   | 01/05  | 01/05        | main                  | :white_check_mark: |
-| Gabriel García                                | Listado clientes metre (funcionalidad)        | -      | -            | -                     | :red_circle:       |
-| Gabriel García                                | Listado clientes metre (diseño)               | -      | -            | -                     | :red_circle:       |
+| Gabriel García                                | Listado clientes metre (funcionalidad)        | 07/05  | 07/05        | main                  | :white_check_mark: |
+| Gabriel García                                | Listado clientes metre (diseño)               | 07/05  | 07/05        | main                  | :white_check_mark: |
 | Anahí González                                | Menú de productos (diseño)                    | -      | -            | -                     | :red_circle:       |
 | Anahí González                                | Pedido de productos (funcionalidad)           | -      | -            | -                     | :red_circle:       |
 | Mariano Novak                                 | Chat cliente-mozo (diseño)                    | 02/05  | -            | -                     | :construction:     |
