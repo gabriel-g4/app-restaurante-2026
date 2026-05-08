@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, signOut, authState, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, signOut, authState, createUserWithEmailAndPassword, onAuthStateChanged,  } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +34,14 @@ export class AuthService {
 
   getCurrentUser(): any {
     return this.auth.currentUser;
+  }
+
+  async getCurrentUserAsync(): Promise<any> {
+    return new Promise(resolve => {
+      onAuthStateChanged(this.auth, user => {
+        resolve(user);
+      });
+    });
   }
 
 }

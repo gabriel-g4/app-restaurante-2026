@@ -1,0 +1,269 @@
+/* Estilos base */
+@use "../../../global.scss";
+
+:host {
+  display: block;
+  height: 100vh;
+  background:  #{global.$app-background};
+--swiper-theme-color: #{global.$app-background};
+  --swiper-pagination-color: #ffffff;
+}
+
+
+.main-swiper {
+  height: 100%;
+  box-sizing: border-box;
+  --swiper-pagination-right: 0px !important;
+}
+
+
+
+swiper-container::part(bullet-active) {
+  border: 1px solid white;
+  width: 10px;
+  height: 10px;
+}
+
+swiper-container::part(bullet) {
+  border: 1px solid white;
+}
+
+.info-fecha {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+    font-family: monospace;
+}
+
+p {
+    font-size: 1.5rem;
+    color: white;
+    margin: 0;
+}
+
+
+
+/* Header */
+ion-header {
+  ion-toolbar {
+    --background: #{global.$card-background};
+    --color: white;
+    --min-height: 64px;
+    padding-top: 30px;
+    
+    ion-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      text-align: center;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%); 
+      width: 100%;
+    }
+    
+    ion-menu-button {
+      --color: white;
+    }
+  }
+}
+
+/* Contenido principal */
+ion-content {
+  --background: #{global.$app-background};
+  --color: white;
+  --padding-top: 10px;
+  --padding-bottom: 150px;
+}
+
+/* Estado vacío */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+  padding-top: 40px;
+  
+  .empty-icon {
+    font-size: 10rem;
+    color: rgb(255, 255, 255);
+    margin-bottom: 16px;
+  }
+  
+  p {
+    font-size: 3rem;
+    color: rgb(255, 255, 255);
+    margin: 0;
+  }
+}
+
+/* Cards de pedidos */
+.pedido-card {
+
+  padding: 0 10px;
+padding-top: 2rem;
+  ion-card {
+    background: #{global.$card-background};
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  ion-card-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px;
+    
+    ion-card-title {
+      font-size: 2.1rem;
+      color: white;
+      margin-top: 4px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    
+    ion-card-subtitle {
+      color: rgb(255, 255, 255);
+      font-size: 2.9rem;
+    }
+  }
+
+  ion-card-content {
+    padding: 16px;
+    background: #{global.$card-background}; /* Fondo del contenido de la card */
+    
+    ion-list {
+      background: transparent;
+      padding: 0;
+      display: flex;
+      gap: 1rem;
+      flex-direction: column;
+      
+      &.list-md {
+        background: transparent;
+      }
+    }
+  }
+
+  .producto-item {
+    --background: #{global.$card-background};
+    --color: white;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --min-height: 48px;
+    --border-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    
+    ion-label {
+      width:90%;
+      font-size: 1.75rem;
+      color: white;
+      font-family: Arial;
+      margin-right: 15px;
+    }
+    
+    .estado-badge {
+      font-size: 1.3rem;
+      font-weight: 600;
+      padding: 10px 12px;
+      border-radius: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      
+
+    }
+
+.estado-button {
+  height: 80px;
+  width: 170px !important;
+  --border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+      font-size: 1.5rem;
+      width: 100%;
+
+  &[disabled] {
+    opacity: 0.9;
+    --background: var(--ion-color-medium);
+    --color: var(--ion-color-medium-contrast);
+  }
+}
+  }
+
+  .btn-entregar {
+    --background: #4CAF50;
+    --color: rgb(0, 0, 0);
+    --border-radius: 8px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    
+    &[disabled] {
+      --background: rgba(76, 175, 80, 0.5);
+      --color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 25px;
+    margin-top: 0px;
+    
+  }
+  
+  ion-spinner {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 16px;
+    color: #{global.$card-background};
+  }
+  
+  p {
+    margin-bottom: 50px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.estado-button {
+  --border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 120px;
+  
+  &[disabled] {
+    opacity: 1; // Mantener visible pero deshabilitado
+  }
+}
+
+/* Estilos para los diferentes estados */
+.estado-button[color="success"] {
+  --background: var(--ion-color-success);
+  --background-activated: var(--ion-color-success-shade);
+  --background-hover: var(--ion-color-success-tint);
+}
+
+.estado-button[color="warning"] {
+  --background: var(--ion-color-warning);
+  --background-activated: var(--ion-color-warning-shade);
+  --background-hover: var(--ion-color-warning-tint);
+}

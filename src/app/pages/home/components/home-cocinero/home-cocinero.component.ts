@@ -24,6 +24,6 @@ export class HomeCocineroComponent  implements OnInit {
   }
 
    accederPedidosPendientes() {
-    // TO DO: Implementar la navegación a la página de pedidos del cocinero
+    this.router.navigate(['orders-cocinero']);
   }
 }

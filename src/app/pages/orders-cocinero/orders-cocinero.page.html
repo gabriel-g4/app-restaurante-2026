@@ -1,0 +1,99 @@
+@if (userRole) {
+  
+  <ion-header id="main-content">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="home"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        {{ esCocinero ? 'Pedidos de Cocina' : 'Pedidos de Barra' }}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    @if (pedidos.length === 0) {
+      <div class="empty-state">
+      <ion-icon 
+        [name]="esCocinero ? 'fast-food-outline' : 'wine-outline'" 
+        class="empty-icon">
+      </ion-icon>
+      <p>No hay pedidos para preparar</p>
+    </div>
+    } @else {
+      <swiper-container [slidesPerView]="1" [pagination]="true" class="main-swiper">
+      @for(pedido of pedidos; track $index) {
+        <swiper-slide>
+        <div class="pedido-card">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title> 
+            @if (pedido.tipo != "delivery"){ 
+            Mesa {{pedido.idMesa}}
+          } @else {
+            Delivery
+          }
+            </ion-card-title>
+          <div class="info-fecha">
+            {{ pedido.fecha | date:'dd/MM/yyyy' }}
+            {{ pedido.fecha | date:'HH:mm:ss' }}
+          </div>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-list>
+            
+            @for (producto of pedido.productos ; track $index) {
+            <div class="producto-item">
+              <ion-label>{{producto.nombre}} (X{{producto.cantidad}})</ion-label>
+            
+              <ion-button [color]="producto.estadoProducto === 'preparado' ? 'success' : 'warning'"
+                [disabled]="producto.estadoProducto === 'preparado' || producto.isLoading" 
+                (click)="cambiarEstadoProducto(pedido, producto)"
+                class="estado-button" size="default" expand="block">
+                
+                @if (producto.isLoading) {
+                  <ion-spinner name="crescent"></ion-spinner>
+                } @else {
+                  <ion-icon slot="icon-only" name="checkmark-sharp"></ion-icon>
+                }
+                
+              </ion-button>
+            </div>
+            }
+          </ion-list>
+
+          @if (pedido.tipo != 'delivery'){
+            <ion-button 
+              expand="block" 
+              class="btn-entregar" 
+              (click)="marcarPedidoEntregado(pedido.id,pedido.idMesa.toString())"
+              [disabled]="!pedido.todosPreparados">
+              {{ pedido.todosCompletos ? 'LISTO PARA ENTREGAR' : 'CONFIRMAR LISTO' }}
+            </ion-button>
+          } @else {
+            <ion-button 
+              expand="block" 
+              class="btn-entregar" 
+              (click)="marcarPedidoEntregado(pedido.id, '')"
+              [disabled]="!pedido.todosPreparados">
+              {{ pedido.todosCompletos ? 'LISTO PARA ENTREGAR' : 'CONFIRMAR LISTO' }}
+            </ion-button>
+          }
+
+
+        </ion-card-content>
+      </ion-card>
+    </div>
+    </swiper-slide>
+      }
+    </swiper-container>
+    }
+  </ion-content>
+} @else {
+  <div class="loading-state">
+    <img src="assets/icon/favicon.png" alt="logo">
+    <p>Cargando vista del usuario...</p>
+    <ion-spinner></ion-spinner>
+  </div>
+}

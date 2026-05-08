@@ -60,8 +60,8 @@ Primer cuatrimestre 2026
 | Anahí González                                | Confirmar pedido (funcionalidad)              | -      | -            | -                     | :red_circle:       |
 | Mariano Novak                                 | Listado pedidos bar (diseño)                  | -      | -            | -                     | :red_circle:       |
 | Mariano Novak                                 | Listado pedidos bar (funcionalidad)           | -      | -            | -                     | :red_circle:       |
-| Gabriel García                                | Listado pedidos cocina (diseño)               | -      | -            | -                     | :red_circle:       |
-| Gabriel García                                | Listado pedidos cocina (funcionalidad)        | -      | -            | -                     | :red_circle:       |
+| Gabriel García                                | Listado pedidos cocina (diseño)               | 08/05  | 08/05        | main                  | :white_check_mark: |
+| Gabriel García                                | Listado pedidos cocina (funcionalidad)        | 08/05  | 08/05        | main                  | :white_check_mark: |
 | Mariano Novak                                 | Juego 1                                       | 03/05  | 03/05        | main                  | :white_check_mark: |
 | Mariano Novak                                 | Juego 2                                       | -      | -            | -                     | :red_circle:       |
 | Mariano Novak                                 | Juego 3                                       | -      | -            | -                     | :red_circle:       |

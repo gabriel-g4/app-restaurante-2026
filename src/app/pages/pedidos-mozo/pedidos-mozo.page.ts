@@ -16,7 +16,8 @@ import {
   IonCardContent,
   ModalController,
   IonSegment,
-  IonSegmentButton
+  IonSegmentButton,
+  IonBackButton
 } from '@ionic/angular/standalone'
 import { addIcons } from 'ionicons';
 import { chatbubblesOutline, checkmarkSharp, closeSharp, informationCircleOutline, logOutOutline, power, receiptOutline } from 'ionicons/icons';
@@ -54,6 +55,7 @@ register();
     FormsModule,
     IonSegment,
     IonSegmentButton,
+    IonBackButton
     // FacturaComponent
   ]
 })
