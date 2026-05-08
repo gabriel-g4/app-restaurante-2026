@@ -130,7 +130,7 @@ export class PedidoService {
       message: mensaje,
       duration: 3000,
       color: color,
-      position: 'top',
+      position: 'middle',
     });
     await toast.present();
   }

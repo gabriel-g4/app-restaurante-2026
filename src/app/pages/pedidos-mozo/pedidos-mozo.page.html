@@ -1,0 +1,133 @@
+<ion-header class="custom-header">
+    <ion-toolbar>
+        <ion-title class="header-title"> Mozo </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content id="main-content" class="ion-padding" [fullscreen]="true">
+    <div class="category-header">
+        <ion-segment [(ngModel)]="segment">
+    
+            <ion-segment-button value="pedido hecho">
+                <ion-label class="segment-label">HECHO</ion-label>
+            </ion-segment-button>
+
+            <ion-segment-button value="listo para servir">
+                <ion-label class="segment-label">SERVIR</ion-label>
+            </ion-segment-button>
+    
+            <ion-segment-button value="pedir la cuenta">
+                <ion-label class="segment-label">CUENTA</ion-label>
+            </ion-segment-button>
+    
+            <ion-segment-button value="pagado">
+                <ion-label class="segment-label">PAGO</ion-label>
+            </ion-segment-button>
+    
+        </ion-segment>
+    </div>
+    
+        @if (pedidosFiltrados.length > 0) {
+
+        <swiper-container slides-per-view="1" pagination="true" class="main-swiper" direction="vertical">
+
+            @for (pedido of pedidosFiltrados  ; track $index) {
+               
+                <swiper-slide>
+                    <ion-card class="pedido-card" [class]="'estado-' + pedido.estado.replace(' ', '-')">
+                        <ion-card-header class="card-header">
+                            <div class="center">
+                                <ion-card-title class="mesa-id">MESA {{pedido.idMesa || 'N/A'}}</ion-card-title>
+                            </div>
+                        </ion-card-header>
+
+                        <ion-card-content>
+                            <div class="pedido-info center">
+                                <p><strong>{{pedido.estado}}</strong></p>
+                            </div>
+                            
+                            @if(pedido.estado === 'pedir la cuenta') {
+                                <div class="monto-info center"> 
+                                    <p>
+                                        Subtotal con descuento: <span class="monto">${{ pedido.precioTotal - (pedido.precioTotal * ((pedido.descuento || 0) / 100)) | number:'1.2-2' }}</span>
+                                            
+                                    </p></div>
+                            } @else if ( pedido.estado === 'pagado') {
+                                
+                                <div class="monto-info center"> 
+                                    <p>
+                                    Final con propina: <span class="monto">${{ pedido.precioFinal | number:'1.2-2'}}</span>
+                                </p>
+                                </div>
+                            }@else {
+                                <ion-list class="productos-list">
+                                    @for (producto of pedido.productos; track $index) {
+    
+                                        <ion-item class="producto-item">
+                                            <ion-label class="producto-info">
+                                                <div class="producto-header">
+                                                    <h3>{{producto.nombre}}</h3>
+                                                </div>
+                                                
+                                                <!-- <ion-text>{{producto.tipo | titlecase}}</ion-text> -->
+                
+                                            </ion-label>
+                                            
+                                            <div slot="end" class="producto-precios">
+                                                <ion-text class="cantidad">x{{producto.cantidad}}</ion-text>
+                                            </div>
+                                        </ion-item>
+                                    }
+                                </ion-list>
+                            }
+
+
+                            <div class="pedido-actions">
+                                <!-- <ion-button fill="solid" class="header-button" (click)="verInfo(pedido)">
+                                    <ion-icon slot="start" name="information-circle-outline"></ion-icon>
+                                    Detalle
+                                </ion-button> -->
+
+                                @if (pedido.estado == 'pedido hecho') {
+                                <div class="button-container">
+                                    <ion-button class="rechazar-button" (click)="rechazarPedido(pedido)">
+                                        <ion-icon slot="icon-only" name="close-sharp"></ion-icon>
+                                        
+                                    </ion-button>
+                                    <ion-button class="aceptar-button" (click)="aceptarPedido(pedido)">
+                                        <ion-icon slot="icon-only" name="checkmark-sharp"></ion-icon>
+                                    </ion-button>
+                                    
+                                </div>
+                                }
+
+                                @else if (pedido.estado !== 'en preparación') {
+                                <ion-button fill="solid" class="header-button" (click)="cambiarEstado(pedido)">
+                                    {{getBotonTexto(pedido.estado)}}
+                                </ion-button>
+                                }
+                            </div>
+                        </ion-card-content>
+                    </ion-card>
+                </swiper-slide>
+                
+            }
+
+        </swiper-container>
+        } @else {
+        <div class="no-pedidos">
+            <ion-icon name="receipt-outline"></ion-icon>
+            <p>No hay pedidos pendientes</p>
+        </div>
+        }
+    
+</ion-content>
+
+@if (crearFactura) {
+    <app-factura 
+  [pedido]="pedidoFactura" 
+  [usuario]="usuarioFactura"
+  style="opacity:0; position:absolute; pointer-events:none; left:-9999px;">
+</app-factura>
+}
