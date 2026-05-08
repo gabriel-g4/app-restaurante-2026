@@ -73,7 +73,7 @@ export class WaitListPage {
       this.notificationSenderService.enviarNotificacion({
               title: 'Cliente en lista de espera',
               body: `El cliente: ${user.email} esta esperando una mesa.`,
-              roles: ['maitre'],
+              roles: ['metre'],
               path: 'client-approval',
               collection: 'usuarios',
             });
