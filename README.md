@@ -54,8 +54,8 @@ Primer cuatrimestre 2026
 | Anahí González                                | Pedido de productos (funcionalidad)           | -      | -            | -                     | :red_circle:       |
 | Mariano Novak                                 | Chat cliente-mozo (diseño)                    | 02/05  | -            | -                     | :construction:     |
 | Mariano Novak                                 | Chat cliente-mozo (funcionalidad)             | 02/05  | -            | -                     | :construction:     |
-| Gabriel García                                | Listado de pedidos (mozo) (funcionalidad)     | -      | -            | -                     | :red_circle:       |
-| Gabriel García                                | Listado de pedidos (mozo) (diseño)            | -      | -            | -                     | :red_circle:       |
+| Gabriel García                                | Listado de pedidos (mozo) (funcionalidad)     | 08/05  | 08/05        | main                  | :white_check_mark: |
+| Gabriel García                                | Listado de pedidos (mozo) (diseño)            | 08/05  | 08/05        | main                  | :white_check_mark: |
 | Anahí González                                | Rechazar pedido (funcionalidad)               | -      | -            | -                     | :red_circle:       |
 | Anahí González                                | Confirmar pedido (funcionalidad)              | -      | -            | -                     | :red_circle:       |
 | Mariano Novak                                 | Listado pedidos bar (diseño)                  | -      | -            | -                     | :red_circle:       |
