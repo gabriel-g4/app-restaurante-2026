@@ -7,40 +7,46 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <section id="lista-clientes">
+<ion-content class="ion-padding" id="main-content">
 
-    @if (clientesPendientes.length === 0) {
-    <div class="empty-state">
-      <ion-icon name="checkmark-circle-outline"></ion-icon>
-      <p>No hay clientes pendientes de aprobación.</p>
-    </div>
+    @if (clientesPendientes.length > 0) {
+    <swiper-container [slidesPerView]="1" [pagination]="true" class="main-swiper" direction="vertical" >
+
+
+        @for (client of clientesPendientes ; track $index) {
+        <swiper-slide>
+            <div class="client-card">
+                <ion-card>
+
+                    <ion-card-content>
+                        
+                        <img [src]="client.foto" alt="Foto del cliente" class="client-photo" />
+
+                        <ion-card-title>{{ client.nombre }} {{ client.apellido }}</ion-card-title>
+
+                        <div class="button-group">
+                            <ion-button color="danger" (click)="confirmarRechazo(client)"
+                                [disabled]="client.estado === 'rechazado'">
+                                <ion-icon slot="icon-only" name="close"></ion-icon>
+                            </ion-button>
+
+                            <ion-button color="success" (click)="confirmarAceptacion(client)"
+                                [disabled]="client.estado === 'aceptado'">
+                                <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+                            </ion-button>
+                        </div>
+                        
+                    </ion-card-content>
+                </ion-card>
+            </div>
+        </swiper-slide>
+        }
+
+
+    </swiper-container>
     } @else {
-    <div class="clientes-grid">
-      @for (cliente of clientesPendientes; track cliente.id) {
-
-      <div class="cliente-card">
-        <img [src]="cliente.foto" alt="Foto de {{ cliente.nombre }}" class="cliente-foto" />
-
-        <div class="cliente-info">
-          <h3>{{ cliente.apellido }}, {{ cliente.nombre }}</h3>
-          <p>DNI: {{ cliente.dni }}</p>
-        </div>
-
-        <div class="cliente-actions">
-          <ion-button class="btn-rechazar" fill="outline" (click)="confirmarRechazo(cliente)">
-            <ion-icon slot="icon-only" name="close"></ion-icon>
-          </ion-button>
-
-          <ion-button class="btn-aceptar" (click)="confirmarAceptacion(cliente)">
-            <ion-icon slot="icon-only" name="checkmark"></ion-icon>
-          </ion-button>
-        </div>
-      </div>
-
-      }
+    <div class="sin-clientes">
+        <h3>No hay clientes pendientes de aprobación.</h3>
     </div>
     }
-
-  </section>
 </ion-content>

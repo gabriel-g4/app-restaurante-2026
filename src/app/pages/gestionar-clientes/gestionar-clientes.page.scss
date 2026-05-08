@@ -1,5 +1,32 @@
 @use "../../../global.scss";
 
+:host {
+  --swiper-theme-color: #{global.$app-background};
+  --swiper-pagination-color: #ffffff;
+}
+
+swiper-container::part(pagination) {
+  transform: none !important;
+  top: 30% !important;
+}
+
+.main-swiper {
+  height: 100%;
+  box-sizing: border-box;
+  --swiper-pagination-right: 0px !important;
+}
+
+
+swiper-container::part(bullet-active) {
+  border: 1px solid white;
+  width: 10px;
+  height: 10px;
+}
+
+swiper-container::part(bullet) {
+  border: 1px solid white;
+}
+
 ion-header {
     --ion-safe-area-top: calc(max(env(safe-area-inset-top), 30px));
 
@@ -86,6 +113,81 @@ ion-content {
         font-size: 0.85rem;
         color: rgba(203, 247, 237, 0.7);
     }
+}
+
+.client-card {
+
+  margin-top: 40px;
+  margin-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+
+  ion-card {
+    margin: 20px;
+    height: 60vh;
+    background-color: #{global.$card-background};
+    min-height: 500px;
+    /* NECESARIO para que el contenido pueda ocupar la altura completa */
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  ion-card-content {
+    /* Hace que ocupe todo el alto del card */
+    height: 100%;
+    padding: 0 !important;
+    /* opcional, pero recomendado */
+    flex: 1;
+    /* estira el contenido */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    justify-content: space-evenly;
+
+    @media (min-width: 576px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+  }
+
+  .client-photo {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .button-group {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    color: #fff;
+    justify-content: space-around;
+
+    ion-button {
+      --border-radius: 20px;
+      --padding-top: 16px;
+      --padding-bottom: 16px;
+      --padding-start: 24px;
+      --padding-end: 24px;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+
+  ion-card-title,
+  ion-card-subtitle {
+    font-size: 2rem !important;
+    color: #fff;
+    text-align: center;
+    margin: 5px;
+  }
 }
 
 .cliente-actions {

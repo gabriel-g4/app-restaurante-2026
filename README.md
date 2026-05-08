@@ -45,7 +45,7 @@ Primer cuatrimestre 2026
 | Gabriel García                                | Registro (funcionalidad)                      | 15/04  | 30/04        | feature/registro      | :white_check_mark: |
 | Mariano Novak                                 | Registro (diseño)                             | 01/05  | 01/05        | main                  | :white_check_mark: |
 | Mariano Novak                                 | Listado clientes pendientes (funcionalidad)   | 01/05  | 01/05        | main                  | :white_check_mark: |
-| Mariano Novak, Gabriel García                 | Listado clientes pendientes (diseño)          | 01/05  | -            | main                  | :construction:     |
+| Mariano Novak, Gabriel García                 | Listado clientes pendientes (diseño)          | 01/05  | 08/05        | main                  | :white_check_mark: |
 | Mariano Novak                                 | Rechazar clientes pendientes (funcionalidad)  | 01/05  | 01/05        | main                  | :white_check_mark: |
 | Mariano Novak                                 | Aceptar clientes pendientes (funcionalidad)   | 01/05  | 01/05        | main                  | :white_check_mark: |
 | Gabriel García                                | Listado clientes metre (funcionalidad)        | 07/05  | 07/05        | main                  | :white_check_mark: |
