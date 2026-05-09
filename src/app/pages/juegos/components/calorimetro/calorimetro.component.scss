@@ -160,3 +160,32 @@ ion-content {
         --color: #{global.$button-primary-text};
     }
 }
+
+.calorias.reveladas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.8rem;
+    margin-top: 10px;
+
+    &.acierto {
+        color: #4caf50;
+    }
+
+    &.error {
+        color: #{global.$error-border};
+    }
+}
+
+.fade-out {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.5s ease;
+}
+
+.slide-up {
+    transform: translateY(-120%);
+    transition: transform 0.5s ease-in-out;
+    z-index: 10;
+}

@@ -2,21 +2,20 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonButton, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowUpOutline, arrowDownOutline, restaurantOutline, refreshOutline } from 'ionicons/icons';
+import { arrowUpOutline, arrowDownOutline, restaurantOutline, refreshOutline, checkmarkCircleOutline, closeCircleOutline } from 'ionicons/icons';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 @Component({
-  selector: 'app-juego-balanza',
-  templateUrl: './balanza.component.html',
-  styleUrls: ['./balanza.component.scss'],
+  selector: 'app-juego-calorimetro',
+  templateUrl: './calorimetro.component.html',
+  styleUrls: ['./calorimetro.component.scss'],
   standalone: true,
   imports: [CommonModule, IonButton, IonIcon]
 })
-export class BalanzaComponent implements OnInit {
+export class CalorimetroComponent implements OnInit {
   @Input() esAnonimo: boolean = false;
   @Input() yaJugo: boolean = false;
   @Input() descuentoGanado: number = 0;
-
   @Output() resultado = new EventEmitter<{ gano: boolean, descuento: number }>();
 
   alimentos = [
@@ -32,20 +31,21 @@ export class BalanzaComponent implements OnInit {
   siguienteAlimento: any;
 
   puntos: number = 0;
-  estado: 'jugando' | 'ganado' | 'perdido' = 'jugando';
+  estado: 'jugando' | 'revelando' | 'ganado' | 'perdido' = 'jugando';
+  esAcierto: boolean = false;
+  animando: boolean = false;
   mensajeFinal: string = '';
 
   constructor() {
-    addIcons({ arrowUpOutline, arrowDownOutline, restaurantOutline, refreshOutline });
+    addIcons({ arrowUpOutline, arrowDownOutline, restaurantOutline, refreshOutline, checkmarkCircleOutline, closeCircleOutline });
   }
 
-  ngOnInit() {
-    this.iniciarJuego();
-  }
+  ngOnInit() { this.iniciarJuego(); }
 
   iniciarJuego() {
     this.puntos = 0;
     this.estado = 'jugando';
+    this.animando = false;
     this.alimentos = this.alimentos.sort(() => Math.random() - 0.5);
     this.alimentoActual = this.alimentos[0];
     this.siguienteAlimento = this.alimentos[1];
@@ -53,41 +53,52 @@ export class BalanzaComponent implements OnInit {
 
   async evaluar(eleccion: 'mayor' | 'menor') {
     const esMayor = this.siguienteAlimento.calorias >= this.alimentoActual.calorias;
-    const acierto = (eleccion === 'mayor' && esMayor) || (eleccion === 'menor' && !esMayor);
+    this.esAcierto = (eleccion === 'mayor' && esMayor) || (eleccion === 'menor' && !esMayor);
 
-    if (acierto) {
+    this.estado = 'revelando';
+
+    if (this.esAcierto) {
       await Haptics.impact({ style: ImpactStyle.Light });
-      this.puntos++;
+      setTimeout(() => {
+        this.animando = true;
 
-      if (this.puntos === 3) {
-        this.procesarVictoria();
-      } else {
-        this.alimentoActual = this.siguienteAlimento;
-        this.siguienteAlimento = this.alimentos[this.puntos + 1];
-      }
+        setTimeout(() => {
+          this.puntos++;
+          if (this.puntos === 3) {
+            this.procesarVictoria();
+          } else {
+            this.alimentoActual = this.siguienteAlimento;
+            this.siguienteAlimento = this.alimentos[this.puntos + 1];
+            this.estado = 'jugando';
+            this.animando = false;
+          }
+        }, 500);
+      }, 1500);
     } else {
-      await Haptics.impact({ style: ImpactStyle.Heavy }); // REGLA: Vibrar en error
-      this.procesarDerrota();
+      await Haptics.impact({ style: ImpactStyle.Heavy });
+      setTimeout(() => {
+        this.procesarDerrota();
+      }, 2000);
     }
   }
 
   procesarVictoria() {
     this.estado = 'ganado';
     if (!this.esAnonimo && !this.yaJugo && this.descuentoGanado === 0) {
-      this.mensajeFinal = "¡Felicidades! Acabas de ganar un 10% de descuento.";
-      this.resultado.emit({ gano: true, descuento: 10 }); // Avisamos al padre
+      this.mensajeFinal = "Ganaste un 10% de descuento.";
+      this.resultado.emit({ gano: true, descuento: 10 });
     } else {
-      this.mensajeFinal = "¡Ganaste! (Has jugado por diversión).";
+      this.mensajeFinal = "Podés seguir jugando todas las veces que quieras.";
     }
   }
 
   procesarDerrota() {
     this.estado = 'perdido';
     if (!this.esAnonimo && !this.yaJugo && this.descuentoGanado === 0) {
-      this.mensajeFinal = "¡Perdiste tu oportunidad! Pero puedes seguir jugando para divertirte.";
-      this.resultado.emit({ gano: false, descuento: 10 }); // Avisamos al padre
+      this.mensajeFinal = "Te quedaste sin tu oportunidad de descuento, pero podés seguir jugando para divertirte.";
+      this.resultado.emit({ gano: false, descuento: 10 });
     } else {
-      this.mensajeFinal = "¡Casi! Inténtalo de nuevo.";
+      this.mensajeFinal = "Intentalo de nuevo.";
     }
   }
 }

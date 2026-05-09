@@ -9,7 +9,11 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { gameControllerOutline, trophyOutline, starOutline, arrowBackOutline } from 'ionicons/icons';
-import { BalanzaComponent } from 'src/app/pages/juegos/components/balanza/balanza.component';
+import { CalorimetroComponent } from './components/calorimetro/calorimetro.component';
+import { MemotestComponent } from "./components/memotest/memotest.component";
+import { SimonDiceComponent } from './components/simon-dice/simon-dice.component';
+
+
 
 @Component({
   selector: 'app-juegos',
@@ -18,8 +22,8 @@ import { BalanzaComponent } from 'src/app/pages/juegos/components/balanza/balanz
   standalone: true,
   imports: [
     IonContent, IonHeader, IonToolbar, IonTitle,
-    IonButtons, IonBackButton, IonIcon, IonButton, CommonModule,
-    BalanzaComponent
+    IonButtons, IonBackButton, IonIcon, IonButton, CommonModule, CalorimetroComponent,
+    MemotestComponent, SimonDiceComponent
   ]
 })
 export class JuegosPage implements OnInit {

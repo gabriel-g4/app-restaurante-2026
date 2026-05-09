@@ -19,22 +19,56 @@
   <section id="juegos-container">
     <div class="juego-card">
       <div class="juego-header">
-        <h3>La Balanza del Chef</h3>
+        <h3>El Calorímetro</h3>
         <span class="badge diez">10% OFF</span>
       </div>
-      <p class="juego-desc">Adivina si el siguiente plato tiene más o menos calorías.</p>
-      <ion-button class="btn-jugar" expand="block" (click)="abrirJuego('balanza', 'La Balanza del Chef')">
+      <p class="juego-desc">Adiviná si el siguiente plato tiene más o menos calorías.</p>
+      <ion-button class="btn-jugar" expand="block" (click)="abrirJuego('calorias', 'El Calorímetro')">
+        Jugar
+      </ion-button>
+    </div>
+    <div class="juego-card">
+      <div class="juego-header">
+        <h3>Memotest</h3>
+        <span class="badge diez">15% OFF</span>
+      </div>
+      <p class="juego-desc">Encontrá todas las parejas de cartas iguales.</p>
+      <ion-button class="btn-jugar" expand="block" (click)="abrirJuego('memotest', 'Memotest')">
+        Jugar
+      </ion-button>
+    </div>
+    <div class="juego-card">
+      <div class="juego-header">
+        <h3>La Receta de La Abuela</h3>
+        <span class="badge diez">20% OFF</span>
+      </div>
+      <p class="juego-desc">Memorizá el orden de los ingredientes.</p>
+      <ion-button class="btn-jugar" expand="block" (click)="abrirJuego('simon-dice', 'La Receta')">
         Jugar
       </ion-button>
     </div>
   </section>
   }
 
-  @else if (vistaActual === 'balanza') {
+  @else if (vistaActual === 'calorias') {
 
-  <app-juego-balanza [esAnonimo]="esAnonimo" [yaJugo]="yaJugo" [descuentoGanado]="descuentoGanado"
+  <app-juego-calorimetro [esAnonimo]="esAnonimo" [yaJugo]="yaJugo" [descuentoGanado]="descuentoGanado"
     (resultado)="procesarResultadoJuego($event)">
-  </app-juego-balanza>
+  </app-juego-calorimetro>
+
+  }
+  @else if (vistaActual === 'memotest') {
+
+  <app-juego-memotest [esAnonimo]="esAnonimo" [yaJugo]="yaJugo" [descuentoGanado]="descuentoGanado"
+    (resultado)="procesarResultadoJuego($event)">
+  </app-juego-memotest>
+
+  }
+  @else if (vistaActual === 'simon-dice') {
+
+  <app-juego-simon-dice [esAnonimo]="esAnonimo" [yaJugo]="yaJugo" [descuentoGanado]="descuentoGanado"
+    (resultado)="procesarResultadoJuego($event)">
+  </app-juego-simon-dice>
 
   }
 

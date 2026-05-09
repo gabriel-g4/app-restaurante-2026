@@ -1,0 +1,26 @@
+<div class="juego-container">
+  <div class="header-juego">
+    <p>Movimientos: <strong>{{ movimientos }} / {{ maxMovimientos }}</strong></p>
+    <span class="badge quince">Premio: 15% OFF</span>
+  </div>
+
+  @if (estado === 'jugando') {
+  <div class="tablero">
+    @for (carta of cartas; track carta.id) {
+    <div class="carta" [class.volteada]="carta.volteada || carta.encontrada" (click)="voltearCarta(carta)">
+      <div class="carta-inner">
+        <div class="carta-front">🍽️</div>
+        <div class="carta-back">{{ carta.emoji }}</div>
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <div class="resultado-card" [class.ganado]="estado === 'ganado'">
+    <ion-icon [name]="estado === 'ganado' ? 'restaurant-outline' : 'refresh-outline'"></ion-icon>
+    <h2>{{ estado === 'ganado' ? '¡Memoria de Elefante!' : '¡Plato Quemado!' }}</h2>
+    <p>{{ mensajeFinal }}</p>
+    <ion-button class="btn-reiniciar" expand="block" (click)="iniciarJuego()">Jugar de nuevo</ion-button>
+  </div>
+  }
+</div>
