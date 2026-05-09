@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-// import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
 
 @Injectable({
@@ -8,11 +8,9 @@ import { Injectable } from '@angular/core';
 export class EmailService {
 
   // private serviceID = 'service_ic2o3ya';
-  private serviceID = 'service_ghppyhw';
-  private templateID = 'template_pipcjju';
-  private userID = '4QQlXt5D5KQFN_wzy';
-
-  // https://imgur.com/a/7XN3mDR foto_portada
+  private serviceID = 'service_h20zc5l';
+  templateAccountID = 'template_pipcjju';
+  private userID = 'AOv2XmDwsNDYRa9Pf';
 
   constructor() {}
 
@@ -26,8 +24,8 @@ export class EmailService {
     color_portada: string;
     size_mensaje: number;
     fuente: string;
-  // } , template: string): Promise<EmailJSResponseStatus> {
-    } , template: string) {
+  } , template: string): Promise<EmailJSResponseStatus> {
+    // } , template: string) {
     const templateParams = {
       nombre: datos.nombre,
       estado: datos.estado,
@@ -40,7 +38,6 @@ export class EmailService {
       fuente: datos.fuente
     };
 
-    // return emailjs.send(this.serviceID, template || this.templateID, templateParams, this.userID);
-    return null;
+    return emailjs.send(this.serviceID, template || this.templateAccountID, templateParams, this.userID);
   }
 }
