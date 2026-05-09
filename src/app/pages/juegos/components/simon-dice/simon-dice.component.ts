@@ -25,10 +25,12 @@ export class SimonDiceComponent implements OnInit {
     { id: 3, emoji: '🥬', nombre: 'Lechuga', clase: 'btn-lechuga' }
   ];
 
-  bolsaColores: number[] = [];
+  frecuencias = [310, 252, 209, 415];
+  audioCtx: AudioContext | null = null;
 
   secuenciaChef: number[] = [];
   secuenciaUsuario: number[] = [];
+  bolsaColores: number[] = [];
   rondaActual: number = 1;
   maxRondas: number = 7;
 
@@ -42,7 +44,34 @@ export class SimonDiceComponent implements OnInit {
 
   ngOnInit() { }
 
+  inicializarAudio() {
+    if (!this.audioCtx) {
+      this.audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+    if (this.audioCtx.state === 'suspended') {
+      this.audioCtx.resume();
+    }
+  }
+
+  reproducirSonido(id: number) {
+    if (!this.audioCtx) return;
+
+    const osc = this.audioCtx.createOscillator();
+    const gainNode = this.audioCtx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.value = this.frecuencias[id];
+
+    osc.connect(gainNode);
+    gainNode.connect(this.audioCtx.destination);
+
+    osc.start();
+    gainNode.gain.exponentialRampToValueAtTime(0.00001, this.audioCtx.currentTime + 0.3);
+    osc.stop(this.audioCtx.currentTime + 0.3);
+  }
+
   iniciarJuego() {
+    this.inicializarAudio();
     this.rondaActual = 1;
     this.secuenciaChef = [];
     this.bolsaColores = [];
@@ -65,7 +94,6 @@ export class SimonDiceComponent implements OnInit {
         return;
       }
     }
-
     this.secuenciaChef.push(nuevoPaso);
   }
 
@@ -81,8 +109,9 @@ export class SimonDiceComponent implements OnInit {
 
     for (let id of this.secuenciaChef) {
       this.ingredienteIluminado = id;
+      this.reproducirSonido(id);
       await Haptics.impact({ style: ImpactStyle.Light });
-      await this.esperar(500);
+      await this.esperar(400);
 
       this.ingredienteIluminado = null;
       await this.esperar(300);
@@ -95,6 +124,8 @@ export class SimonDiceComponent implements OnInit {
     if (this.estado !== 'jugando') return;
 
     await Haptics.impact({ style: ImpactStyle.Medium });
+    this.reproducirSonido(id);
+
     this.ingredienteIluminado = id;
     setTimeout(() => this.ingredienteIluminado = null, 200);
 
@@ -123,20 +154,20 @@ export class SimonDiceComponent implements OnInit {
   procesarVictoria() {
     this.estado = 'ganado';
     if (!this.esAnonimo && !this.yaJugo && this.descuentoGanado === 0) {
-      this.mensajeFinal = "¡Receta perfecta! Ganaste un 20% de descuento.";
+      this.mensajeFinal = "Ganaste un 20% de descuento.";
       this.resultado.emit({ gano: true, descuento: 20 });
     } else {
-      this.mensajeFinal = "¡Ganaste! (Has jugado por diversión).";
+      this.mensajeFinal = "Podés seguir jugando todas las veces que quieras.";
     }
   }
 
   procesarDerrota() {
     this.estado = 'perdido';
     if (!this.esAnonimo && !this.yaJugo && this.descuentoGanado === 0) {
-      this.mensajeFinal = "¡Te equivocaste de ingrediente! Perdiste tu intento oficial.";
+      this.mensajeFinal = "Te quedaste sin tu oportunidad de descuento, pero podés seguir jugando para divertirte.";
       this.resultado.emit({ gano: false, descuento: 20 });
     } else {
-      this.mensajeFinal = "¡Te equivocaste! Inténtalo de nuevo.";
+      this.mensajeFinal = "Intentalo de nuevo.";
     }
   }
 }
