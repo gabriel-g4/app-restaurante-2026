@@ -36,6 +36,8 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 $shadow-grey: #161925;
 $twilight-indigo: #23395b;
 $rich-cerulean: #406e8e;
@@ -72,6 +74,18 @@ span {
 
 ion-alert.mi-alerta {
   .alert-radio-label.sc-ion-alert-md {
-    color:#{$text-light}  !important;
+    color:#{$text-light} !important;
   }
+}
+
+html,
+body,
+p,
+span,
+div,
+h1,
+h2,
+h3,
+ion-content {
+  font-family: 'Poppins', sans-serif !important;
 }
