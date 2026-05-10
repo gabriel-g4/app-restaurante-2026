@@ -74,7 +74,7 @@ export class WaitListPage {
               title: 'Cliente en lista de espera',
               body: `El cliente: ${user.email} esta esperando una mesa.`,
               roles: ['metre'],
-              path: 'client-approval',
+              path: 'wait-list-maitre',
               collection: 'usuarios',
             });
 

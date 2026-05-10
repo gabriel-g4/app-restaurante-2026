@@ -304,4 +304,13 @@ export class DatabaseService {
       console.error('Error al agregar el log:', error);
     }
   }
+
+   async modificarUsuario(usuario: any, coleccion: string) {
+    try {
+      const docRef = doc(this.firestore, `${coleccion}/${usuario.id}`);
+      await updateDoc(docRef, { ...usuario });
+    } catch (error) {
+      console.error('Error al modificar usuario:', error);
+    }
+  }
 }

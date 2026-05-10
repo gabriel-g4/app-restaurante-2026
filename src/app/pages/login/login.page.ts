@@ -13,6 +13,7 @@ import { FirebaseError } from '@angular/fire/app';
 import { Router } from '@angular/router';
 import { SpinnerModalComponent } from 'src/app/components/spinner-modal/spinner-modal.component';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
+import { PushNotificationService } from 'src/app/services/push-notification.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ export class LoginPage implements OnInit {
     private databaseService: DatabaseService,
     private dialogService: DialogService,
     private router: Router,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private pushNotificationService: PushNotificationService
   ) { }
 
   loginForm = new FormGroup({
@@ -65,6 +67,10 @@ export class LoginPage implements OnInit {
         console.log('USER CREDENTIALS');
         console.log(userCredentials);
 
+        const uid = userCredentials.user.uid;
+
+        // const user = await this.databaseService.obtenerUsuarioPorId(uid);
+
         const user = await this.databaseService.obtenerUsuarioPorEmail(
           this.loginForm.value.email || ''
         );
@@ -83,6 +89,16 @@ export class LoginPage implements OnInit {
         }
 
         this.loginForm.reset();
+
+         await this.pushNotificationService.initPush();
+
+        const tokenMobile = this.pushNotificationService.push_token;
+        console.log('Token de notificación:', tokenMobile);
+
+        if (tokenMobile) {
+          user!['push_token'] = tokenMobile;
+          await this.databaseService.modificarUsuario(user, 'usuarios');
+        }
 
         loading.dismiss();
         this.router.navigate(['/home']);

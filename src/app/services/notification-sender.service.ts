@@ -15,7 +15,7 @@ interface NotificationPayload {
 })
 export class NotificationSenderService {
 
- private apiUrl = 'https://push-notification-nqye.onrender.com/enviarNotificacion';
+ private apiUrl = 'https://backend-push-notifications-a0rm.onrender.com/enviarNotificacion';
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',

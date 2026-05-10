@@ -170,9 +170,9 @@ export class RegisterPage implements OnInit {
             if (!esAnonimo) {
               this.notificationSenderService.enviarNotificacion({
                 title: 'Nuevo Cliente Registrado',
-                body: `Se ha registrado el cliente: ${nombre} ${this.formularioAlta.get('apellido')?.value}`,
+                body: `Cliente: ${nombre} ${this.formularioAlta.get('apellido')?.value} esperando aceptación.`,
                 roles: ['dueño', 'supervisor'],
-                path: 'client-approval',
+                path: 'gestionar-clientes',
                 collection: 'usuarios',
               });
             }

@@ -73,6 +73,9 @@ span {
 }
 
 ion-alert.mi-alerta {
+  .alert-message.sc-ion-alert-md {
+    color:white;
+  }
   .alert-radio-label.sc-ion-alert-md {
     color:#{$text-light} !important;
   }
