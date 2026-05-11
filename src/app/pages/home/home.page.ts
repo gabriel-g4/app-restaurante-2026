@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonIcon, IonSpinner } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonIcon, IonSpinner, Platform } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -12,6 +12,7 @@ import { HomeMozoComponent } from "./components/home-mozo/home-mozo.component";
 import { HomeClienteComponent } from './components/home-cliente/home-cliente.component';
 import { HomeBartenderComponent } from "./components/home-bartender/home-bartender.component";
 import { HomeMaitreComponent } from './components/home-maitre/home-maitre.component';
+import { App } from '@capacitor/app';
 
 
 @Component({
@@ -33,9 +34,26 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private platform: Platform
   ) {
     addIcons({ power });
+    this.platform.backButton.subscribeWithPriority(10, async (processNextHandler) => {
+      if (this.router.url === '/home') {
+        const audio = new Audio('/assets/sounds/logout.mp3');
+        try {
+          await audio.play();
+        } catch (e) {
+          console.error('Error audio:', e);
+        }
+        // Pequeña demora para escuchar el sonido antes de matar la app
+        setTimeout(() => {
+          App.exitApp();
+        }, 800);
+      } else {
+        processNextHandler();
+      }
+    });
   }
 
   async ngOnInit() {

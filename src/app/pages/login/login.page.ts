@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import {
   IonButton, IonContent, IonHeader, IonInput, IonInputPasswordToggle,
   IonSegment, IonSegmentButton, IonSegmentContent,
-  IonSegmentView, IonLabel, ModalController
+  IonSegmentView, IonLabel, ModalController, Platform
 } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { SpinnerModalComponent } from 'src/app/components/spinner-modal/spinner-modal.component';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { PushNotificationService } from 'src/app/services/push-notification.service';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-login',
@@ -34,8 +35,26 @@ export class LoginPage implements OnInit {
     private dialogService: DialogService,
     private router: Router,
     private modalController: ModalController,
-    private pushNotificationService: PushNotificationService
-  ) { }
+    private pushNotificationService: PushNotificationService,
+    private platform: Platform
+  ) {
+     this.platform.backButton.subscribeWithPriority(10, async (processNextHandler) => {
+      if (this.router.url === '/login') {
+        const audio = new Audio('/assets/sounds/logout.mp3');
+        try {
+          await audio.play();
+        } catch (e) {
+          console.error('Error audio:', e);
+        }
+        // Pequeña demora para escuchar el sonido antes de matar la app
+        setTimeout(() => {
+          App.exitApp();
+        }, 800);
+      } else {
+        processNextHandler();
+      }
+    });
+   }
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),

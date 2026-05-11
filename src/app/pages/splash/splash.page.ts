@@ -27,10 +27,17 @@ creadores = [
   "Gabriel García"
 ];
 
+
+
   constructor(private router: Router) {}
 
   ngOnInit() {
     SplashScreen.hide();
+
+    setTimeout(() => {
+    const sonido = new Audio('assets/sounds/splash.mp3')
+    sonido.play().catch(e => console.log('Error al reproducir sonido de inicio', e));
+  }, 2000);
 
   setTimeout(() => {
     this.router.navigate(['/login']);
