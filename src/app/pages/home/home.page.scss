@@ -8,6 +8,14 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.logo-spinner {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
 ion-spinner {
   margin-top: 0.5rem;
 }

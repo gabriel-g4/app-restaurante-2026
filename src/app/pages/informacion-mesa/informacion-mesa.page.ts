@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButtons } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButtons, IonSpinner } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database.service';
 
@@ -10,7 +10,7 @@ import { DatabaseService } from 'src/app/services/database.service';
   templateUrl: './informacion-mesa.page.html',
   styleUrls: ['./informacion-mesa.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TitleCasePipe, IonBackButton, IonButtons]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TitleCasePipe, IonBackButton, IonButtons, IonSpinner]
 })
 export class InformacionMesaPage implements OnInit {
 

@@ -257,9 +257,9 @@ export class DatabaseService {
         return null;
       }
 
-      querySnapshot.docs.forEach((doc, index) => {
-        console.log(`🔍 Doc ${index}: id=${doc.id}, data=`, doc.data());
-      });
+      // querySnapshot.docs.forEach((doc, index) => {
+      //   console.log(`🔍 Doc ${index}: id=${doc.id}, data=`, doc.data());
+      // });
 
       const mesasData = querySnapshot.docs[0].data();
 

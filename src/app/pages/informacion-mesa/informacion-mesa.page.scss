@@ -21,9 +21,55 @@ img {
     height: 320px;
 }
 
+.no-encontrada {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: #fffddd;
+  background-color: #{global.$app-background};
+}
+
+.container-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  img.logo-spinner {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    background-color: #{global.$app-background};
+    margin: 1rem;
+    color: #fffddd;
+    margin-top: 10px;
+    font-size: 1.25rem;
+  }
+
+  ion-spinner {
+    color: #fffddd;
+    margin-bottom: 1rem;
+  }
+}
+
+
 p {
     background:#{global.$text-light};
-    color: #{global.$button-primary-text};
+    color: #{global.$card-background};
     font-size: 1.5rem;
     padding: 0.5rem;
     border-radius: 0.5rem;

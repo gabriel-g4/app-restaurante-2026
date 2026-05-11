@@ -16,8 +16,14 @@
 
   @if (!cargo) {
   <!-- Loading -->
+   <div class="container-spinner">
+    <img class="logo-spinner" src="assets/icon/favicon.png" />
+    <p>Cargando información de mesa...</p>
+    <ion-spinner></ion-spinner>
+  </div>
   } @else if (this.infoMesa === null) {
   <!-- Mesa no encontrada -->
+   <p class="no-encontrada"> La mesa no ha sido encontrada.</p>
   } @else {
   <!-- Mesa encontrada -->
   <section class="info">
