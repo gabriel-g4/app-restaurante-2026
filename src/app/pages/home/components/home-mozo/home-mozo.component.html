@@ -1,5 +1,19 @@
 <div class="action-buttons">
 
+  <ion-button class="action-button" (click)="escanearQR()">
+    <div class="contenido-button">
+      <ion-icon class="icono-personalizado" name="qr-code-outline"></ion-icon>
+      <span>Escanear mesa</span>
+    </div>
+  </ion-button>
+
+  <ion-button class="action-button" (click)="escanearQRDebug()">
+    <div class="contenido-button">
+      <ion-icon class="icono-personalizado" name="qr-code-outline"></ion-icon>
+      <span>Escanear QR DEBUG PC</span>
+    </div>
+  </ion-button>
+
   <ion-button class="action-button" (click)="irAlChat()">
     <div class="contenido-button">
       <ion-icon class="icono-personalizado" name="chatbubbles-outline"></ion-icon>

@@ -6,6 +6,22 @@
   <div class="container">
 
 
+  <div class="action-buttons">
+      <ion-button expand="block" class="action-button" (click)="escanearQR()">
+        <ion-icon slot="start" name="qr-code-outline"></ion-icon>
+        Escanear mesa
+      </ion-button>
+
+    </div>
+
+  <div class="action-buttons">
+      <ion-button expand="block" class="action-button" (click)="escanearQRDebug()">
+        <ion-icon slot="start" name="qr-code-outline"></ion-icon>
+        Escanear QR DEBUG PC
+      </ion-button>
+
+    </div>
+
     <div class="action-buttons">
       <ion-button expand="block" class="action-button" (click)="accederListaDeEspera()">
         <ion-icon slot="start" name="people"></ion-icon>
