@@ -74,4 +74,4 @@ Thumbs.db
 *-debug.log
 .runtimeconfig.json
 
-/android
+android/app/google-services.json
