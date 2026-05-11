@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Información de Mesa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Información de Mesa</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  @if (!cargo) {
+  <!-- Loading -->
+  } @else if (this.infoMesa === null) {
+  <!-- Mesa no encontrada -->
+  } @else {
+  <!-- Mesa encontrada -->
+  <section class="info">
+    <h1> Mesa {{ this.infoMesa.idMesa }}</h1>
+    <img [src]=this.infoMesa.foto alt="foto de la mesa">
+    <p class="estado"> Disponibilidad <span class="valor">{{this.infoMesa.estado | titlecase }}</span></p>
+    <p class="cantidad"> Cantidad <span class="valor">{{this.infoMesa.comensales }}</span></p>
+    @if (this.infoMesa.tipo == "estandar") {
+    <p class="tipo">Tipo <span class="valor">Estándar</span></p>
+    } @else {
+    <p class="tipo">Tipo <span class="valor">{{ this.infoMesa.tipo | titlecase }}</span></p>
+    }
+
+
+  </section>
+  }
+</ion-content>

@@ -1,0 +1,59 @@
+@use "../../../global.scss";
+
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #{global.$card-background};
+    width: 95dvw;
+    margin: 2rem auto;
+    border-radius: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+img {
+    width: 95%;
+    border-radius: 1rem;
+    width: 370px;
+    height: 320px;
+}
+
+p {
+    background:#{global.$text-light};
+    color: #{global.$button-primary-text};
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+
+    .valor {
+        padding: 0.5rem;
+        font-size: 1.75rem;
+       color: #{global.$button-primary-text};
+    }
+}
+
+
+
+ion-header {
+  --ion-safe-area-top: calc(max(env(safe-area-inset-top), 30px));
+
+  ion-toolbar {
+    padding-top: var(--ion-safe-area-top);
+    min-height: calc(56px + var(--ion-safe-area-top));
+    --background: #{global.$card-background};
+    --color: #{global.$text-light};
+
+    ion-title {
+      font-weight: 500;
+      font-size: 1.5rem;
+    }
+
+    ion-back-button,
+    ion-button {
+      --color: #{global.$text-light};
+    }
+  }
+}

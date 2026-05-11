@@ -67,13 +67,18 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/orders-cocinero/orders-cocinero.page').then( m => m.OrdersCocineroPage)
   },
   {
-    path: '**',
-    redirectTo: 'home',
-  },
-  {
     path: 'pedidos-mozo',
     loadComponent: () => import('./pages/pedidos-mozo/pedidos-mozo.page').then( m => m.PedidosMozoPage)
   },
+  {
+    path: 'informacion-mesa/:idMesa',
+    loadComponent: () => import('./pages/informacion-mesa/informacion-mesa.page').then( m => m.InformacionMesaPage)
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+  },
+
 
 
 

@@ -244,6 +244,33 @@ export class DatabaseService {
     }
   }
 
+  async obtenerMesa(id: number) {
+
+    try {
+      const usersRef = collection(this.firestore, 'mesas');
+
+      const q = query(usersRef, where('idMesa', '==', id));
+
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        return null;
+      }
+
+      querySnapshot.docs.forEach((doc, index) => {
+        console.log(`🔍 Doc ${index}: id=${doc.id}, data=`, doc.data());
+      });
+
+      const mesasData = querySnapshot.docs[0].data();
+
+      return mesasData;
+
+    } catch (error) {
+      console.error("🛑 Error en obtenerMesa:", error);
+      throw error;
+    }
+  }
+
   // 
   async generarIdSecuencial(
     coleccion: string,
