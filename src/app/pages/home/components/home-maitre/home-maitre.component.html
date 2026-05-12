@@ -1,43 +1,27 @@
 
+<div class="action-buttons">
 
+  
 
-
-<ion-content id="main-content" [fullscreen]="true">
-  <div class="container">
-
-
-  <div class="action-buttons">
-      <ion-button expand="block" class="action-button" (click)="escanearQR()">
-        <ion-icon slot="start" name="qr-code-outline"></ion-icon>
-        Escanear mesa
-      </ion-button>
-
+  <ion-button class="action-button" (click)="accederListaDeEspera()">
+    <div class="contenido-button">
+      <ion-icon class="icono-personalizado" name="people"></ion-icon>
+      <span>Lista de espera</span>
     </div>
+  </ion-button>
 
-  <div class="action-buttons">
-      <ion-button expand="block" class="action-button" (click)="escanearQRDebug()">
-        <ion-icon slot="start" name="qr-code-outline"></ion-icon>
-        Escanear QR DEBUG PC
-      </ion-button>
-
+  <ion-button class="action-button" (click)="agregarCliente()">
+    <div class="contenido-button">
+      <ion-icon class="icono-personalizado" name="person-add-outline"></ion-icon>
+      <span>Registrar cliente</span>
     </div>
+  </ion-button>
 
-    <div class="action-buttons">
-      <ion-button expand="block" class="action-button" (click)="accederListaDeEspera()">
-        <ion-icon slot="start" name="people"></ion-icon>
-        Lista de espera
-      </ion-button>
-
+  <ion-button class="action-button" (click)="escanearQR()">
+    <div class="contenido-button">
+      <ion-icon class="icono-personalizado" name="qr-code-outline"></ion-icon>
+      <span>Escanear mesa</span>
     </div>
-    
+  </ion-button>
 
-    <div class="action-buttons">
-      <ion-button expand="block" class="action-button" (click)="agregarCliente()">
-        <ion-icon slot="start" name="person-add-outline"></ion-icon>
-        Registrar cliente
-      </ion-button>
-
-    </div>
-
-  </div>
-</ion-content>
+</div>

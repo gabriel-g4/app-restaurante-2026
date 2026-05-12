@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonButton, IonIcon, AlertController } from '@ionic/angular/standalone';
+import { IonButton, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chatbubblesOutline,
@@ -22,9 +22,7 @@ import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 })
 export class HomeMozoComponent implements OnInit {
 
-  qrDEBUG: any;
-
-  constructor(private router: Router, private alertController: AlertController, private dialogService: DialogService) {
+  constructor(private router: Router, private dialogService: DialogService) {
     addIcons({
       chatbubblesOutline,
       qrCodeOutline,
@@ -44,60 +42,6 @@ export class HomeMozoComponent implements OnInit {
     this.router.navigate(['/chat']);
   }
 
-  async escanearQRDebug() {
-      try {
-        const alert = await this.alertController.create({
-          header: 'Ingresar QR',
-  
-          inputs: [
-            {
-              name: 'qr',
-              type: 'text',
-              placeholder: 'Escribí el valor'
-            }
-          ],
-  
-          buttons: [
-            {
-              text: 'Cancelar',
-              role: 'cancel'
-            },
-            {
-              text: 'Aceptar'
-            }
-          ]
-        });
-  
-        await alert.present();
-  
-        const resultado = await alert.onDidDismiss();
-  
-        this.qrDEBUG = resultado.data?.values?.qr;
-  
-        console.log('Valor del QR escaneado:', this.qrDEBUG);
-  
-        if (!this.qrDEBUG) {
-          throw new Error('QR vacío.');
-        }
-  
-  
-        if (this.qrDEBUG!.startsWith('mesa_')) {
-          await this.manejarQRMesa(this.qrDEBUG!);
-          return;
-        }
-  
-        // QR no reconocido
-        await Haptics.impact({ style: ImpactStyle.Heavy });
-        this.dialogService.presentToast('QR no reconocido.', 'danger');
-      } catch (error) {
-        console.error('Error al intentar escanear el QR', error);
-        await Haptics.impact({ style: ImpactStyle.Heavy });
-        this.dialogService.presentToast(
-          'Error al intentar escanear el QR.',
-          'danger'
-        );
-      }
-    }
   
     async escanearQR() {
       try {

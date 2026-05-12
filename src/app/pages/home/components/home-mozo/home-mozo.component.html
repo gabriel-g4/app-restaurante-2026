@@ -1,16 +1,9 @@
 <div class="action-buttons">
 
-  <ion-button class="action-button" (click)="escanearQR()">
+  <ion-button class="action-button" (click)="navegar('pedidos-mozo')">
     <div class="contenido-button">
-      <ion-icon class="icono-personalizado" name="qr-code-outline"></ion-icon>
-      <span>Escanear mesa</span>
-    </div>
-  </ion-button>
-
-  <ion-button class="action-button" (click)="escanearQRDebug()">
-    <div class="contenido-button">
-      <ion-icon class="icono-personalizado" name="qr-code-outline"></ion-icon>
-      <span>Escanear QR DEBUG PC</span>
+      <ion-icon class="icono-personalizado" name="notifications-outline"></ion-icon>
+      <span>Ver Pedidos</span>
     </div>
   </ion-button>
 
@@ -21,13 +14,6 @@
     </div>
   </ion-button>
 
-  <ion-button class="action-button" (click)="navegar('pedidos-mozo')">
-    <div class="contenido-button">
-      <ion-icon class="icono-personalizado" name="notifications-outline"></ion-icon>
-      <span>Ver Pedidos</span>
-    </div>
-  </ion-button>
-
   <ion-button class="action-button" (click)="navegar('confirmar-pagos')">
     <div class="contenido-button">
       <ion-icon class="icono-personalizado" name="cash-outline"></ion-icon>
@@ -35,11 +21,13 @@
     </div>
   </ion-button>
 
-  <ion-button class="action-button" (click)="navegar('escanear-mesa')">
+  <ion-button class="action-button" (click)="escanearQR()">
     <div class="contenido-button">
       <ion-icon class="icono-personalizado" name="qr-code-outline"></ion-icon>
-      <span>Escanear Mesa</span>
+      <span>Escanear mesa</span>
     </div>
   </ion-button>
+
+
 
 </div>

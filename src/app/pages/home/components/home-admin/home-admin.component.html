@@ -2,38 +2,36 @@
   <div class="container">
 
     <div class="action-buttons">
-      <ion-button class="action-button" (click)="escanearQR()">
-    <div class="contenido-button">
-      <ion-icon class="icono-personalizado" name="qr-code-outline"></ion-icon>
-      <span>Escanear mesa</span>
-    </div>
-  </ion-button>
 
-  <ion-button class="action-button" (click)="escanearQRDebug()">
-    <div class="contenido-button">
-      <ion-icon class="icono-personalizado" name="qr-code-outline"></ion-icon>
-      <span>Escanear QR DEBUG PC</span>
-    </div>
-  </ion-button>
-      <ion-button type="button" class="action-button" (click)="agregarEmpleado()">
-        <div clase="contenido-button">
-          <img src="assets/imgs/agregar_empleado.png" class="icono-personalizado" alt="Agregar empleado" />
-          <span>Agregar empleado</span>
-        </div>
-      </ion-button>
-      <ion-button type="button" class="action-button" (click)="agregarMesa()">
-        <div clase="contenido-button">
-          <img src="assets/imgs/agregar_mesa.png" class="icono-personalizado" alt="Agregar mesa" />
-          <span>Agregar mesa</span>
-        </div>
-      </ion-button>
       <ion-button type="button" class="action-button" (click)="gestionarClientes()">
-        <div clase="contenido-button">
+        <div class="contenido-button">
           <img src="assets/imgs/gestionar_clientes.png" class="icono-personalizado" alt="Gestionar clientes" />
           <span>Gestionar clientes</span>
         </div>
       </ion-button>
-    </div>
+    
+      <ion-button class="action-button" (click)="escanearQR()">
+        <div class="contenido-button">
+          <ion-icon class="icono-personalizado" name="qr-code-outline"></ion-icon>
+          <span>Escanear mesa</span>
+        </div>
+      </ion-button>
 
+      <ion-button type="button" class="action-button" (click)="agregarEmpleado()">
+        <div class="contenido-button">
+          <img src="assets/imgs/agregar_empleado.png" class="icono-personalizado" alt="Agregar empleado" />
+          <span>Agregar empleado</span>
+        </div>
+      </ion-button>
+      
+      <ion-button type="button" class="action-button" (click)="agregarMesa()">
+        <div class="contenido-button">
+          <img src="assets/imgs/agregar_mesa.png" class="icono-personalizado" alt="Agregar mesa" />
+          <span>Agregar mesa</span>
+        </div>
+      </ion-button>
+      
+    
+</div>
   </div>
 </ion-content>
