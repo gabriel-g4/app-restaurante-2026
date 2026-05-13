@@ -21,67 +21,37 @@ Primer cuatrimestre 2026
 
 <img src="imgs\icono.png" alt="Icono de la aplicacion" width="50%">
 
-<img src="imgs\splash.png" alt="Splashscreen de la aplicacion" width="33%">
-
-<img 
+<img src="imgs\splash.png" alt="Splashscreen de la aplicacion" width="40%"> <img 
   src="https://github.com/gabriel-g4/app-restaurante-2026/blob/main/imgs/animacion.gif?raw=true" 
   alt="GIF Animación" 
-  width="33%">
+  width="40%">
 
 
-<img src="imgs/login.png" alt="Pantalla de login" width="33%">
+<img src="imgs/login.png" alt="Pantalla de login" width="40%"><img src="imgs/login-cargando.png" alt="Pantalla de carga del login" width="40%">
 
-<img src="imgs/login-cargando.png" alt="Pantalla de carga del login" width="33%">
+<img src="imgs/registro.png" alt="Pantalla de registro" width="40%"><img src="imgs/registro-anonimo.png" alt="Pantalla de registro anónimo" width="40%">
 
-<img src="imgs/registro.png" alt="Pantalla de registro" width="33%">
+<img src="imgs/admin-home.png" alt="Pantalla principal del administrador" width="40%"><img src="imgs/admin-aprobar-clientes.png" alt="Pantalla de aprobar clientes del administrador" width="40%">
 
-<img src="imgs/registro-anonimo.png" alt="Pantalla de registro anónimo" width="33%">
+<img src="imgs/info-mesa.png" alt="Pantalla de información de mesa" width="40%"><img src="imgs/admin-nuevo-empleado.png" alt="Pantalla de nuevo empleado del administrador" width="40%">
 
-<img src="imgs/admin-home.png" alt="Pantalla principal del administrador" width="33%">
+<img src="imgs/admin-nueva-mesa.png" alt="Pantalla de nueva mesa del administrador" width="40%"><img src="imgs/cantinero-home.png" alt="Pantalla principal del cantinero" width="40%">
 
-<img src="imgs/admin-aprobar-clientes.png" alt="Pantalla de aprobar clientes del administrador" width="33%">
+<img src="imgs/cantinero-nueva-bebida.png" alt="Pantalla de nueva bebida del cantinero" width="40%"><img src="imgs/cocinero-home.png" alt="Pantalla principal del cocinero" width="40%">
 
-<img src="imgs/info-mesa.png" alt="Pantalla de información de mesa" width="33%">
+<img src="imgs/cocinero-nuevo-plato.png" alt="Pantalla de nuevo plato del cocinero" width="40%"><img src="imgs/cocinero-pedidos.png" alt="Pantalla de pedidos del cocinero" width="40%">
 
-<img src="imgs/admin-nuevo-empleado.png" alt="Pantalla de nuevo empleado del administrador" width="33%">
+<img src="imgs/cocinero-pedidos-2.png" alt="Pantalla de pedidos del cocinero" width="40%"><img src="imgs/cliente-home.png" alt="Pantalla principal del cliente" width="40%">
 
-<img src="imgs/admin-nueva-mesa.png" alt="Pantalla de nueva mesa del administrador" width="33%">
+<img src="imgs/cliente-wait-list.png" alt="Pantalla de lista de espera del cliente" width="40%"><img src="imgs/chat.png" alt="Pantalla de chat" width="40%">
 
-<img src="imgs/cantinero-home.png" alt="Pantalla principal del cantinero" width="33%">
+<img src="imgs/juegos.png" alt="Pantalla de juegos" width="40%"><img src="imgs/juego-calorimetro.png" alt="Juego del calorímetro" width="40%">
 
-<img src="imgs/cantinero-nueva-bebida.png" alt="Pantalla de nueva bebida del cantinero" width="33%">
+<img src="imgs/juego-memotest.png" alt="Juego memotest" width="40%"><img src="imgs/juego-receta.png" alt="Juego de receta" width="40%">
 
-<img src="imgs/cocinero-home.png" alt="Pantalla principal del cocinero" width="33%">
+<img src="imgs/metre-home.png" alt="Pantalla principal del metre" width="40%"><img src="imgs/metre-lista-espera.png" alt="Pantalla de lista de espera del metre" width="40%">
 
-<img src="imgs/cocinero-nuevo-plato.png" alt="Pantalla de nuevo plato del cocinero" width="33%">
-
-<img src="imgs/cocinero-pedidos.png" alt="Pantalla de pedidos del cocinero" width="33%">
-
-<img src="imgs/cocinero-pedidos-2.png" alt="Pantalla de pedidos del cocinero" width="33%">
-
-<img src="imgs/cliente-home.png" alt="Pantalla principal del cliente" width="33%">
-
-<img src="imgs/cliente-wait-list.png" alt="Pantalla de lista de espera del cliente" width="33%">
-
-<img src="imgs/chat.png" alt="Pantalla de chat" width="33%">
-
-<img src="imgs/juegos.png" alt="Pantalla de juegos" width="33%">
-
-<img src="imgs/juego-calorimetro.png" alt="Juego del calorímetro" width="33%">
-
-<img src="imgs/juego-memotest.png" alt="Juego memotest" width="33%">
-
-<img src="imgs/juego-receta.png" alt="Juego de receta" width="33%">
-
-<img src="imgs/metre-home.png" alt="Pantalla principal del metre" width="33%">
-
-<img src="imgs/metre-lista-espera.png" alt="Pantalla de lista de espera del metre" width="33%">
-
-<img src="imgs/mozo-home.png" alt="Pantalla principal del mozo" width="33%">
-
-<img src="imgs/mozo-pedidos.png" alt="Pantalla de pedidos del mozo" width="33%">
-
-<img src="imgs/supervisor-home.png" alt="Pantalla principal del supervisor" width="33%">
+<img src="imgs/mozo-home.png" alt="Pantalla principal del mozo" width="40%"><img src="imgs/mozo-pedidos.png" alt="Pantalla de pedidos del mozo" width="40%">
 
 ##  Tareas a desarrollar
 
