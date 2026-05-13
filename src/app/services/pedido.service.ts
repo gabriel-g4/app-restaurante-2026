@@ -183,7 +183,7 @@ export class PedidoService {
       }));
     } catch (error) {
       console.error('Error al obtener pedidos:', error);
-      this.mostrarToast('Error al cargar pedidos', 'danger');
+      this.mostrarToast('Error al cargar pedidos (obtenerPedidosHechos)', 'danger');
       return [];
     }
   }
@@ -242,7 +242,7 @@ export class PedidoService {
       },
       (error) => {
         console.error('Error en suscripción:', error);
-        this.mostrarToast('Error al cargar pedidos', 'danger');
+        this.mostrarToast('Error al cargar pedidos (suscribirAPedidos)', 'danger');
       }
     );
   }
@@ -274,7 +274,7 @@ export class PedidoService {
       }));
     } catch (error) {
       console.error('Error al obtener pedidos:', error);
-      this.mostrarToast('Error al cargar pedidos', 'danger');
+      this.mostrarToast('Error al cargar pedidos (obtenerPedidosParaPreparacion)', 'danger');
       return [];
     }
   }
@@ -422,7 +422,7 @@ export class PedidoService {
       (error) => {
         console.error('Error en suscripción:', error);
         if (errorCallback) errorCallback(error);
-        this.mostrarToast('Error al cargar pedidos', 'danger');
+        this.mostrarToast('Error al cargar pedidos (suscribirAPedido)', 'danger');
       }
     );
   }
@@ -454,7 +454,7 @@ export class PedidoService {
       (error) => {
         console.error('Error en suscripción:', error);
         if (errorCallback) errorCallback(error);
-        this.mostrarToast('Error al cargar pedidos', 'danger');
+        this.mostrarToast('Error al cargar pedidos (suscribirAPedidosPorUsuario)', 'danger');
       }
     );
   }

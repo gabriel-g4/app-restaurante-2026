@@ -29,10 +29,12 @@
 </ion-content>
 
 <ion-footer>
-  <div style="padding: 10px; text-align: center; background-color: var(--ion-color-light);">
-    <button id="log-out-button" (click)="cerrarSesion()" style="padding: 10px 20px; cursor: pointer; border: none;">
-      <ion-icon id="log-out-icon" name="power" style="font-size: 24px; vertical-align: middle;"></ion-icon>
-      <span style="vertical-align: middle; margin-left: 8px;">Cerrar Sesión</span>
-    </button>
-  </div>
+  <ion-toolbar>
+    <div style="text-align:center;">
+      <button id="log-out-button" (click)="cerrarSesion()">
+        <ion-icon name="power"></ion-icon>
+        <span>Cerrar Sesión</span>
+      </button>
+    </div>
+  </ion-toolbar>
 </ion-footer>

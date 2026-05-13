@@ -11,21 +11,77 @@ Primer cuatrimestre 2026
 * Octavio Villegas
 * Alejandro Loredo
 
-## Integrantes
+### Integrantes
+
 ### Gabriel García (gbgarcia642@gmail.com)
 ### Anahí González (anahigonzalezj@gmail.com)
 ### Mariano Novak (marianogarcianovak@gmail.com)
 
-## Ícono y splash
+## Galería de imágenes
 
 <img src="imgs\icono.png" alt="Icono de la aplicacion" width="50%">
 
-<img src="imgs\splash.png" alt="Splashscreen de la aplicacion" width="50%">
+<img src="imgs\splash.png" alt="Splashscreen de la aplicacion" width="40%">
 
 <img 
   src="https://github.com/gabriel-g4/app-restaurante-2026/blob/main/imgs/animacion.gif?raw=true" 
   alt="GIF Animación" 
-  width="50%">
+  width="40%">
+
+
+<img src="imgs/login.png" alt="Pantalla de login" width="40%">
+
+<img src="imgs/login-cargando.png" alt="Pantalla de carga del login" width="40%">
+
+<img src="imgs/registro.png" alt="Pantalla de registro" width="40%">
+
+<img src="imgs/registro-anonimo.png" alt="Pantalla de registro anónimo" width="40%">
+
+<img src="imgs/admin-home.png" alt="Pantalla principal del administrador" width="40%">
+
+<img src="imgs/admin-aprobar-clientes.png" alt="Pantalla de aprobar clientes del administrador" width="40%">
+
+<img src="imgs/info-mesa.png" alt="Pantalla de información de mesa" width="40%">
+
+<img src="imgs/admin-nuevo-empleado.png" alt="Pantalla de nuevo empleado del administrador" width="40%">
+
+<img src="imgs/admin-nueva-mesa.png" alt="Pantalla de nueva mesa del administrador" width="40%">
+
+<img src="imgs/cantinero-home.png" alt="Pantalla principal del cantinero" width="40%">
+
+<img src="imgs/cantinero-nueva-bebida.png" alt="Pantalla de nueva bebida del cantinero" width="40%">
+
+<img src="imgs/cocinero-home.png" alt="Pantalla principal del cocinero" width="40%">
+
+<img src="imgs/cocinero-nuevo-plato.png" alt="Pantalla de nuevo plato del cocinero" width="40%">
+
+<img src="imgs/cocinero-pedidos.png" alt="Pantalla de pedidos del cocinero" width="40%">
+
+<img src="imgs/cocinero-pedidos-2.png" alt="Pantalla de pedidos del cocinero" width="40%">
+
+<img src="imgs/cliente-home.png" alt="Pantalla principal del cliente" width="40%">
+
+<img src="imgs/cliente-wait-list.png" alt="Pantalla de lista de espera del cliente" width="40%">
+
+<img src="imgs/chat.png" alt="Pantalla de chat" width="40%">
+
+<img src="imgs/juegos.png" alt="Pantalla de juegos" width="40%">
+
+<img src="imgs/juego-calorimetro.png" alt="Juego del calorímetro" width="40%">
+
+<img src="imgs/juego-memotest.png" alt="Juego memotest" width="40%">
+
+<img src="imgs/juego-receta.png" alt="Juego de receta" width="40%">
+
+<img src="imgs/metre-home.png" alt="Pantalla principal del metre" width="40%">
+
+<img src="imgs/metre-lista-espera.png" alt="Pantalla de lista de espera del metre" width="40%">
+
+<img src="imgs/mozo-home.png" alt="Pantalla principal del mozo" width="40%">
+
+<img src="imgs/mozo-pedidos.png" alt="Pantalla de pedidos del mozo" width="40%">
+
+<img src="imgs/supervisor-home.png" alt="Pantalla principal del supervisor" width="40%">
 
 ##  Tareas a desarrollar
 
@@ -73,7 +129,41 @@ Primer cuatrimestre 2026
 | Anahí González                                | Solicitar cuenta (funcionalidad)              | -      | -            | -                     | :red_circle:       |
 | Gabriel García                                | Confirmar pago (funcionalidad)                | -      | -            | -                     | :red_circle:       |
 
+## Códigos QR
 
+
+### Lista de espera
+![QR Lista de espera](imgs/qr/wait-list.png)
+
+#### Mesa 1
+![QR Mesa 1](imgs/qr/mesa_1.png)
+
+#### Mesa 2
+![QR Mesa 2](imgs/qr/mesa_2.png)
+
+#### Mesa 3
+![QR Mesa 3](imgs/qr/mesa_3.png)
+
+#### Mesa 4
+![QR Mesa 4](imgs/qr/mesa_4.png)
+
+#### Mesa 5
+![QR Mesa 5](imgs/qr/mesa_5.png)
+
+#### Propina 0
+![QR Propina 0](imgs/qr/propina_0.png)
+
+#### Propina 5
+![QR Propina 5](imgs/qr/propina_5.png)
+
+#### Propina 10
+![QR Propina 10](imgs/qr/propina_10.png)
+
+#### Propina 15
+![QR Propina 15](imgs/qr/propina_15.png)
+
+#### Propina 20
+![QR Propina 20](imgs/qr/propina_20.png)
 
 ## Pautas de desarrollo
 

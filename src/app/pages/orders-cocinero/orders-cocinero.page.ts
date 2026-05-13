@@ -97,9 +97,10 @@ export class OrdersCocineroPage implements OnInit {
 
   ngOnDestroy() {
     console.log('[DESTROY] Cancelando suscripción de pedidos...');
-    if (this.unsubscribePedidos) {
-      this.unsubscribePedidos();
-    }
+    // if (this.unsubscribePedidos) {
+      // this.unsubscribePedidos();
+      this.pedidoService.cancelarSuscripcion();
+    // }
   }
 
   suscribirAPedidos() {

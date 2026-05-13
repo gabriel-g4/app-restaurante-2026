@@ -1,11 +1,21 @@
 @use "../../../global.scss";
 
 #log-out-button {
-  --background: #{global.$card-background};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 1rem;
+  background: #{global.$card-background};
   --color: #{global.$text-light};
-  --border-radius: 50%;
-  margin-right: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 1rem;
+  font-size: 1rem;
+  ion-icon{
+    font-size: 1.5rem;
+    color: white;
+  }
 }
 
 .logo-spinner {
@@ -48,4 +58,13 @@ ion-spinner {
 
 #container a {
   text-decoration: none;
+}
+
+ion-footer {
+  --ion-safe-area-bottom: calc(max(env(safe-area-inset-bottom), 20px));
+
+  ion-toolbar {
+    padding-bottom: var(--ion-safe-area-bottom);
+    min-height: calc(80px + var(--ion-safe-area-bottom));
+  }
 }

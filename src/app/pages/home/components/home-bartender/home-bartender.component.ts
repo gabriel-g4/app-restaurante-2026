@@ -19,5 +19,7 @@ export class HomeBartenderComponent  implements OnInit {
     this.router.navigate(['new-beverage']);
   }
 
-  accederPedidosPendientes( ){}
+  accederPedidosPendientes( ){
+    this.router.navigate(['orders-cocinero']);
+  }
 }
