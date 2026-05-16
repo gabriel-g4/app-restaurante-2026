@@ -8,8 +8,9 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular/standalone';
 
 import { Camera } from '@capacitor/camera';
-import { Haptics } from '@capacitor/haptics';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-new-employee',
@@ -26,7 +27,7 @@ export class NewEmployeePage implements OnInit {
   empleadoForm!: FormGroup;
   fotoTomada: string | undefined;
 
-  constructor(private router: Router, private fb: FormBuilder, private toastController: ToastController) {
+  constructor(private router: Router, private dialogService: DialogService, private fb: FormBuilder, private toastController: ToastController) {
     addIcons({ qrCodeOutline, camera, cameraOutline });
   }
 
@@ -145,19 +146,17 @@ export class NewEmployeePage implements OnInit {
     if (this.empleadoForm.invalid) {
       this.empleadoForm.markAllAsTouched();
 
-      await Haptics.vibrate();
-      const toast = await this.toastController.create({
-        message: 'Por favor, revisá los campos marcados en rojo.',
-        duration: 3000,
-        color: 'danger',
-        position: 'bottom'
-      });
-      await toast.present();
+      await Haptics.impact({ style: ImpactStyle.Heavy })
+      this.dialogService.presentToast(
+        'Complete todos los campos.',
+        'warning'
+      );
 
       return;
     }
 
     console.log('¡Formulario válido! Datos listos para Firebase:', this.empleadoForm.value);
+
     // this.firebaseService.guardarEmpleado(this.empleadoForm.value);
   }
 }

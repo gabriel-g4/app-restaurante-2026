@@ -128,8 +128,6 @@ export class RegisterPage implements OnInit {
     if (this.formularioAlta.valid && this.selectedFile) {
       const { nombre, email, password, esAnonimo } = this.formularioAlta.value;
 
-
-
       if (
         typeof nombre === 'string' &&
         typeof email === 'string' &&

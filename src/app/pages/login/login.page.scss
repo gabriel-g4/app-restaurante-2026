@@ -5,10 +5,8 @@ $breakpoint-small-mobile: 360px;
 
 ion-content {
   --background: #{global.$app-background};
-  /* Rich Cerulean */
 }
 
-/* Caja flex que agrupa y centra todo verticalmente impidiendo desplazamientos raros */
 .login-container {
   display: flex;
   flex-direction: column;
@@ -110,7 +108,7 @@ ion-input {
   .modal-header {
     padding: 1.5rem;
     text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.1);
 
     h2 {
       margin: 0;
@@ -132,6 +130,7 @@ ion-input {
 
     ion-item {
       --background: transparent;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       --color: #{global.$text-light};
       margin-bottom: 4px;
       --background-hover: rgba(255, 255, 255, 0.04);
