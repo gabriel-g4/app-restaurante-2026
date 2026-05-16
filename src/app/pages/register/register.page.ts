@@ -39,6 +39,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NotificationSenderService } from 'src/app/services/notification-sender.service';
 import { Client } from 'src/app/classes/client';
 import { SpinnerModalComponent } from 'src/app/components/spinner-modal/spinner-modal.component';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 
 export const passwordsMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
@@ -127,7 +128,7 @@ export class RegisterPage implements OnInit {
     if (this.formularioAlta.valid && this.selectedFile) {
       const { nombre, email, password, esAnonimo } = this.formularioAlta.value;
 
-      
+
 
       if (
         typeof nombre === 'string' &&
@@ -200,28 +201,35 @@ export class RegisterPage implements OnInit {
         }
       }
     }
+    else {
+      await Haptics.impact({ style: ImpactStyle.Heavy })
+      this.dialogService.presentToast(
+        'Complete todos los campos.',
+        'warning'
+      );
+    }
   }
 
   async escanearQR() {
-  
-      try {
-        const { camera } = await BarcodeScanner.requestPermissions();
-        if (camera !== 'granted' && camera !== 'limited') {
-          console.error('Permiso de cámara denegado para el escáner');
-          return;
-        }
-  
-        const { barcodes } = await BarcodeScanner.scan();
-  
-        if (barcodes.length > 0) {
-          this.qrCode = barcodes[0].rawValue || "";
-          this.onScanQrCode();
-        }
-      } catch (error) {
-        console.error('Error al intentar escanear el DNI', error);
+
+    try {
+      const { camera } = await BarcodeScanner.requestPermissions();
+      if (camera !== 'granted' && camera !== 'limited') {
+        console.error('Permiso de cámara denegado para el escáner');
+        return;
       }
+
+      const { barcodes } = await BarcodeScanner.scan();
+
+      if (barcodes.length > 0) {
+        this.qrCode = barcodes[0].rawValue || "";
+        this.onScanQrCode();
+      }
+    } catch (error) {
+      console.error('Error al intentar escanear el DNI', error);
     }
-  
+  }
+
 
   onScanQrCode() {
     const qrString = this.qrCode;

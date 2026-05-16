@@ -4,7 +4,6 @@
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
 
-    <!-- agrandar  el texto de aca-->
     <ion-title class="ion-text-center">Registro</ion-title>
 
     <ion-buttons slot="end">
@@ -16,11 +15,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Registrarse</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
 
   <section id="cart-section" [formGroup]="formularioAlta">
     <div class="container">
@@ -32,77 +26,67 @@
               <ion-label>¿Cliente anónimo?</ion-label>
             </div>
             <div class="log-in-area column">
-              
+
               <label class="column">
                 Nombre
-                <input type="text" formControlName="nombre" id="nombre" (input)="soloLetras($event)" [class.input-error]="formularioAlta.get('nombre')?.invalid && formularioAlta.get('nombre')?.touched"/>
+                <input type="text" formControlName="nombre" id="nombre" (input)="soloLetras($event)"
+                  [class.input-error]="formularioAlta.get('nombre')?.invalid && formularioAlta.get('nombre')?.touched" />
               </label>
 
               @if (!formularioAlta.get('esAnonimo')?.value) {
 
-                <label class="column">
-                  Apellido
-                  <input type="text" formControlName="apellido" id="apellido"  (input)="soloLetras($event)" [class.input-error]="formularioAlta.get('apellido')?.invalid && formularioAlta.get('apellido')?.touched"/>
-                </label>
+              <label class="column">
+                Apellido
+                <input type="text" formControlName="apellido" id="apellido" (input)="soloLetras($event)"
+                  [class.input-error]="formularioAlta.get('apellido')?.invalid && formularioAlta.get('apellido')?.touched" />
+              </label>
 
-                <label class="column">
-                  DNI
-                  <input [class.input-error]="formularioAlta.get('dni')?.invalid && formularioAlta.get('dni')?.touched"
-                      type="text" 
-                      formControlName="dni" 
-                      id="dni" 
-                      minlength="8" 
-                      maxlength="8" 
-                      (input)="soloNumeros($event)" />
-                </label>
+              <label class="column">
+                DNI
+                <input [class.input-error]="formularioAlta.get('dni')?.invalid && formularioAlta.get('dni')?.touched"
+                  type="text" formControlName="dni" id="dni" minlength="8" maxlength="8"
+                  (input)="soloNumeros($event)" />
+              </label>
 
-                <label class="column">
-                  Correo electrónico
-                  <input type="email" formControlName="email" id="email" [class.input-error]="formularioAlta.get('email')?.invalid && formularioAlta.get('email')?.touched" />
-                </label>
+              <label class="column">
+                Correo electrónico
+                <input type="email" formControlName="email" id="email"
+                  [class.input-error]="formularioAlta.get('email')?.invalid && formularioAlta.get('email')?.touched" />
+              </label>
 
-                <label class="column">
-                  Contraseña
-                  <input
+              <label class="column">
+                Contraseña
+                <input
                   [class.input-error]="(formularioAlta.get('password')?.invalid || formularioAlta.getError('passwordsMismatch')) && formularioAlta.get('password')?.touched"
-                    type="password"
-                    formControlName="password"
-                    id="password"
-                  />
-                </label>
+                  type="password" formControlName="password" id="password" />
+              </label>
 
-                <label class="column">
-                  Repetir Contraseña
-                  <input
+              <label class="column">
+                Repetir Contraseña
+                <input
                   [class.input-error]="(formularioAlta.get('repeatPassword')?.invalid || formularioAlta.getError('passwordsMismatch')) && formularioAlta.get('repeatPassword')?.touched "
-                    type="password"
-                    formControlName="repeatPassword"
-                    id="repeatPassword"
-                  />
-                </label>
+                  type="password" formControlName="repeatPassword" id="repeatPassword" />
+              </label>
 
               }
 
 
-               <label class="column">
+              <label class="column">
                 Tomar foto
-              
+
                 @if (imagenPreview) {
-                  <img [src]="imagenPreview" alt="Vista previa" id="img-preview">
+                <img [src]="imagenPreview" alt="Vista previa" id="img-preview">
                 } @else {
-                  <div id="img-tomar" (click)="tomarFoto()">
-                    <ion-icon slot="icon-only" name="camera">
-                    </ion-icon>
-                  </div>
+                <div id="img-tomar" (click)="tomarFoto()">
+                  <ion-icon slot="icon-only" name="camera">
+                  </ion-icon>
+                </div>
                 }
               </label>
             </div>
 
             <div class="button-area column">
-              <button
-                (click)="handleRegister()"
-                [disabled]="formularioAlta.invalid || !selectedFile"
-              >
+              <button (click)="handleRegister()">
                 Registrarse
               </button>
             </div>
