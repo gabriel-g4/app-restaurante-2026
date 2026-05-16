@@ -5,14 +5,15 @@ import { ToastController, AlertController } from '@ionic/angular/standalone';
   providedIn: 'root',
 })
 export class DialogService {
-  constructor(private toastController: ToastController, private alertController: AlertController) {}
+  constructor(private toastController: ToastController, private alertController: AlertController) { }
 
   async presentToast(message: string, color: string = 'primary', duration: number = 2000) {
     const toast = await this.toastController.create({
       message,
       duration,
       color,
-      position: 'middle'
+      position: 'bottom',
+      cssClass: 'mi-toast'
     });
     await toast.present();
   }

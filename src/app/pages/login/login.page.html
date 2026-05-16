@@ -1,82 +1,59 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense"></ion-header>
 
-  <img src="assets/icon/favicon.png" alt="Logo" class="logo" width="150" height="150" loading="lazy" />
-  <h1 id="title">Iniciar sesión</h1>
+  <div class="login-container">
+    <img src="assets/icon/favicon.png" alt="Logo" class="logo" />
+    <h1 id="title">Iniciar sesión</h1>
 
-  <form [formGroup]="loginForm" class="login" (ngSubmit)="IniciarSesion()">
+    <form [formGroup]="loginForm" class="login" (ngSubmit)="IniciarSesion()">
+      <div class="input-container">
+        <ion-input aria-label="Correo electrónico" type="email" placeholder="Correo electrónico" autocomplete="email"
+          required fill="outline" formControlName="email"></ion-input>
 
-    <div class="input-container">
-      <ion-input aria-label="Correo electrónico" type="email" placeholder="Correo electrónico" autocomplete="email"
-        required fill="outline" formControlName="email"></ion-input>
-
-      <ion-input mode="md" aria-label="Contraseña" type="password" placeholder="Contraseña" autocomplete="password"
-        required fill="outline" formControlName="password">
-        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-      </ion-input>
-    </div>
-
-    <ion-button type="submit" class="boton-inicio">Iniciar sesión</ion-button>
-  </form>
-
-  <section class="seccion-registro">
-    <ion-button class="boton-registro" (click)="irARegistro()">Registrarse</ion-button>
-  </section>
-
-  <ion-segment id="segments" value="owner">
-    <ion-segment-button value="owner" content-id="owner">
-      <ion-label>Dueños</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="worker" content-id="worker">
-      <ion-label>Empleados</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="customer" content-id="customer">
-      <ion-label>Clientes</ion-label>
-    </ion-segment-button>
-  </ion-segment>
-
-  <ion-segment-view>
-    <ion-segment-content id="owner">
-      <div class="segment-buttons">
-        <ion-button shape="round" color="primary" (click)="autoCompleteLogin('duenio@apprestaurante.com', '111111')">
-          Dueño
-        </ion-button>
-        <ion-button shape="round" color="primary"
-          (click)="autoCompleteLogin('supervisor@apprestaurante.com', '111111')">
-          Supervisor
-        </ion-button>
+        <ion-input mode="md" aria-label="Contraseña" type="password" placeholder="Contraseña" autocomplete="password"
+          required fill="outline" formControlName="password">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
       </div>
-    </ion-segment-content>
 
-    <ion-segment-content id="worker">
-      <div class="segment-buttons">
-        <ion-button shape="round" color="secondary" (click)="autoCompleteLogin('metre@apprestaurante.com', '111111')">
-          Metre
-        </ion-button>
-        <ion-button shape="round" color="secondary" (click)="autoCompleteLogin('mozo@apprestaurante.com', '111111')">
-          Mozo
-        </ion-button>
-        <ion-button shape="round" color="tertiary" (click)="autoCompleteLogin('cocinero@apprestaurante.com', '111111')">
-          Cocinero
-        </ion-button>
-        <ion-button shape="round" color="tertiary"
-          (click)="autoCompleteLogin('cantinero@apprestaurante.com', '111111')">
-          Cantinero
-        </ion-button>
-      </div>
-    </ion-segment-content>
+      <ion-button type="submit" class="boton-inicio">Iniciar sesión</ion-button>
+    </form>
 
-    <ion-segment-content id="customer">
-      <div class="segment-buttons">
-        <ion-button shape="round" color="secondary" (click)="autoCompleteLogin('cliente@cliente.com', '111111')">
-          Cliente #1
-        </ion-button>
-        <ion-button shape="round" color="secondary" (click)="autoCompleteLogin('anonimo@anonimo.com', '111111')">
-          Cliente anónimo
-        </ion-button>
-      </div>
-    </ion-segment-content>
+    <section class="seccion-registro">
+      <ion-button class="boton-registro" (click)="irARegistro()">Registrarse</ion-button>
+    </section>
 
-  </ion-segment-view>
+    <section class="seccion-acceso-rapido">
+      <ion-button id="open-fast-access" class="boton-cuentas" fill="clear">
+        <ion-icon slot="start" name="people-circle-outline"></ion-icon>
+        Inicio rápido
+      </ion-button>
+    </section>
+  </div>
 
+  <ion-modal trigger="open-fast-access" [initialBreakpoint]="0.55" [breakpoints]="[0, 0.55, 0.85]"
+    class="google-bottom-sheet">
+    <ng-template>
+      <ion-content>
+        <div class="modal-header">
+          <h2>Selecciona una cuenta</h2>
+          <p>Perfiles de evaluación rápida</p>
+        </div>
+
+        <ion-list lines="none" class="perfiles-list">
+          @for (perfil of perfilesPrueba; track perfil.email) {
+          <ion-item button (click)="seleccionarPerfil(perfil)" detail="false">
+            <ion-avatar slot="start">
+              <img [src]="perfil.foto" [alt]="perfil.nombre">
+            </ion-avatar>
+            <ion-label>
+              <h3>{{ perfil.nombre }}</h3>
+              <p>{{ perfil.email }}</p>
+            </ion-label>
+          </ion-item>
+          }
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

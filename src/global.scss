@@ -74,8 +74,9 @@ span {
 
 ion-alert.mi-alerta {
   .alert-message.sc-ion-alert-md {
-    color:white;
+    color: white;
   }
+
   .alert-radio-label.sc-ion-alert-md {
     color:#{$text-light} !important;
   }
@@ -91,4 +92,23 @@ h2,
 h3,
 ion-content {
   font-family: 'Poppins', sans-serif !important;
+}
+
+ion-toast.mi-toast {
+  margin-bottom: env(safe-area-inset-bottom, 20px);
+
+  --border-radius: 16px;
+  --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+
+  &::part(message) {
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 15px;
+    letter-spacing: 0.3px;
+  }
+
+  &::part(button) {
+    font-weight: bold;
+  }
 }
