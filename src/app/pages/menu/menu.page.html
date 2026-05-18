@@ -1,0 +1,120 @@
+<ion-header class="custom-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- <ion-menu-button></ion-menu-button> -->
+      <ion-back-button defaultHref="home"> </ion-back-button>
+    </ion-buttons>
+    <ion-title class="header-title">Menú</ion-title>
+
+
+    <ion-buttons slot="end">
+      @if (!deliveryMode) {
+        <ion-button (click)="abrirConsulta()">
+          <ion-icon slot="icon-only" name="chatbubbles-outline"></ion-icon>
+        </ion-button>
+      }
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="main-content" [fullscreen]="true">
+  @if (loading) {
+    <div class="loading-backdrop">
+      <div class="loading-spinner"><ion-spinner name="crescent"></ion-spinner></div>
+    </div>
+  }
+  <div class="category-header">
+    <ion-segment [(ngModel)]="segment" value="comida">
+      <ion-segment-button value="comida">
+        <ion-label class="segment-label">COMIDAS</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="bebida">
+        <ion-label class="segment-label">BEBIDAS</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="postre">
+        <ion-label class="segment-label">POSTRES</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  @for (tipo of ['comida', 'bebida', 'postre']; track tipo) {
+    @if (segment === tipo) {
+      <div class="swiper-container-wrapper">
+        <swiper-container 
+          [slidesPerView]="1" 
+          [spaceBetween]="16"
+          [scrollbar]="true"
+          class="main-swiper">
+
+          @for (producto of productosFiltrados[tipo]; track producto.id) {
+            <swiper-slide>
+              <ion-card class="product-card">
+                <div class="image-container">
+                  <swiper-container 
+                    [pagination]="true" 
+                    class="image-slider" 
+                    nested="true">
+                    @for (foto of producto.fotos; track $index) {
+                      <swiper-slide>
+                        <img [src]="foto" class="product-image" onError="this.src='assets/imgs/default-food.png'">
+                      </swiper-slide>
+                    }
+                  </swiper-container>
+                </div>
+    
+                <ion-card-header>
+                  <ion-card-title class="product-name">{{producto.nombre}}</ion-card-title>
+                  <ion-card-subtitle class="product-detail">{{producto.detalle}}</ion-card-subtitle>
+    
+                  <div class="info-row">
+                    <div>
+                      <span class="time-label">Tiempo: <span class="product-time">{{producto.tiempo}} min</span></span>
+                    </div>
+                    <div>
+                      <span class="price-label">Precio: <span class="product-price">${{producto.precio}}</span></span>
+                    </div>
+                  </div>
+                </ion-card-header>
+    
+                <ion-card-content>
+                  <div class="quantity-controls">
+                    <ion-button fill="clear" (click)="decrementarCantidad(producto)" [disabled]="!producto.cantidad || producto.cantidad <= 0">
+                      <ion-icon name="remove" slot="icon-only"></ion-icon>
+                    </ion-button>
+                    <div class="quantity-display">{{producto.cantidad || 0}}</div>
+                    <ion-button fill="clear" (click)="incrementarCantidad(producto)">
+                      <ion-icon name="add" slot="icon-only"></ion-icon>
+                    </ion-button>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </swiper-slide>
+          }
+        </swiper-container>
+      </div>
+    }
+  }
+
+  <div class="detail-section">
+    <div class="summary-info">
+      <div class="max-time">Tiempo estimado: <span>{{calcularTiempoMaximo()}} min</span></div>
+      <div class="total-price">Total: <span>${{calcularTotal()}}</span></div>
+    </div>
+
+    <!-- Botón para pedido en mesa -->
+    @if (!deliveryMode) {
+      <ion-button class="detail-button" expand="block" (click)="verDetallePedido()">
+        <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+        Ver Detalles del Pedido
+      </ion-button>
+    }
+
+    <!-- Botón para pedido de delivery -->
+    @if (deliveryMode) {
+      <ion-button class="detail-button" color="success" expand="block" (click)="realizarPedidoDelivery()">
+        <ion-icon name="bicycle-outline" slot="start"></ion-icon>
+        Realizar Pedido de Delivery
+      </ion-button>
+    }
+  </div>
+</ion-content>

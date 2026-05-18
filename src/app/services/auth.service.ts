@@ -10,6 +10,8 @@ export class AuthService {
   usuario$ = authState(this.auth);
   private rolActual: string = '';
 
+  user: any | null = null;
+
   constructor(private auth: Auth, private firestore: Firestore) { }
 
   iniciarSesionConContrasenia(correo: string, contrasenia: string) {
@@ -21,7 +23,7 @@ export class AuthService {
   }
 
   async cerrarSesion() {
-     const user = this.auth.currentUser;
+    const user = this.auth.currentUser;
 
     if (user) {
 
@@ -46,6 +48,10 @@ export class AuthService {
   getCurrentUser(): any {
     return this.auth.currentUser;
   }
+
+  getCurrentUserId(): string | null {
+  return this.auth.currentUser?.uid || null;
+}
 
   async getCurrentUserAsync(): Promise<any> {
     return new Promise(resolve => {

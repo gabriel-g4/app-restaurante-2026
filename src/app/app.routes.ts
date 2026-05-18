@@ -75,9 +75,14 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/informacion-mesa/informacion-mesa.page').then( m => m.InformacionMesaPage)
   },
   {
+    path: 'menu',
+    loadComponent: () => import('./pages/menu/menu.page').then( m => m.MenuPage)
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },
+
 
 
 

@@ -16,7 +16,8 @@ import {
   getDoc,
   docData,
   and,
-  or
+  or,
+  writeBatch
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
@@ -332,6 +333,70 @@ export class DatabaseService {
     }
   }
 
+  async actualizarEstadoMesasPorReservasVencidas() {
+    const ahora = new Date();
+    const umbralCancelacion = new Date(ahora.getTime() - 45 * 60 * 1000); // 45 minutos en el pasado
+
+    const reservasRef = collection(this.firestore, 'reservas');
+    // Buscamos reservas 'Confirmadas' que debieron empezar antes del umbral de tiempo.
+    // El estado 'Confirmada' implica que el cliente aún no ha llegado y escaneado el QR de la mesa.
+    const q = query(
+      reservasRef,
+      where('estado', '==', 'Confirmada'),
+      where('fechaHora', '<=', umbralCancelacion.toISOString())
+    );
+
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      console.log("No hay reservas vencidas para cancelar.");
+      return; // No hay nada que hacer
+    }
+
+    // Usamos un batch para realizar todas las escrituras en una sola operación atómica.
+    const batch = writeBatch(this.firestore);
+
+    snapshot.forEach(docSnap => {
+      const reserva = docSnap.data() as { id?: string, estado: string, mesaId?: string };
+      console.log(`Cancelando reserva vencida para la mesa ${reserva.mesaId}`);
+
+      // 1. Actualizamos la reserva a 'Cancelada'
+      const reservaRef = doc(this.firestore, 'reservas', docSnap.id);
+      batch.update(reservaRef, {
+        estado: 'Cancelada',
+        motivoRechazo: 'Cancelada automáticamente por no presentarse.'
+      });
+
+      // 2. Si tiene una mesa asignada, la liberamos
+      if (reserva.mesaId) {
+        const mesaRef = doc(this.firestore, 'mesas', reserva.mesaId);
+        batch.update(mesaRef, { estado: 'libre' });
+      }
+    });
+
+    // Ejecutamos todas las operaciones del batch
+    await batch.commit();
+    console.log(`Se procesaron y cancelaron ${snapshot.size} reservas vencidas.`);
+}
+
+  async traerColeccion(nombreColeccion: string) {
+    console.log("collectionData:");
+    console.log(collectionData)
+
+    console.log("traer coleccion")
+    console.log(this.firestore)
+    
+    if (nombreColeccion == "mesas") {
+      await this.actualizarEstadoMesasPorReservasVencidas().catch(err => console.error("Error al actualizar estado de mesas:", err));
+    }
+
+    const col = collection(this.firestore, nombreColeccion);
+    console.log(col)
+    console.log("Query path:", (col as any)._query.path.segments);
+
+    return collectionData(col, { idField: 'id' });
+}
+
    async modificarUsuario(usuario: any, coleccion: string) {
     try {
       const docRef = doc(this.firestore, `${coleccion}/${usuario.id}`);
@@ -340,4 +405,52 @@ export class DatabaseService {
       console.error('Error al modificar usuario:', error);
     }
   }
+
+  async traerUltimoPedidoDeCliente(uid: string): Promise<any | null> {
+    try {
+      const colRef = collection(this.firestore, 'pedidos');
+
+      // Traemos pedidos del usuario ordenados por fecha descendente
+      const q = query(
+        colRef,
+        where('idUsuario', '==', uid),
+        // IMPORTANTE: fecha debe ser Timestamp o Date en Firestore
+        orderBy('fecha', 'desc')
+      );
+
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) {
+        return null;
+      }
+
+      const docSnap = snapshot.docs[0];
+      return {
+        id: docSnap.id,
+        ...docSnap.data()
+      };
+
+    } catch (error) {
+      console.error('❌ Error al traer el último pedido del cliente:', error);
+      return null;
+    }
+  }
+
+  async crear(coleccion: string, data: any): Promise<string> {
+    try {
+      const col = collection(this.firestore, coleccion);
+      const docRef = await addDoc(col, data);
+
+      // Opcional: Guardar el ID autogenerado dentro del mismo documento
+      await updateDoc(doc(this.firestore, coleccion, docRef.id), { id: docRef.id });
+
+      console.log('Documento creado exitosamente con ID:', docRef.id);
+      return docRef.id;
+    } catch (error) {
+      console.error(`Error al crear documento en ${coleccion}:`, error);
+      throw error;
+    }
+  }
 }
+
+
