@@ -3,12 +3,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { 
-  IonContent, 
-  IonHeader, 
+import {
+  IonContent,
+  IonHeader,
   IonTitle,
-  IonToolbar, 
-   IonButtons,
+  IonToolbar,
+  IonButtons,
   IonBackButton,
   IonIcon,
   ModalController,
@@ -35,11 +35,11 @@ interface Imagen {
   styleUrls: ['./new-dish.page.scss'],
   standalone: true,
   imports: [
-    IonContent, 
-    IonHeader, 
-    IonTitle, 
-    IonToolbar, 
-    CommonModule, 
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    CommonModule,
     FormsModule,
     IonButtons,
     IonBackButton,
@@ -49,7 +49,7 @@ interface Imagen {
 })
 export class NewDishPage implements OnInit {
 
-  tiposPlato = [ 'postre' , 'comida']
+  tiposPlato = ['postre', 'comida']
   soloNumeros = soloNumeros;
   soloLetras = soloLetras;
   selectedFile: File | null = null;
@@ -75,9 +75,8 @@ export class NewDishPage implements OnInit {
     private modalController: ModalController,
     private storage: StorageService,
     private db: DatabaseService,
-  ) 
-  {
-    addIcons( {
+  ) {
+    addIcons({
       qrCodeOutline,
       camera
     })
@@ -87,7 +86,7 @@ export class NewDishPage implements OnInit {
   }
 
   ngAfterViewInit() {
-    
+
   }
 
   async seleccionarFoto(index: number) {
@@ -108,13 +107,13 @@ export class NewDishPage implements OnInit {
     };
   }
 
- 
+
 
   get botonDeshabilitado(): boolean {
-  return this.formularioPlato.invalid || this.imagenes.some(img => !img.file);
-}
+    return this.formularioPlato.invalid || this.imagenes.some(img => !img.file);
+  }
 
-  
+
   async agregarPlato() {
     if (this.botonDeshabilitado) {
       await this.dialogService.presentToast('Complete todos los campos e imágenes antes de registrar el plato.');
@@ -122,10 +121,10 @@ export class NewDishPage implements OnInit {
     }
 
     const loading = await this.modalController.create({
-            component: SpinnerModalComponent,
-            cssClass: 'spinner-modal',
-            backdropDismiss: false
-      });
+      component: SpinnerModalComponent,
+      cssClass: 'spinner-modal',
+      backdropDismiss: false
+    });
     await loading.present();
 
     try {
@@ -165,11 +164,11 @@ export class NewDishPage implements OnInit {
       ];
 
       loading.dismiss();
-      await this.dialogService.presentToast('El plato ha sido registrado correctamente.');
+      await this.dialogService.presentToast('El plato ha sido registrado correctamente.', 'success');
     } catch (error) {
       loading.dismiss();
       console.error('Error al registrar plato:', error);
-      await this.dialogService.presentToast('Error al registrar el plato.');
+      await this.dialogService.presentToast('Error al registrar el plato.', 'danger');
     }
   }
 

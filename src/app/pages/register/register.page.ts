@@ -187,14 +187,15 @@ export class RegisterPage implements OnInit {
             this.router.navigate(['/home'])
           } else {
             await this.dialogService.presentToast(
-              'Cliente registrado con éxito. Pendiente de aprobación.'
+              'Cliente registrado con éxito. Pendiente de aprobación.', 'success'
             );
           }
 
         } catch (error) {
           loading.dismiss();
           await this.dialogService.presentToast(
-            'Error al registrarse. Por favor, intenta de nuevo.'
+            'Error al registrarse. Por favor, intenta de nuevo.',
+            'danger'
           );
         }
       }

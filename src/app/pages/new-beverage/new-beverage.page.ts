@@ -25,16 +25,16 @@ interface Imagen {
 })
 export class NewBeveragePage implements OnInit {
 
-    soloLetras = soloLetras;
-    soloNumeros = soloNumeros;
-    selectedFile: File | null = null;
-    imagenPreview: string | null = null;
-    imagenes: Imagen[] = [
-      { file: null, preview: null },
-      { file: null, preview: null },
-      { file: null, preview: null },
-    ];
-    formularioBebida = new FormGroup({
+  soloLetras = soloLetras;
+  soloNumeros = soloNumeros;
+  selectedFile: File | null = null;
+  imagenPreview: string | null = null;
+  imagenes: Imagen[] = [
+    { file: null, preview: null },
+    { file: null, preview: null },
+    { file: null, preview: null },
+  ];
+  formularioBebida = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
     descripcion: new FormControl('', [Validators.required]),
     tiempo: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
@@ -46,27 +46,27 @@ export class NewBeveragePage implements OnInit {
     private db: DatabaseService,
     private storage: StorageService) {
 
-        
-    addIcons( {
+
+    addIcons({
       qrCodeOutline,
       camera
     })
-    }
+  }
 
   ngOnInit() {
   }
 
-  ngAfterViewInit() {  
+  ngAfterViewInit() {
   }
 
   async seleccionarFoto(index: number) {
-    try { 
-    const image = await Camera.getPhoto({
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Prompt,
-      quality: 90,
-      
-    });
+    try {
+      const image = await Camera.getPhoto({
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Prompt,
+        quality: 90,
+
+      });
 
       const base64 = image.dataUrl!.split(',')[1];
       const blob = new Blob([Uint8Array.from(atob(base64), c => c.charCodeAt(0))], {
@@ -79,63 +79,63 @@ export class NewBeveragePage implements OnInit {
       };
     } catch (error: any) {
       if (error.message === 'User cancelled photos app') {
-      console.log('El usuario canceló la selección de la foto.');
-    } else {
-      console.error('Ocurrió un problema al abrir la cámara:', error);
-    }
-    }
-  }
-
-  
-  get botonDeshabilitado(): boolean {
-  return this.formularioBebida.invalid || this.imagenes.some(img => !img.file);
-}
-
- async agregarBebida() {
-  if (this.botonDeshabilitado) {
-    await this.dialogService.presentToast('Complete todos los campos e imágenes antes de registrar el plato.');
-    return;
-  }
-
-  try {
-    const fotosUrls: string[] = []; //subir imagenes
-    for (let i = 0; i < this.imagenes.length; i++) {
-      const img = this.imagenes[i];
-      if (img.file) {
-        // Suponiendo que tienes un método storage.uploadImage()
-        const url = await this.storage.uploadImage(img.file);
-        fotosUrls.push(url ?? '');
+        console.log('El usuario canceló la selección de la foto.');
+      } else {
+        console.error('Ocurrió un problema al abrir la cámara:', error);
       }
     }
-
-    const { nombre = '', descripcion = '', tiempo = 0, precio = 0 } = this.formularioBebida.value;
-    const tipo = 'bebida';
-    const plato = {
-      idProducto: Date.now(),
-      nombre,
-      detalle: descripcion,
-      tiempo: Number(tiempo),
-      precio: Number(precio),
-      tipo,
-      fotos: fotosUrls,
-      push_token: this.formularioBebida.value.push_token || ''
-    };
-
-    await this.db.agregarProducto(plato, 'productos');
-
-    this.formularioBebida.reset(); 
-    this.imagenes = [
-      { file: null, preview: null },
-      { file: null, preview: null },
-      { file: null, preview: null },
-    ];
-
-    await this.dialogService.presentToast('El plato ha sido registrado correctamente.');
-  } catch (error) {
-    console.error('Error al registrar plato:', error);
-    await this.dialogService.presentToast('Error al registrar el plato.');
   }
-}
+
+
+  get botonDeshabilitado(): boolean {
+    return this.formularioBebida.invalid || this.imagenes.some(img => !img.file);
+  }
+
+  async agregarBebida() {
+    if (this.botonDeshabilitado) {
+      await this.dialogService.presentToast('Complete todos los campos e imágenes antes de registrar el plato.');
+      return;
+    }
+
+    try {
+      const fotosUrls: string[] = []; //subir imagenes
+      for (let i = 0; i < this.imagenes.length; i++) {
+        const img = this.imagenes[i];
+        if (img.file) {
+          // Suponiendo que tienes un método storage.uploadImage()
+          const url = await this.storage.uploadImage(img.file);
+          fotosUrls.push(url ?? '');
+        }
+      }
+
+      const { nombre = '', descripcion = '', tiempo = 0, precio = 0 } = this.formularioBebida.value;
+      const tipo = 'bebida';
+      const plato = {
+        idProducto: Date.now(),
+        nombre,
+        detalle: descripcion,
+        tiempo: Number(tiempo),
+        precio: Number(precio),
+        tipo,
+        fotos: fotosUrls,
+        push_token: this.formularioBebida.value.push_token || ''
+      };
+
+      await this.db.agregarProducto(plato, 'productos');
+
+      this.formularioBebida.reset();
+      this.imagenes = [
+        { file: null, preview: null },
+        { file: null, preview: null },
+        { file: null, preview: null },
+      ];
+
+      await this.dialogService.presentToast('El plato ha sido registrado correctamente.', 'success');
+    } catch (error) {
+      console.error('Error al registrar plato:', error);
+      await this.dialogService.presentToast('Error al registrar el plato.', 'danger');
+    }
+  }
 
 
 }

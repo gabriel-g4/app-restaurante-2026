@@ -35,7 +35,7 @@ export class NewTablePage implements OnInit {
 
   constructor(private fb: FormBuilder, private toastController: ToastController, private databaseService: DatabaseService, private storageService: StorageService, private modalController: ModalController, private dialogService: DialogService) {
     addIcons({ camera })
-   }
+  }
 
   ngOnInit() {
     this.mesaForm = this.fb.group({
@@ -118,15 +118,15 @@ export class NewTablePage implements OnInit {
       const tableId = await this.databaseService.agregarMesa(newTable);
 
       loading.dismiss();
-      this.dialogService.presentToast('Mesa agregada exitosamente. Se ha generado el código QR.');
-      
+      this.dialogService.presentToast('Mesa agregada exitosamente. Se ha generado el código QR.', 'success');
+
       this.mesaForm.reset();
       this.fotoTomada = null;
 
     } catch (error) {
       loading.dismiss();
       console.error('Error al agregar la mesa:', error);
-      this.dialogService.presentToast('Ocurrió un problema al guardar la mesa.');
+      this.dialogService.presentToast('Ocurrió un problema al guardar la mesa.', 'danger');
     }
   }
 
