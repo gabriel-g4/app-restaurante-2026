@@ -1,0 +1,25 @@
+<ion-header class="custom-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="menu-principal"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="header-title">Encuesta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="main-content" [fullscreen]="true">
+  <div class="container">
+    <!-- Botones principales -->
+    <div class="action-buttons">
+      <ion-button expand="block" class="action-button" (click)="completarEncuesta()">
+        <ion-icon slot="start" name="document-text-outline"></ion-icon>
+        Completar encuesta
+      </ion-button>
+
+      <ion-button expand="block" class="action-button" (click)="verEncuesta()">
+        <ion-icon slot="start" name="eye-outline"></ion-icon>
+        Ver resultados encuesta
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

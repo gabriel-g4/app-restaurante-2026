@@ -451,6 +451,20 @@ export class DatabaseService {
       throw error;
     }
   }
+
+    async obtenerEncuestasPorPedido(idPedido: string): Promise<any[]> {
+    try {
+      const snapshot = await getDocs(
+        query(collection(this.firestore, 'encuestas'),
+          where('idPedido', '==', idPedido)
+        ));
+      return snapshot.docs.map(doc => doc.data());
+    } catch (error) {
+      console.error('Error al obtener encuestas:', error);
+      return [];
+    }
+  }
+
 }
 
 

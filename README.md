@@ -76,8 +76,8 @@ Primer cuatrimestre 2026
 | Mariano Novak                                 | Aceptar clientes pendientes (funcionalidad)   | 01/05  | 01/05        | main                  | :white_check_mark: |
 | Gabriel García                                | Listado clientes metre (funcionalidad)        | 07/05  | 07/05        | main                  | :white_check_mark: |
 | Gabriel García                                | Listado clientes metre (diseño)               | 07/05  | 07/05        | main                  | :white_check_mark: |
-| Anahí González                                | Menú de productos (diseño)                    | -      | -            | -                     | :red_circle:       |
-| Anahí González                                | Pedido de productos (funcionalidad)           | -      | -            | -                     | :red_circle:       |
+| Anahí González                                | Menú de productos (diseño)                    | 14/05  | 19/05        | -                     | :white_check_mark:      |
+| Anahí González                                | Pedido de productos (funcionalidad)           | 14/05  | 18/05        | -                     | :white_check_mark:      |
 | Mariano Novak                                 | Chat cliente-mozo (diseño)                    | 02/05  | -            | -                     | :construction:     |
 | Mariano Novak                                 | Chat cliente-mozo (funcionalidad)             | 02/05  | -            | -                     | :construction:     |
 | Gabriel García                                | Listado de pedidos (mozo) (funcionalidad)     | 08/05  | 08/05        | main                  | :white_check_mark: |
@@ -95,7 +95,7 @@ Primer cuatrimestre 2026
 | Anahí González                                | Listado pedidos listos (mozo) (diseño)        | -      | -            | -                     | :red_circle:       |
 | Gabriel García                                | Recepcion pedido del cliente (funcionalidad)  | -      | -            | -                     | :red_circle:       |
 | Gabriel García                                | Encuestas (funcionalidad)                     | -      | -            | -                     | :red_circle:       |
-| Anahí González                                | Encuestas (diseño)                            | -      | -            | -                     | :red_circle:       |
+| Anahí González                                | Encuestas (diseño)                            | 19/05  | 19/05        | -                     | :white_check_mark: |
 | Anahí González                                | Solicitar cuenta (funcionalidad)              | -      | -            | -                     | :red_circle:       |
 | Gabriel García                                | Confirmar pago (funcionalidad)                | -      | -            | -                     | :red_circle:       |
 

@@ -197,7 +197,7 @@ segment: string = 'comida';
     });
     await modal.present();
   }
-  
+/*
   async realizarPedidoDelivery() {
     const currentUser = this.auth.user;
 
@@ -235,7 +235,7 @@ segment: string = 'comida';
       this.loading = false;
     }
   }
-
+*/
     async cerrarSesion() {
     const user = this.auth.user;
     if (user && user.uid) {
