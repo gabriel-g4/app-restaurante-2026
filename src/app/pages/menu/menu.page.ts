@@ -19,7 +19,7 @@ import {
     IonContent, IonLabel, IonIcon,
     IonSegment, IonSegmentButton, IonCard, IonCardHeader,
     IonCardTitle, IonCardSubtitle, IonCardContent,
-    IonButton, IonBackButton, IonSpinner
+    IonButton, IonBackButton, IonSpinner, IonFooter
 } from "@ionic/angular/standalone";
 
 
@@ -43,7 +43,7 @@ register();
         IonHeader, IonToolbar, IonButtons, IonTitle,
         IonContent, IonLabel, IonIcon,
         IonSegment, IonSegmentButton, IonCard, IonCardHeader,
-        IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonBackButton]
+        IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonBackButton, IonFooter, IonSpinner]
 })
 export class MenuPage implements OnInit {
 segment: string = 'comida';

@@ -1,6 +1,6 @@
 :host {
-  display: block;
-  height: 100vh;
+  /*display: block;
+  height: 100vh;*/
   background: #4A4E69;
   color: white;
   --swiper-theme-color: #4A4E69;
@@ -333,7 +333,7 @@ ion-content {
 
   .detail-button {
     --background: #1d2f41;
-    --color: white;
+    --color: white !important;
     --border-radius: 12px;
     --border: 1px solid rgba(255, 255, 255, 0.2);
     font-weight: bold;
@@ -381,3 +381,8 @@ ion-content {
   justify-content: center;
   align-items: center;
 }
+
+.swiper-container-wrapper {
+  padding-bottom: 30px; 
+}
+

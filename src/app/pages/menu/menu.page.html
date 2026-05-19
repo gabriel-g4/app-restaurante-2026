@@ -17,7 +17,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="main-content" [fullscreen]="true">
+<ion-content id="main-content">
   @if (loading) {
     <div class="loading-backdrop">
       <div class="loading-spinner"><ion-spinner name="crescent"></ion-spinner></div>
@@ -95,26 +95,28 @@
     }
   }
 
-  <div class="detail-section">
-    <div class="summary-info">
-      <div class="max-time">Tiempo estimado: <span>{{calcularTiempoMaximo()}} min</span></div>
-      <div class="total-price">Total: <span>${{calcularTotal()}}</span></div>
-    </div>
-
-    <!-- Botón para pedido en mesa -->
-    @if (!deliveryMode) {
-      <ion-button class="detail-button" expand="block" (click)="verDetallePedido()">
-        <ion-icon name="information-circle-outline" slot="start"></ion-icon>
-        Ver Detalles del Pedido
-      </ion-button>
-    }
-
-    <!-- Botón para pedido de delivery -->
-    @if (deliveryMode) {
-      <ion-button class="detail-button" color="success" expand="block" (click)="realizarPedidoDelivery()">
-        <ion-icon name="bicycle-outline" slot="start"></ion-icon>
-        Realizar Pedido de Delivery
-      </ion-button>
-    }
-  </div>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div class="detail-section">
+      <div class="summary-info">
+        <div class="max-time">Tiempo estimado: <span>{{calcularTiempoMaximo()}} min</span></div>
+        <div class="total-price">Total: <span>${{calcularTotal()}}</span></div>
+      </div>
+
+      @if (!deliveryMode) {
+        <ion-button class="detail-button" expand="block" (click)="verDetallePedido()">
+          <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+          Ver Detalles del Pedido
+        </ion-button>
+      }
+
+      @if (deliveryMode) {
+        <ion-button class="detail-button" color="success" expand="block" (click)="realizarPedidoDelivery()" style='--color: white;'>
+          <ion-icon name="bicycle-outline" slot="start"></ion-icon>
+          Realizar Pedido de Delivery
+        </ion-button>
+      }
+    </div>
+  </ion-toolbar>
+</ion-footer>
