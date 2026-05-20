@@ -14,7 +14,6 @@ import {
   eyeOutline
 } from 'ionicons/icons';
 import { MenuController } from '@ionic/angular';
-import { ConsultaModalComponent } from 'src/app/components/consulta-modal/consulta-modal.component';
 import { DatabaseService } from 'src/app/services/database.service';
 import { RespuestaEncuestaModal } from 'src/app/components/respuesta-encuesta/respuesta-encuesta.modal';
 import { AuthService } from 'src/app/services/auth.service';
@@ -71,20 +70,6 @@ export class MenuEncuestaPage implements OnInit {
     this.router.navigate([path]);
   }
 
-  async abrirConsulta() {
-    await this.menuCtrl.close();
-    const modal = await this.modalCtrl.create({
-      component: ConsultaModalComponent,
-      cssClass: 'consulta-modal-custom'
-    });
-    await modal.present();
-  }
-
-  cerrarSesion() {
-    // this.authService.logout().then(() => {
-    //   this.router.navigateByUrl('/login');
-    // });
-  }
 
   async completarEncuesta() {
     if (!this.pedidoActual || !this.pedidoActual.idPedido) {

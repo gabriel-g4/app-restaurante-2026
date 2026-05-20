@@ -1,19 +1,10 @@
 <ion-header class="custom-header">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <!-- <ion-menu-button></ion-menu-button> -->
       <ion-back-button defaultHref="home"> </ion-back-button>
     </ion-buttons>
     <ion-title class="header-title">Menú</ion-title>
 
-
-    <ion-buttons slot="end">
-      @if (!deliveryMode) {
-        <ion-button (click)="abrirConsulta()">
-          <ion-icon slot="icon-only" name="chatbubbles-outline"></ion-icon>
-        </ion-button>
-      }
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -56,7 +47,11 @@
                     nested="true">
                     @for (foto of producto.fotos; track $index) {
                       <swiper-slide>
-                        <img [src]="foto" class="product-image" onError="this.src='assets/imgs/default-food.png'">
+                        @if (foto) {
+                          <img [src]="foto" class="product-image">
+                        }@else {
+                           <img class="product-image" src='assets/imgs/default-food.png'>
+                        }
                       </swiper-slide>
                     }
                   </swiper-container>

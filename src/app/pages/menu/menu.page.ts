@@ -25,7 +25,6 @@ import {
 
 import { MenuController } from '@ionic/angular';
 import { DetallePedidoModalComponent } from 'src/app/components/detalle-pedido-modal/detalle-pedido-modal.component';
-import { ConsultaModalComponent } from 'src/app/components/consulta-modal/consulta-modal.component';
 import { AuthService } from '../../services/auth.service';
 // Swiper
 import { register } from 'swiper/element/bundle';
@@ -189,14 +188,6 @@ segment: string = 'comida';
         this.router.navigate([path]);
     }
     
-  async abrirConsulta() {
-    await this.menuCtrl.close();
-    const modal = await this.modalCtrl.create({
-        component: ConsultaModalComponent,
-        cssClass: 'consulta-modal-custom'
-    });
-    await modal.present();
-  }
 /*
   async realizarPedidoDelivery() {
     const currentUser = this.auth.user;

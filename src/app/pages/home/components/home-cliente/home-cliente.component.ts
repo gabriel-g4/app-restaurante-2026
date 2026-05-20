@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
@@ -23,7 +23,7 @@ import { AlertController } from '@ionic/angular/standalone';
   standalone: true,
   imports: [IonButton, IonIcon, IonFab, IonFabButton],
 })
-export class HomeClienteComponent implements OnInit {
+export class HomeClienteComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private dialogService: DialogService,
@@ -49,6 +49,10 @@ export class HomeClienteComponent implements OnInit {
 
 
   qrDEBUG: any;
+
+  async ngOnDestroy() {
+    this.pedidoService.cancelarSuscripcion();
+  }
 
   async ngOnInit() {
     this.authService.usuario$.subscribe(async (usuario) => {
@@ -318,14 +322,16 @@ export class HomeClienteComponent implements OnInit {
         // Ordenar por fecha para obtener el más reciente
         const pedidosOrdenados = pedidos.sort((a, b) => {
 
-          const fechaA = a.fecha?.toDate()?.getTime() || 0;
-          const fechaB = b.fecha?.toDate()?.getTime() || 0;
+          const fechaA = new Date(a.fecha);
+          const fechaB = new Date(b.fecha);
+          // const fechaA = a.fecha?.toDate()?.getTime() || 0;
+          // const fechaB = b.fecha?.toDate()?.getTime() || 0;
 
           console.log('[DEBUG] Comparando fechas');
           console.log('[DEBUG] fechaA:', fechaA, a);
           console.log('[DEBUG] fechaB:', fechaB, b);
 
-          return fechaB - fechaA;
+          return fechaB.getTime() - fechaA.getTime();
         });
 
         console.log('[DEBUG] pedidosOrdenados:', pedidosOrdenados);
