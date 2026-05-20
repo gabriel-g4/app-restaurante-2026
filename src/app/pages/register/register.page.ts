@@ -134,20 +134,30 @@ export class RegisterPage implements OnInit {
         typeof password === 'string' &&
         typeof esAnonimo === 'boolean'
       ) {
+
+        // 1. CREAMOS VARIABLES VALIDADAS PARA EL EMAIL Y PASS DEFINITIVOS
+        let emailDefinitivo = email;
+        let passwordDefinitiva = password;
+
+        // Si es anónimo, generamos el correo UNA SOLA VEZ y lo guardamos en la variable
+        if (esAnonimo) {
+          emailDefinitivo = this.generarEmailRandom();
+          passwordDefinitiva = '111111';
+        }
+
         const loading = await this.modalController.create({
           component: SpinnerModalComponent,
           cssClass: 'spinner-modal',
           backdropDismiss: false
         });
 
-        loading.present();
-        try {
+        await loading.present(); // Recordar ponerle el 'await' adelante para evitar que se tilde el modal
 
+        try {
           const url = await this.storage.uploadImage(this.selectedFile);
-          console.log("email:", esAnonimo ? this.generarEmailRandom() : email)
-          console.log("pass:", esAnonimo ? '111111' : password)
-          const userCredential = await this.auth.register(esAnonimo ? this.generarEmailRandom() : email,
-            esAnonimo ? '111111' : password);
+
+          // 2. Usamos el emailDefinitivo tanto para Auth como para Firestore
+          const userCredential = await this.auth.register(emailDefinitivo, passwordDefinitiva);
           const userId = userCredential.user?.uid;
 
           if (userId && url) {
@@ -156,15 +166,17 @@ export class RegisterPage implements OnInit {
               nombre,
               esAnonimo ? '' : (this.formularioAlta.get('apellido')?.value || ''),
               esAnonimo ? '' : (this.formularioAlta.get('dni')?.value || ''),
-              email,
+              emailDefinitivo,
               url,
               esAnonimo ? 'aceptado' : 'pendiente',
-              'cliente', // Rol fijo como 'cliente'
+              'cliente',
               '',
               esAnonimo
             );
 
             await this.db.agregarUsuario(client, 'usuarios');
+
+            this.auth.setRol('cliente');
 
             if (!esAnonimo) {
               this.notificationSenderService.enviarNotificacion({
@@ -177,14 +189,14 @@ export class RegisterPage implements OnInit {
             }
           }
 
-          loading.dismiss();
+          await loading.dismiss();
 
-          this.formularioAlta.reset()
+          this.formularioAlta.reset();
           this.selectedFile = null;
           this.imagenPreview = null;
 
           if (esAnonimo) {
-            this.router.navigate(['/home'])
+            this.router.navigate(['/home']);
           } else {
             await this.dialogService.presentToast(
               'Cliente registrado con éxito. Pendiente de aprobación.', 'success'
@@ -192,20 +204,15 @@ export class RegisterPage implements OnInit {
           }
 
         } catch (error) {
-          loading.dismiss();
+          await loading.dismiss();
           await this.dialogService.presentToast(
-            'Error al registrarse. Por favor, intenta de nuevo.',
-            'danger'
+            'Error al registrarse. Por favor, intenta de nuevo.', 'danger'
           );
         }
       }
-    }
-    else {
-      await Haptics.impact({ style: ImpactStyle.Heavy })
-      this.dialogService.presentToast(
-        'Complete todos los campos.',
-        'warning'
-      );
+    } else {
+      await Haptics.impact({ style: ImpactStyle.Heavy });
+      this.dialogService.presentToast('Complete todos los campos.', 'warning');
     }
   }
 
