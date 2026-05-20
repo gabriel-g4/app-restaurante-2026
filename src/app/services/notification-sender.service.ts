@@ -5,9 +5,10 @@ import { lastValueFrom } from 'rxjs';
 interface NotificationPayload {
   title: string;
   body: string;
-  roles: string[];
+  roles?: string[];
   path?: string;
   collection: string;
+  userId?: string;
 }
 
 @Injectable({
@@ -15,18 +16,26 @@ interface NotificationPayload {
 })
 export class NotificationSenderService {
 
- private apiUrl = 'https://backend-push-notifications-a0rm.onrender.com/enviarNotificacion';
+  private apiUrl = 'https://backend-push-notifications-a0rm.onrender.com/enviarNotificacion';
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
   });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   async enviarNotificacion(payload: NotificationPayload): Promise<any> {
     try {
+      // Creamos una copia del payload para no modificar el original
+      const finalPayload = { ...payload };
+
+      // Si tenemos un userId, priorizamos el envío directo eliminando los roles
+      if (finalPayload.userId) {
+        delete finalPayload.roles;
+      }
+
       const response = await lastValueFrom(
-        this.http.post(this.apiUrl, payload, { headers: this.headers })
+        this.http.post(this.apiUrl, finalPayload, { headers: this.headers })
       );
       console.log('Notificación enviada:', response);
       return response;

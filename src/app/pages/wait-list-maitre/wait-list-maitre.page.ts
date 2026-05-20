@@ -126,7 +126,7 @@ export class WaitListMaitrePage implements OnInit, AfterViewInit {
       }
     });
 
-    
+
     console.log("🔚 Fin de la configuración de suscripción");
 
   }
@@ -191,12 +191,12 @@ export class WaitListMaitrePage implements OnInit, AfterViewInit {
   async asignarMesa(cliente: ClienteEnEspera) {
 
     const loading = await this.modalController.create({
-                component: SpinnerModalComponent,
-                cssClass: 'spinner-modal',
-                backdropDismiss: false
-          });
-        await loading.present();
-  
+      component: SpinnerModalComponent,
+      cssClass: 'spinner-modal',
+      backdropDismiss: false
+    });
+    await loading.present();
+
 
     if (!cliente.mesaSeleccionada) {
       loading.dismiss();
@@ -212,11 +212,13 @@ export class WaitListMaitrePage implements OnInit, AfterViewInit {
       );
 
       if (resultado.success) {
-        await this.mostrarExito(`Mesa ${resultado.mesaNumero} asignada a ${cliente.clienteInfo.nombre} ${cliente.clienteInfo.apellido} numero de pedido ${cliente.idPedido}`);
+        await this.mostrarExito(`Mesa ${resultado.mesaNumero} asignada a ${cliente.clienteInfo.nombre} ${cliente.clienteInfo.apellido} número de pedido ${cliente.idPedido}`);
+        console.log("Notificando a usuario ID:", cliente.idUsuario);
         this.notificationSender.enviarNotificacion({
           title: 'Mesa asignada',
           body: `Su mesa es la numero: ${resultado.mesaNumero}, ya se puede ir a sentar`,
-          roles: ['cliente'],
+          roles: [],
+          userId: cliente.idUsuario,
           path: 'home',
           collection: 'usuarios'
         });
