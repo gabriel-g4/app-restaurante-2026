@@ -74,41 +74,42 @@ export class HomeClienteComponent implements OnInit, OnDestroy {
       this.usuarioActual = usuario;
       console.log('USUARIO ACTUAL HOME CLIENTE: ');
       console.log(usuario);
-      
+
       await this.suscribirAPedidoUsuario();
     });
 
   }
 
+
   async escanearQRDebug() {
     try {
       const alert = await this.alertController.create({
-      header: 'Ingresar QR',
+        header: 'Ingresar QR',
 
-      inputs: [
-        {
-          name: 'qr',
-          type: 'text',
-          placeholder: 'Escribí el valor'
-        }
-      ],
+        inputs: [
+          {
+            name: 'qr',
+            type: 'text',
+            placeholder: 'Escribí el valor'
+          }
+        ],
 
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Aceptar'
-        }
-      ]
-    });
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel'
+          },
+          {
+            text: 'Aceptar'
+          }
+        ]
+      });
 
-    await alert.present();
+      await alert.present();
 
-    const resultado = await alert.onDidDismiss();
+      const resultado = await alert.onDidDismiss();
 
-    this.qrDEBUG = resultado.data?.values?.qr;
+      this.qrDEBUG = resultado.data?.values?.qr;
 
       console.log('Valor del QR escaneado:', this.qrDEBUG);
 
@@ -278,162 +279,162 @@ export class HomeClienteComponent implements OnInit, OnDestroy {
 
   private async suscribirAPedidoUsuario() {
 
-  console.log('[DEBUG] === INICIO suscribirAPedidoUsuario ===');
+    console.log('[DEBUG] === INICIO suscribirAPedidoUsuario ===');
 
-  if (!this.usuarioActual) {
-    console.log('[DEBUG] usuarioActual es null o undefined');
-    return;
-  }
-
-  console.log('[DEBUG] usuarioActual completo:', this.usuarioActual);
-  console.log('[DEBUG] UID usuarioActual:', this.usuarioActual.uid);
-
-  const usuarioDb = await this.databaseService.obtenerUsuarioPorId(
-    this.usuarioActual.uid
-  );
-
-  console.log('[DEBUG] usuarioDb obtenido:', usuarioDb);
-
-  this.esAnonimo = usuarioDb.esAnonimo;
-
-  console.log('[DEBUG] esAnonimo seteado en:', this.esAnonimo);
-
-  const estados = [
-    'esperando mesa',
-    'mesa asignada',
-    'pedido hecho',
-    'cocina lista',
-    'bebida lista',
-    'confirmado',
-    'en preparación',
-    'listo para servir',
-    'servido',
-    'pedido servido',
-    'pedir la cuenta',
-    'cuenta entregada',
-    'pagado',
-    'rechazado',
-    'pendiente_confirmacion',
-    'en camino',
-    'entregado',
-    'cancelado',
-  ];
-
-  console.log('[DEBUG] Estados usados para suscripción:', estados);
-
-  this.pedidoService.suscribirAPedidosPorUsuario(
-    this.usuarioActual.uid,
-    estados,
-    (pedidos) => {
-
-      console.log('[DEBUG] Callback de pedidos ejecutado');
-      console.log('[DEBUG] Pedidos recibidos:', pedidos);
-      console.log('[DEBUG] Cantidad de pedidos:', pedidos?.length);
-
-      if (pedidos && pedidos.length > 0) {
-
-        console.log('[DEBUG] Entró al if de pedidos.length > 0');
-
-        // Ordenar por fecha para obtener el más reciente
-        const pedidosOrdenados = pedidos.sort((a, b) => {
-
-          const fechaA = new Date(a.fecha);
-          const fechaB = new Date(b.fecha);
-          // const fechaA = a.fecha?.toDate()?.getTime() || 0;
-          // const fechaB = b.fecha?.toDate()?.getTime() || 0;
-
-          console.log('[DEBUG] Comparando fechas');
-          console.log('[DEBUG] fechaA:', fechaA, a);
-          console.log('[DEBUG] fechaB:', fechaB, b);
-
-          return fechaB.getTime() - fechaA.getTime();
-        });
-
-        console.log('[DEBUG] pedidosOrdenados:', pedidosOrdenados);
-
-        this.pedidoActual = pedidosOrdenados[0];
-
-        console.log(
-          '[DEBUG] Pedido más reciente encontrado:',
-          this.pedidoActual
-        );
-
-        // Verificar si es un pedido de delivery activo
-        const estadosFinalesDelivery = [
-          'pago confirmado',
-          'cancelado',
-          'rechazado',
-        ];
-
-        console.log(
-          '[DEBUG] estadosFinalesDelivery:',
-          estadosFinalesDelivery
-        );
-
-        console.log(
-          '[DEBUG] Estado actual del pedido:',
-          this.pedidoActual.estado
-        );
-
-        console.log(
-          '[DEBUG] Tipo actual del pedido:',
-          this.pedidoActual.tipo
-        );
-
-        const esTipoDelivery = this.pedidoActual.tipo === 'delivery';
-
-        const noEsEstadoFinal = !estadosFinalesDelivery.includes(
-          this.pedidoActual.estado
-        );
-
-        console.log(
-          `[DEBUG] ¿Es tipo delivery? -> ${esTipoDelivery} (tipo: '${this.pedidoActual.tipo}')`
-        );
-
-        console.log(
-          `[DEBUG] ¿No es estado final? -> ${noEsEstadoFinal} (estado: '${this.pedidoActual.estado}')`
-        );
-
-        this.pedidoDeliveryActivo = esTipoDelivery && noEsEstadoFinal;
-
-        console.log(
-          '[DEBUG] Resultado final de pedidoDeliveryActivo:',
-          this.pedidoDeliveryActivo
-        );
-
-      } else {
-
-        console.log('[DEBUG] Entró al else de pedidos vacíos');
-
-        this.pedidoActual = null;
-        this.pedidoDeliveryActivo = false;
-
-        console.log(
-          '[DEBUG] pedidoActual seteado en null'
-        );
-
-        console.log(
-          '[DEBUG] pedidoDeliveryActivo seteado en false'
-        );
-
-        console.log(
-          '[DEBUG] No se encontraron pedidos para el usuario. pedidoDeliveryActivo es false.'
-        );
-      }
-
-      console.log('[DEBUG] === FIN CALLBACK PEDIDOS ===');
-    },
-    (error) => {
-
-      console.error('[DEBUG] Error callback ejecutado');
-      console.error('Error al obtener pedido:', error);
-
+    if (!this.usuarioActual) {
+      console.log('[DEBUG] usuarioActual es null o undefined');
+      return;
     }
-  );
 
-  console.log('[DEBUG] Suscripción creada correctamente');
-  console.log('[DEBUG] === FIN suscribirAPedidoUsuario ===');
-}
+    console.log('[DEBUG] usuarioActual completo:', this.usuarioActual);
+    console.log('[DEBUG] UID usuarioActual:', this.usuarioActual.uid);
+
+    const usuarioDb = await this.databaseService.obtenerUsuarioPorId(
+      this.usuarioActual.uid
+    );
+
+    console.log('[DEBUG] usuarioDb obtenido:', usuarioDb);
+
+    this.esAnonimo = usuarioDb.esAnonimo;
+
+    console.log('[DEBUG] esAnonimo seteado en:', this.esAnonimo);
+
+    const estados = [
+      'esperando mesa',
+      'mesa asignada',
+      'pedido hecho',
+      'cocina lista',
+      'bebida lista',
+      'confirmado',
+      'en preparación',
+      'listo para servir',
+      'servido',
+      'pedido servido',
+      'pedir la cuenta',
+      'cuenta entregada',
+      'pagado',
+      'rechazado',
+      'pendiente_confirmacion',
+      'en camino',
+      'entregado',
+      'cancelado',
+    ];
+
+    console.log('[DEBUG] Estados usados para suscripción:', estados);
+
+    this.pedidoService.suscribirAPedidosPorUsuario(
+      this.usuarioActual.uid,
+      estados,
+      (pedidos) => {
+
+        console.log('[DEBUG] Callback de pedidos ejecutado');
+        console.log('[DEBUG] Pedidos recibidos:', pedidos);
+        console.log('[DEBUG] Cantidad de pedidos:', pedidos?.length);
+
+        if (pedidos && pedidos.length > 0) {
+
+          console.log('[DEBUG] Entró al if de pedidos.length > 0');
+
+          // Ordenar por fecha para obtener el más reciente
+          const pedidosOrdenados = pedidos.sort((a, b) => {
+
+            const fechaA = new Date(a.fecha);
+            const fechaB = new Date(b.fecha);
+            // const fechaA = a.fecha?.toDate()?.getTime() || 0;
+            // const fechaB = b.fecha?.toDate()?.getTime() || 0;
+
+            console.log('[DEBUG] Comparando fechas');
+            console.log('[DEBUG] fechaA:', fechaA, a);
+            console.log('[DEBUG] fechaB:', fechaB, b);
+
+            return fechaB.getTime() - fechaA.getTime();
+          });
+
+          console.log('[DEBUG] pedidosOrdenados:', pedidosOrdenados);
+
+          this.pedidoActual = pedidosOrdenados[0];
+
+          console.log(
+            '[DEBUG] Pedido más reciente encontrado:',
+            this.pedidoActual
+          );
+
+          // Verificar si es un pedido de delivery activo
+          const estadosFinalesDelivery = [
+            'pago confirmado',
+            'cancelado',
+            'rechazado',
+          ];
+
+          console.log(
+            '[DEBUG] estadosFinalesDelivery:',
+            estadosFinalesDelivery
+          );
+
+          console.log(
+            '[DEBUG] Estado actual del pedido:',
+            this.pedidoActual.estado
+          );
+
+          console.log(
+            '[DEBUG] Tipo actual del pedido:',
+            this.pedidoActual.tipo
+          );
+
+          const esTipoDelivery = this.pedidoActual.tipo === 'delivery';
+
+          const noEsEstadoFinal = !estadosFinalesDelivery.includes(
+            this.pedidoActual.estado
+          );
+
+          console.log(
+            `[DEBUG] ¿Es tipo delivery? -> ${esTipoDelivery} (tipo: '${this.pedidoActual.tipo}')`
+          );
+
+          console.log(
+            `[DEBUG] ¿No es estado final? -> ${noEsEstadoFinal} (estado: '${this.pedidoActual.estado}')`
+          );
+
+          this.pedidoDeliveryActivo = esTipoDelivery && noEsEstadoFinal;
+
+          console.log(
+            '[DEBUG] Resultado final de pedidoDeliveryActivo:',
+            this.pedidoDeliveryActivo
+          );
+
+        } else {
+
+          console.log('[DEBUG] Entró al else de pedidos vacíos');
+
+          this.pedidoActual = null;
+          this.pedidoDeliveryActivo = false;
+
+          console.log(
+            '[DEBUG] pedidoActual seteado en null'
+          );
+
+          console.log(
+            '[DEBUG] pedidoDeliveryActivo seteado en false'
+          );
+
+          console.log(
+            '[DEBUG] No se encontraron pedidos para el usuario. pedidoDeliveryActivo es false.'
+          );
+        }
+
+        console.log('[DEBUG] === FIN CALLBACK PEDIDOS ===');
+      },
+      (error) => {
+
+        console.error('[DEBUG] Error callback ejecutado');
+        console.error('Error al obtener pedido:', error);
+
+      }
+    );
+
+    console.log('[DEBUG] Suscripción creada correctamente');
+    console.log('[DEBUG] === FIN suscribirAPedidoUsuario ===');
+  }
 
   private async manejarQRMesa(qrValue: string) {
     const numeroMesa = parseInt(qrValue.split('_')[1]);
