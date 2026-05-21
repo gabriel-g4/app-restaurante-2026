@@ -3,18 +3,26 @@ import { Router } from '@angular/router';
 import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import {
-  IonButton, IonIcon, IonFab, IonFabButton
+  IonButton, IonIcon, IonFab, IonFabButton, ModalController
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   chatbubbles, qrCodeOutline, restaurantOutline,
-  gameControllerOutline, statsChartOutline, cashOutline
+  gameControllerOutline, statsChartOutline, cashOutline,
+  timeOutline,
+  documentTextOutline,
+  chatbubblesOutline,
+  receiptOutline,
+  cardOutline
 } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { AlertController } from '@ionic/angular/standalone';
+import { DescripcionPedidoModal } from 'src/app/components/descripcion-pedido-modal/descripcion-pedido-modal.modal';
+import { NotificationSenderService } from 'src/app/services/notification-sender.service';
+import { RealizarPagoModalComponent } from 'src/app/components/realizar-pago-modal/realizar-pago-modal.component';
 
 @Component({
   selector: 'app-home-cliente',
@@ -30,7 +38,9 @@ export class HomeClienteComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private databaseService: DatabaseService,
     private pedidoService: PedidoService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalController: ModalController,
+    private notificationSenderService: NotificationSenderService
   ) {
     addIcons({
       chatbubbles,
@@ -39,11 +49,16 @@ export class HomeClienteComponent implements OnInit, OnDestroy {
       gameControllerOutline,
       statsChartOutline,
       cashOutline,
+      timeOutline,
+      documentTextOutline,
+      chatbubblesOutline,
+      receiptOutline,
+      cardOutline
     });
   }
 
   usuarioActual: any;
-  private pedidoActual: any = null;
+  pedidoActual: any = null;
   esAnonimo: boolean = true;
   pedidoDeliveryActivo: boolean = false;
 
@@ -467,4 +482,134 @@ export class HomeClienteComponent implements OnInit, OnDestroy {
       this.router.navigate(['/menu-principal']);
     }
   }
+
+  async marcarComoServido() {
+    try {
+      await this.pedidoService.actualizarEstadoPedido(
+        this.pedidoActual.id,
+        'pedido servido',
+        'Pedido marcado como servido'
+      );
+    } catch (error) {
+      console.error('Error al actualizar estado:', error);
+    }
+  }
+
+  async pedirLaCuenta() {
+
+
+
+    try {
+      await this.pedidoService.actualizarEstadoPedido(
+        this.pedidoActual.id,
+        'pedir la cuenta',
+        'Cuenta solicitada'
+      );
+
+      let body = "";
+      let roles = ['mozo'];
+      if (this.pedidoActual.tipo === 'delivery') {
+        body = `El pedido de reparto #${this.pedidoActual.idPedido} solicita la cuenta.`;
+        roles = ['repartidor'];
+      } else {
+        body = `La mesa ${this.pedidoActual.idMesa} solicita la cuenta.`;
+      }
+      
+      this.notificationSenderService.enviarNotificacion({
+        title: 'Pedir cuenta',
+        body: body,
+        roles: roles,
+        path: 'client-approval',
+        collection: 'clientes',
+      });
+    } catch (error) {
+      console.error('Error al actualizar estado:', error);
+    }
+
+
+  }
+
+  async verEstadoPedido() {
+    const modal = await this.modalController.create({
+      component: DescripcionPedidoModal,
+      componentProps: {
+        pedido: this.pedidoActual
+      },
+      cssClass: 'detalle-pedido-modal'
+    });
+    await modal.present();
+  }
+
+  async irAPagar() {
+    try {
+
+      const { camera } = await BarcodeScanner.requestPermissions();
+      if (camera !== 'granted' && camera !== 'limited') {
+        console.error('Permiso de cámara denegado para el escáner');
+        return;
+      }
+
+
+      if (!this.pedidoActual) {
+        await Haptics.impact({ style: ImpactStyle.Heavy });
+        this.dialogService.presentToast('El pedido aún no está disponible.');
+        return;
+      }
+
+      const pedidoClonado = { ...this.pedidoActual };
+
+      const { barcodes } = await BarcodeScanner.scan();
+
+      if (barcodes.length > 0) {
+        const qrValue = barcodes[0].rawValue;
+
+        if (!qrValue) {
+          await Haptics.impact({ style: ImpactStyle.Heavy });
+          this.dialogService.presentToast('Formato QR incorrecto. Debe ser "propina_X"');
+          return;
+        }
+        
+        console.log('QR escaneado:', qrValue);
+
+        // Validar formato de propina
+        if (qrValue.startsWith('propina_')) {
+          const porcentaje = parseInt(qrValue.split('_')[1]);
+
+          // Validar porcentajes permitidos
+          if ([0, 5, 10, 15, 20].includes(porcentaje)) {
+            // Mostrar modal de confirmación con propina
+            const confirmModal = await this.modalController.create({
+              component: RealizarPagoModalComponent,
+              componentProps: {
+                pedido: pedidoClonado,
+                porcentajePropina: porcentaje
+              },
+              cssClass: 'pago-confirm-modal'
+            });
+
+            await confirmModal.present();
+
+            // Opcional: Manejar el resultado del modal de confirmación
+            const { data: confirmData } = await confirmModal.onDidDismiss();
+            if (confirmData?.pagoRealizado) {
+              console.log('Pago confirmado con éxito');
+            }
+          } else {
+            await Haptics.impact({ style: ImpactStyle.Heavy });
+            this.dialogService.presentToast('Porcentaje no válido. Use: 0, 5, 10, 15 o 20');
+          }
+        } else {
+          await Haptics.impact({ style: ImpactStyle.Heavy });
+          this.dialogService.presentToast('Formato QR incorrecto. Debe ser "propina_X"');
+        }
+      } else {
+        console.log('Escaneo cancelado');
+      }
+    } catch (error) {
+      console.error('Error en el proceso de pago:', error);
+      await Haptics.impact({ style: ImpactStyle.Heavy });
+      this.dialogService.presentToast('Error al procesar el pago');
+    }
+  }
+
 }
