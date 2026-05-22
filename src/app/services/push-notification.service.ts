@@ -13,12 +13,7 @@ import { isPlatform, AlertController } from '@ionic/angular';
 export class PushNotificationService {
   private currentToken: string | null = null;
   private initialized = false;
-  private tokenReadyResolver!: (token: string) => void;
-
-  private tokenReady = new Promise<string>((resolve) => {
-    this.tokenReadyResolver = resolve;
-  });
-
+  
   constructor(private alertController: AlertController, private router : Router) {}
 
   async initPush() {
@@ -58,7 +53,6 @@ export class PushNotificationService {
     PushNotifications.addListener('registration', (token: Token) => {
       console.log("[13] ✅ Listener registration → Token FCM obtenido:", token.value);
       this.currentToken = token.value;
-      this.tokenReadyResolver(token.value);
     });
 
     // Listener: error en el registro
@@ -161,14 +155,48 @@ export class PushNotificationService {
   }
 }
 
-async obtenerToken(): Promise<string> {
+async obtenerToken(
+  timeoutMs: number = 5000
+): Promise<string | null> {
 
-    if (this.currentToken) {
-      return this.currentToken;
-    }
-
-    return this.tokenReady;
+  // Ya existe token
+  if (this.currentToken) {
+    return this.currentToken;
   }
+
+  const isCap = isPlatform('capacitor');
+  
+  if (!isCap) {
+    return null;
+  }
+
+  // Esperar un tiempo máximo
+  return new Promise((resolve) => {
+
+    const interval = setInterval(() => {
+
+      if (this.currentToken) {
+
+        clearInterval(interval);
+
+        clearTimeout(timeout);
+
+        resolve(this.currentToken);
+      }
+
+    }, 200);
+
+    const timeout = setTimeout(() => {
+
+      clearInterval(interval);
+
+      console.log('⏰ Timeout esperando push token');
+
+      resolve(null);
+
+    }, timeoutMs);
+  });
+}
 
 
   // async initPush() {

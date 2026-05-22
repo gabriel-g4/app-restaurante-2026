@@ -138,6 +138,8 @@ export class LoginPage implements OnInit {
         if (tokenMobile) {
           user!['push_token'] = tokenMobile;
           await this.databaseService.modificarUsuario(user, 'usuarios');
+        } else {
+          console.log("Usuario sin token.")
         }
 
         loading.dismiss();
