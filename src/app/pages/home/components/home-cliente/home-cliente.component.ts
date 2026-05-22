@@ -23,6 +23,7 @@ import { AlertController } from '@ionic/angular/standalone';
 import { DescripcionPedidoModal } from 'src/app/components/descripcion-pedido-modal/descripcion-pedido-modal.modal';
 import { NotificationSenderService } from 'src/app/services/notification-sender.service';
 import { RealizarPagoModalComponent } from 'src/app/components/realizar-pago-modal/realizar-pago-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home-cliente',
@@ -49,6 +50,7 @@ export class HomeClienteComponent implements OnInit, OnDestroy {
   }
 
   usuarioActual: any;
+  usuarioSub?: Subscription;
   pedidoActual: any = null;
   esAnonimo: boolean = true;
   pedidoDeliveryActivo: boolean = false;
@@ -57,11 +59,12 @@ export class HomeClienteComponent implements OnInit, OnDestroy {
   qrDEBUG: any;
 
   async ngOnDestroy() {
+    this.usuarioSub?.unsubscribe();
     this.pedidoService.cancelarSuscripcion();
   }
 
   async ngOnInit() {
-    this.authService.usuario$.subscribe(async (usuario) => {
+    this.usuarioSub = this.authService.usuario$.subscribe(async (usuario) => {
       this.usuarioActual = usuario;
       console.log('USUARIO ACTUAL HOME CLIENTE: ');
       console.log(usuario);
