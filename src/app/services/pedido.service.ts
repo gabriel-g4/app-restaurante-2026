@@ -15,7 +15,7 @@ import {
 import { AuthService } from './auth.service';
 import { DatabaseService } from './database.service';
 import { ToastController } from '@ionic/angular';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { NotificationSenderService } from './notification-sender.service';
 @Injectable({
   providedIn: 'root',
@@ -34,10 +34,11 @@ export class PedidoService {
 
   async crearPedido(pedidoData: any): Promise<string> {
     try {
-      this.authService.usuario$.subscribe(usuario => {
-      this.usuario = usuario;
-    });
-      if (!this.usuario) throw new Error('Usuario no autenticado');
+      this.usuario = await firstValueFrom(this.authService.usuario$);
+
+      if (!this.usuario) {
+        throw new Error('Usuario no autenticado');
+      }
 
       // Verificar si ya existe un pedido con mesa asignada
       const pedidoExistente = await this.obtenerPedidoMesaAsignada(this.usuario.uid);

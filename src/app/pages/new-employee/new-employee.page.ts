@@ -198,7 +198,7 @@ export class NewEmployeePage implements OnInit {
             apellido: apellido,
             dni: dni,
             cuil: cuil,
-            email: correo,
+            email: correo.toLowerCase(),
             rol: perfil,
             foto: urlFoto,
             estado: 'aceptado',

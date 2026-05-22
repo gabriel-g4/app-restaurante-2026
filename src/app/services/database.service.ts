@@ -31,6 +31,8 @@ export class DatabaseService {
 
   async obtenerUsuarioPorEmail(email: string) {
 
+    email = email.toLowerCase();
+
     try {
       const usersRef = collection(this.firestore, 'usuarios');
 

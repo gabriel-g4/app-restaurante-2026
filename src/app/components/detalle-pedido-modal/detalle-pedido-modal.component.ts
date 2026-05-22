@@ -91,7 +91,7 @@ export class DetallePedidoModalComponent {
       await toast.present();
 
       this.modalCtrl.dismiss({ ordenRealizada: true });
-      this.router.navigate(['/home']);
+      this.router.navigate(['/menu-principal']);
     } catch (error) {
       console.error('Error al ordenar pedido:', error);
       const toast = await this.toastCtrl.create({

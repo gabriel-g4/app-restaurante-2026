@@ -45,15 +45,6 @@ export class HomeClienteComponent implements OnInit, OnDestroy {
     addIcons({
       chatbubbles,
       qrCodeOutline,
-      restaurantOutline,
-      gameControllerOutline,
-      statsChartOutline,
-      cashOutline,
-      timeOutline,
-      documentTextOutline,
-      chatbubblesOutline,
-      receiptOutline,
-      cardOutline
     });
   }
 
@@ -474,143 +465,9 @@ export class HomeClienteComponent implements OnInit, OnDestroy {
     }
 
     console.log(this.pedidoActual.estado === 'rechazado');
-    if (
-      this.pedidoActual.estado === 'mesa asignada' ||
-      this.pedidoActual.estado === 'rechazado'
-    ) {
-      this.router.navigate(['/menu']);
-    } else {
-      this.router.navigate(['/menu-principal']);
-    }
-  }
-
-  async marcarComoServido() {
-    try {
-      await this.pedidoService.actualizarEstadoPedido(
-        this.pedidoActual.id,
-        'pedido servido',
-        'Pedido marcado como servido'
-      );
-    } catch (error) {
-      console.error('Error al actualizar estado:', error);
-    }
-  }
-
-  async pedirLaCuenta() {
-
-
-
-    try {
-      await this.pedidoService.actualizarEstadoPedido(
-        this.pedidoActual.id,
-        'pedir la cuenta',
-        'Cuenta solicitada'
-      );
-
-      let body = "";
-      let roles = ['mozo'];
-      if (this.pedidoActual.tipo === 'delivery') {
-        body = `El pedido de reparto #${this.pedidoActual.idPedido} solicita la cuenta.`;
-        roles = ['repartidor'];
-      } else {
-        body = `La mesa ${this.pedidoActual.idMesa} solicita la cuenta.`;
-      }
-      
-      this.notificationSenderService.enviarNotificacion({
-        title: 'Pedir cuenta',
-        body: body,
-        roles: roles,
-        path: 'client-approval',
-        collection: 'clientes',
-      });
-    } catch (error) {
-      console.error('Error al actualizar estado:', error);
-    }
-
-
-  }
-
-  async verEstadoPedido() {
-    const modal = await this.modalController.create({
-      component: DescripcionPedidoModal,
-      componentProps: {
-        pedido: this.pedidoActual
-      },
-      cssClass: 'detalle-pedido-modal'
-    });
-    await modal.present();
-  }
-
-  async irAPagar() {
-    try {
-
-      const { camera } = await BarcodeScanner.requestPermissions();
-      if (camera !== 'granted' && camera !== 'limited') {
-        console.error('Permiso de cámara denegado para el escáner');
-        return;
-      }
-
-
-      if (!this.pedidoActual) {
-        await Haptics.impact({ style: ImpactStyle.Heavy });
-        this.dialogService.presentToast('El pedido aún no está disponible.');
-        return;
-      }
-
-      const pedidoClonado = { ...this.pedidoActual };
-
-      const { barcodes } = await BarcodeScanner.scan();
-
-      if (barcodes.length > 0) {
-        const qrValue = barcodes[0].rawValue;
-
-        if (!qrValue) {
-          await Haptics.impact({ style: ImpactStyle.Heavy });
-          this.dialogService.presentToast('Formato QR incorrecto. Debe ser "propina_X"');
-          return;
-        }
-        
-        console.log('QR escaneado:', qrValue);
-
-        // Validar formato de propina
-        if (qrValue.startsWith('propina_')) {
-          const porcentaje = parseInt(qrValue.split('_')[1]);
-
-          // Validar porcentajes permitidos
-          if ([0, 5, 10, 15, 20].includes(porcentaje)) {
-            // Mostrar modal de confirmación con propina
-            const confirmModal = await this.modalController.create({
-              component: RealizarPagoModalComponent,
-              componentProps: {
-                pedido: pedidoClonado,
-                porcentajePropina: porcentaje
-              },
-              cssClass: 'pago-confirm-modal'
-            });
-
-            await confirmModal.present();
-
-            // Opcional: Manejar el resultado del modal de confirmación
-            const { data: confirmData } = await confirmModal.onDidDismiss();
-            if (confirmData?.pagoRealizado) {
-              console.log('Pago confirmado con éxito');
-            }
-          } else {
-            await Haptics.impact({ style: ImpactStyle.Heavy });
-            this.dialogService.presentToast('Porcentaje no válido. Use: 0, 5, 10, 15 o 20');
-          }
-        } else {
-          await Haptics.impact({ style: ImpactStyle.Heavy });
-          this.dialogService.presentToast('Formato QR incorrecto. Debe ser "propina_X"');
-        }
-      } else {
-        console.log('Escaneo cancelado');
-      }
-    } catch (error) {
-      console.error('Error en el proceso de pago:', error);
-      await Haptics.impact({ style: ImpactStyle.Heavy });
-      this.dialogService.presentToast('Error al procesar el pago');
-    }
+    
+    this.router.navigate(['/menu-principal']);
+    
   }
 
 }

@@ -83,6 +83,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/menu-encuesta/menu-encuesta.page').then( m => m.MenuEncuestaPage)
   },
   {
+    path: 'menu-principal',
+    loadComponent: () => import('./pages/menu-principal/menu-principal.page').then( m => m.MenuPrincipalPage)
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },

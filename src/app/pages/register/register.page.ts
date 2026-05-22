@@ -166,7 +166,7 @@ export class RegisterPage implements OnInit {
               nombre,
               esAnonimo ? '' : (this.formularioAlta.get('apellido')?.value || ''),
               esAnonimo ? '' : (this.formularioAlta.get('dni')?.value || ''),
-              emailDefinitivo,
+              emailDefinitivo.toLowerCase(),
               url,
               esAnonimo ? 'aceptado' : 'pendiente',
               'cliente',

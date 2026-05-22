@@ -71,25 +71,40 @@ export class HomePage implements OnInit, OnDestroy {
 
   async cargarUsuario(usuarioAuth: any) {
     if (usuarioAuth) {
-      let rolEnMemoria = this.authService.getRol();
-      if (rolEnMemoria) {
-        this.rolUsuario = rolEnMemoria;
-      }
+  console.log('[AUTH] Usuario:', usuarioAuth);
 
-      if (usuarioAuth.email) {
-        this.userData = await this.databaseService.obtenerUsuarioPorEmail(usuarioAuth.email);
+  let rolEnMemoria = this.authService.getRol();
+  console.log('[AUTH] Rol memoria:', rolEnMemoria);
 
-        if (this.userData && this.userData.rol) {
-          this.rolUsuario = this.userData.rol;
-          this.authService.setRol(this.rolUsuario);
-        }
-      }
+  if (rolEnMemoria) {
+    this.rolUsuario = rolEnMemoria;
+  }
 
-    } else {
-      this.userData = null;
-      this.rolUsuario = '';
-      this.router.navigate(['/login']);
+  if (usuarioAuth.email) {
+    console.log('[AUTH] Buscando email:', usuarioAuth.email);
+
+    this.userData = await this.databaseService.obtenerUsuarioPorEmail(usuarioAuth.email);
+
+    console.log('[AUTH] userData:', this.userData);
+
+    if (this.userData && this.userData.rol) {
+      this.rolUsuario = this.userData.rol;
+
+      console.log('[AUTH] Rol DB:', this.rolUsuario);
+
+      this.authService.setRol(this.rolUsuario);
     }
+  }
+
+  console.log('[AUTH] Rol final:', this.rolUsuario);
+
+} else {
+  console.log('[AUTH] Usuario no autenticado');
+
+  this.userData = null;
+  this.rolUsuario = '';
+  this.router.navigate(['/login']);
+}
   }
 
   enviarALogin() {
