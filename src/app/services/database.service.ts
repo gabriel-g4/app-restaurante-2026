@@ -435,6 +435,23 @@ export class DatabaseService {
     }
   }
 
+  async agregarEncuesta(producto: any, coleccion: string) {
+    try {
+      const col = collection(this.firestore, coleccion);
+      const docRef = await addDoc(col, producto);
+
+      // 🔐 Guardamos el ID dentro del documento
+      await setDoc(doc(this.firestore, coleccion, docRef.id), {
+        ...producto,
+        id: docRef.id
+      });
+
+      console.log('Producto agregado exitosamente con ID:', docRef.id);
+    } catch (error) {
+      console.error('Error al agregar el producto:', error);
+    }
+  }
+
 }
 
 

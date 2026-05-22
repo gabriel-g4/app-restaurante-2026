@@ -283,4 +283,19 @@ export class MenuPrincipalPage implements OnInit, OnDestroy {
     }
   }
 
+  async irAEncuesta() {
+
+    if (this.pedidoActual) {
+      const pedidoClonado = { ...this.pedidoActual };
+      this.router.navigate(['/menu-encuesta'], {
+        queryParams: {
+          pedido: JSON.stringify(pedidoClonado)
+        }
+      });
+    } else {
+      await Haptics.impact({ style: ImpactStyle.Heavy });
+      this.dialogService.presentToast('No hay un pedido actual para completar la encuesta');
+    }
+  }
+
 }

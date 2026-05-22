@@ -43,7 +43,7 @@
 
 @if (pedidoActual?.estado !== 'pendiente_confirmacion') {
   <ion-button expand="block"
-    class="action-button survey-button" (click)="navegar('menu-encuesta')">
+    class="action-button survey-button" (click)="irAEncuesta()">
     <div class="contenido-button">
       <ion-icon class="icono-personalizado" slot="start" name="document-text-outline"></ion-icon>
       <span>Encuesta</span>
