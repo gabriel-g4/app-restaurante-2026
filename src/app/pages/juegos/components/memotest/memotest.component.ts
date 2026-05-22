@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonButton, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { restaurantOutline, refreshOutline } from 'ionicons/icons';
+import { restaurantOutline, refreshOutline, informationCircleOutline, checkmarkCircleOutline, ticketOutline } from 'ionicons/icons';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 @Component({
@@ -16,7 +16,7 @@ export class MemotestComponent implements OnInit {
   @Input() esAnonimo: boolean = false;
   @Input() yaJugo: boolean = false;
   @Input() descuentoGanado: number = 0;
-  @Output() resultado = new EventEmitter<{ gano: boolean, descuento: number }>();
+  @Output() resultado = new EventEmitter<{ gano: boolean, descuento: number, porDiversion?: boolean }>();
 
   emojis = ['🍕', '🍔', '🌭', '🍿', '🍩', '🥑'];
   cartas: any[] = [];
@@ -24,12 +24,13 @@ export class MemotestComponent implements OnInit {
   movimientos: number = 0;
   paresEncontrados: number = 0;
   maxMovimientos: number = 18;
+  teniaDescuentoPreviamente: boolean = false;
 
   estado: 'jugando' | 'ganado' | 'perdido' = 'jugando';
   mensajeFinal: string = '';
   bloqueado: boolean = false;
 
-  constructor() { addIcons({ restaurantOutline, refreshOutline }); }
+  constructor() { addIcons({ informationCircleOutline, checkmarkCircleOutline, ticketOutline, refreshOutline, restaurantOutline }); }
 
   ngOnInit() { this.iniciarJuego(); }
 
@@ -49,6 +50,7 @@ export class MemotestComponent implements OnInit {
       volteada: false,
       encontrada: false
     }));
+    this.teniaDescuentoPreviamente = (this.descuentoGanado > 0);
   }
 
   async voltearCarta(carta: any) {
@@ -90,22 +92,27 @@ export class MemotestComponent implements OnInit {
   }
 
   procesarVictoria() {
-    this.estado = 'ganado';
-    if (!this.esAnonimo && !this.yaJugo && this.descuentoGanado === 0) {
-      this.mensajeFinal = "Ganaste un 15% de descuento.";
-      this.resultado.emit({ gano: true, descuento: 15 });
-    } else {
-      this.mensajeFinal = "Podés seguir jugando todas las veces que quieras.";
-    }
+    setTimeout(() => {
+      this.estado = 'ganado';
+      if (!this.esAnonimo && !this.teniaDescuentoPreviamente) {
+        this.mensajeFinal = "¡Ganaste un 15% de descuento!";
+        this.resultado.emit({ gano: true, descuento: 15 });
+      } else {
+        this.mensajeFinal = "¡Bien jugado! Pero ya tenías un descuento aplicado.";
+        this.resultado.emit({ gano: true, descuento: this.descuentoGanado, porDiversion: true });
+      }
+    }, 1000);
   }
 
   procesarDerrota() {
     this.estado = 'perdido';
-    if (!this.esAnonimo && !this.yaJugo && this.descuentoGanado === 0) {
-      this.mensajeFinal = "Te quedaste sin tu oportunidad de descuento, pero podés seguir jugando para divertirte.";
-      this.resultado.emit({ gano: false, descuento: 15 });
+
+    if (!this.esAnonimo && !this.yaJugo) {
+      this.mensajeFinal = "No lograste el descuento esta vez.";
+      this.resultado.emit({ gano: false, descuento: 0, porDiversion: false });
     } else {
-      this.mensajeFinal = "Inténtalo de nuevo.";
+      this.mensajeFinal = "Jugaste por diversión.";
+      this.resultado.emit({ gano: false, descuento: 0, porDiversion: true });
     }
   }
 }

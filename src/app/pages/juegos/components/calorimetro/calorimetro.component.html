@@ -5,15 +5,17 @@
   </div>
 
   @if (estado === 'jugando' || estado === 'revelando') {
-  <div class="carta-plato referencia" [class.fade-out]="animando">
+  <div class="carta-plato referencia" [class.fade-out]="animando || animandoVictoria || animandoDerrota">
     <div class="emoji">{{ alimentoActual.emoji }}</div>
     <h2>{{ alimentoActual.nombre }}</h2>
     <p class="calorias">{{ alimentoActual.calorias }} Kcal</p>
   </div>
 
-  <div class="vs-divider" [class.fade-out]="animando"><span>VS</span></div>
+  <div class="vs-divider" [class.fade-out]="animando || animandoVictoria || animandoDerrota"><span>VS</span></div>
 
-  <div class="carta-plato incognita" [class.slide-up]="animando">
+  <div class="carta-plato incognita" [class.slide-up]="animando" [class.animacion-victoria]="animandoVictoria"
+    [class.animacion-derrota]="animandoDerrota" [class.carta-acierto]="estado === 'revelando' && esAcierto"
+    [class.carta-error]="estado === 'revelando' && !esAcierto">
     <div class="emoji">{{ siguienteAlimento.emoji }}</div>
     <h2>{{ siguienteAlimento.nombre }}</h2>
 
@@ -27,22 +29,70 @@
     }
   </div>
 
-  @if (estado === 'jugando') {
-  <div class="controles">
-    <ion-button class="btn-mayor" (click)="evaluar('mayor')">
+  <div class="controles" [class.fade-out]="animandoVictoria || animandoDerrota">
+
+    <ion-button class="btn-control btn-mayor" [class.btn-expandido]="eleccionActual === 'mayor'"
+      [class.btn-oculto]="eleccionActual === 'menor'" [disabled]="estado === 'revelando'" (click)="evaluar('mayor')">
       <ion-icon slot="start" name="arrow-up-outline"></ion-icon> MÁS
     </ion-button>
-    <ion-button class="btn-menor" (click)="evaluar('menor')">
+
+    <ion-button class="btn-control btn-menor" [class.btn-expandido]="eleccionActual === 'menor'"
+      [class.btn-oculto]="eleccionActual === 'mayor'" [disabled]="estado === 'revelando'" (click)="evaluar('menor')">
       <ion-icon slot="start" name="arrow-down-outline"></ion-icon> MENOS
     </ion-button>
   </div>
-  }
+
   } @else {
-  <div class="resultado-card" [class.ganado]="estado === 'ganado'">
-    <ion-icon [name]="estado === 'ganado' ? 'restaurant-outline' : 'refresh-outline'"></ion-icon>
-    <h2>{{ estado === 'ganado' ? '¡Excelente Chef!' : '¡Plato Rechazado!' }}</h2>
-    <p>{{ mensajeFinal }}</p>
-    <ion-button class="btn-reiniciar" expand="block" (click)="iniciarJuego()">Jugar de nuevo</ion-button>
+  <div class="pantalla-resultados" [class.victoria]="estado === 'ganado'" [class.derrota]="estado === 'perdido'">
+    <div class="contenido-resultados">
+
+      <div class="icono-gigante">
+        <ion-icon [name]="estado === 'ganado' ? 'trophy' : 'close-circle'"></ion-icon>
+      </div>
+
+      <h1 class="titulo-resultado">
+        {{ estado === 'ganado' ? '¡Excelente Chef!' : '¡Plato Rechazado!' }}
+      </h1>
+
+      <div class="estadisticas">
+        <div class="stat-item">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <span>Aciertos: <strong>{{ puntos }}</strong> / 3</span>
+        </div>
+
+        @if (estado === 'ganado') {
+        <div class="stat-item premio">
+          <ion-icon name="ticket-outline"></ion-icon>
+
+          @if (!teniaDescuentoPreviamente) {
+          <span>¡Descuento de {{ descuentoGanado || 10 }}% ganado!</span>
+          } @else {
+          <span>Ya tenías un descuento del {{ descuentoGanado }}%</span>
+          }
+
+        </div>
+        }
+      </div>
+
+      <p class="mensaje-feedback">{{ mensajeFinal }}</p>
+
+      <div class="acciones-finales">
+        <ion-button class="btn-gigante btn-reiniciar" expand="block" (click)="iniciarJuego()">
+          <ion-icon slot="start" name="refresh-outline"></ion-icon>
+          Volver a jugar
+        </ion-button>
+      </div>
+
+    </div>
   </div>
   }
+
+  @if (estado !== 'ganado' && estado !== 'perdido') {
+  <div class="reglas-card">
+    <h3><ion-icon name="information-circle-outline"></ion-icon> ¿Cómo jugar?</h3>
+    <p>Adiviná si el producto mostrado tiene <b>más</b> o <b>menos</b> calorías que el anterior. Llegá a los 3 puntos
+      para ganar un 10% de descuento.</p>
+  </div>
+  }
+
 </div>

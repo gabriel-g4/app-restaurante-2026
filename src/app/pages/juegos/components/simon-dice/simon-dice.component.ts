@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonButton, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { restaurantOutline, refreshOutline, playOutline } from 'ionicons/icons';
+import { restaurantOutline, refreshOutline, playOutline, informationCircleOutline, checkmarkCircleOutline, ticketOutline } from 'ionicons/icons';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 @Component({
@@ -16,8 +16,7 @@ export class SimonDiceComponent implements OnInit {
   @Input() esAnonimo: boolean = false;
   @Input() yaJugo: boolean = false;
   @Input() descuentoGanado: number = 0;
-  @Output() resultado = new EventEmitter<{ gano: boolean, descuento: number }>();
-
+  @Output() resultado = new EventEmitter<{ gano: boolean, descuento: number, porDiversion?: boolean }>();
   ingredientes = [
     { id: 0, emoji: '🍅', nombre: 'Tomate', clase: 'btn-tomate' },
     { id: 1, emoji: '🧀', nombre: 'Queso', clase: 'btn-queso' },
@@ -32,17 +31,20 @@ export class SimonDiceComponent implements OnInit {
   secuenciaUsuario: number[] = [];
   bolsaColores: number[] = [];
   rondaActual: number = 1;
-  maxRondas: number = 7;
+  maxRondas: number = 5;
+  teniaDescuentoPreviamente: boolean = false;
 
   estado: 'preparacion' | 'mostrando' | 'jugando' | 'ganado' | 'perdido' = 'preparacion';
   ingredienteIluminado: number | null = null;
   mensajeFinal: string = '';
 
   constructor() {
-    addIcons({ restaurantOutline, refreshOutline, playOutline });
+    addIcons({ playOutline, informationCircleOutline, checkmarkCircleOutline, ticketOutline, refreshOutline, restaurantOutline });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.teniaDescuentoPreviamente = (this.descuentoGanado > 0);
+  }
 
   inicializarAudio() {
     if (!this.audioCtx) {
@@ -152,22 +154,27 @@ export class SimonDiceComponent implements OnInit {
   }
 
   procesarVictoria() {
-    this.estado = 'ganado';
-    if (!this.esAnonimo && !this.yaJugo && this.descuentoGanado === 0) {
-      this.mensajeFinal = "Ganaste un 20% de descuento.";
-      this.resultado.emit({ gano: true, descuento: 20 });
-    } else {
-      this.mensajeFinal = "Podés seguir jugando todas las veces que quieras.";
-    }
+    setTimeout(() => {
+      this.estado = 'ganado';
+      if (!this.esAnonimo && !this.teniaDescuentoPreviamente) {
+        this.mensajeFinal = "¡Ganaste un 20% de descuento!";
+        this.resultado.emit({ gano: true, descuento: 20 });
+      } else {
+        this.mensajeFinal = "¡Bien jugado! Pero ya tenías un descuento aplicado.";
+        this.resultado.emit({ gano: true, descuento: this.descuentoGanado, porDiversion: true });
+      }
+    }, 1000);
   }
 
   procesarDerrota() {
     this.estado = 'perdido';
-    if (!this.esAnonimo && !this.yaJugo && this.descuentoGanado === 0) {
-      this.mensajeFinal = "Te quedaste sin tu oportunidad de descuento, pero podés seguir jugando para divertirte.";
-      this.resultado.emit({ gano: false, descuento: 20 });
+
+    if (!this.esAnonimo && !this.yaJugo) {
+      this.mensajeFinal = "No lograste el descuento esta vez.";
+      this.resultado.emit({ gano: false, descuento: 0, porDiversion: false });
     } else {
-      this.mensajeFinal = "Intentalo de nuevo.";
+      this.mensajeFinal = "Jugaste por diversión.";
+      this.resultado.emit({ gano: false, descuento: 0, porDiversion: true });
     }
   }
 }

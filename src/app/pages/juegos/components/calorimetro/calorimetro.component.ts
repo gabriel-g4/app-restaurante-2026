@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonButton, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowUpOutline, arrowDownOutline, restaurantOutline, refreshOutline, checkmarkCircleOutline, closeCircleOutline } from 'ionicons/icons';
+import { arrowUpOutline, arrowDownOutline, restaurantOutline, refreshOutline, checkmarkCircleOutline, closeCircleOutline, informationCircleOutline, ticketOutline } from 'ionicons/icons';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 @Component({
@@ -16,7 +16,7 @@ export class CalorimetroComponent implements OnInit {
   @Input() esAnonimo: boolean = false;
   @Input() yaJugo: boolean = false;
   @Input() descuentoGanado: number = 0;
-  @Output() resultado = new EventEmitter<{ gano: boolean, descuento: number }>();
+  @Output() resultado = new EventEmitter<{ gano: boolean, descuento: number, porDiversion?: boolean }>();
 
   alimentos = [
     { nombre: 'Ensalada Mixta', calorias: 150, emoji: '🥗' },
@@ -35,9 +35,13 @@ export class CalorimetroComponent implements OnInit {
   esAcierto: boolean = false;
   animando: boolean = false;
   mensajeFinal: string = '';
+  eleccionActual: 'mayor' | 'menor' | null = null;
+  animandoVictoria: boolean = false;
+  animandoDerrota: boolean = false;
+  teniaDescuentoPreviamente: boolean = false;
 
   constructor() {
-    addIcons({ arrowUpOutline, arrowDownOutline, restaurantOutline, refreshOutline, checkmarkCircleOutline, closeCircleOutline });
+    addIcons({ arrowUpOutline, arrowDownOutline, checkmarkCircleOutline, ticketOutline, refreshOutline, informationCircleOutline, restaurantOutline, closeCircleOutline });
   }
 
   ngOnInit() { this.iniciarJuego(); }
@@ -49,56 +53,74 @@ export class CalorimetroComponent implements OnInit {
     this.alimentos = this.alimentos.sort(() => Math.random() - 0.5);
     this.alimentoActual = this.alimentos[0];
     this.siguienteAlimento = this.alimentos[1];
+    this.teniaDescuentoPreviamente = (this.descuentoGanado > 0);
   }
 
-  async evaluar(eleccion: 'mayor' | 'menor') {
+  async evaluar(respuesta: 'mayor' | 'menor') {
+    this.eleccionActual = respuesta;
+
     const esMayor = this.siguienteAlimento.calorias >= this.alimentoActual.calorias;
-    this.esAcierto = (eleccion === 'mayor' && esMayor) || (eleccion === 'menor' && !esMayor);
+    this.esAcierto = (respuesta === 'mayor' && esMayor) || (respuesta === 'menor' && !esMayor);
 
     this.estado = 'revelando';
 
     if (this.esAcierto) {
       await Haptics.impact({ style: ImpactStyle.Light });
       setTimeout(() => {
-        this.animando = true;
 
-        setTimeout(() => {
-          this.puntos++;
-          if (this.puntos === 3) {
+        if (this.puntos === 2) {
+          this.animandoVictoria = true;
+          setTimeout(() => {
+            this.puntos++;
             this.procesarVictoria();
-          } else {
+            this.animandoVictoria = false;
+            this.eleccionActual = null;
+          }, 1000);
+        } else {
+          this.animando = true;
+          this.eleccionActual = null;
+          setTimeout(() => {
+            this.puntos++;
             this.alimentoActual = this.siguienteAlimento;
             this.siguienteAlimento = this.alimentos[this.puntos + 1];
             this.estado = 'jugando';
             this.animando = false;
-          }
-        }, 500);
+          }, 500);
+        }
       }, 1500);
     } else {
       await Haptics.impact({ style: ImpactStyle.Heavy });
       setTimeout(() => {
-        this.procesarDerrota();
-      }, 2000);
+        this.animandoDerrota = true;
+        setTimeout(() => {
+          this.procesarDerrota();
+          this.animandoDerrota = false;
+          this.eleccionActual = null;
+        }, 1000);
+      }, 1500);
     }
   }
 
   procesarVictoria() {
     this.estado = 'ganado';
-    if (!this.esAnonimo && !this.yaJugo && this.descuentoGanado === 0) {
-      this.mensajeFinal = "Ganaste un 10% de descuento.";
+    if (!this.esAnonimo && !this.teniaDescuentoPreviamente) {
+      this.mensajeFinal = "¡Ganaste un 10% de descuento!";
       this.resultado.emit({ gano: true, descuento: 10 });
     } else {
-      this.mensajeFinal = "Podés seguir jugando todas las veces que quieras.";
+      this.mensajeFinal = "¡Bien jugado! Pero ya tenías un descuento aplicado.";
+      this.resultado.emit({ gano: true, descuento: this.descuentoGanado, porDiversion: true });
     }
   }
 
   procesarDerrota() {
     this.estado = 'perdido';
-    if (!this.esAnonimo && !this.yaJugo && this.descuentoGanado === 0) {
-      this.mensajeFinal = "Te quedaste sin tu oportunidad de descuento, pero podés seguir jugando para divertirte.";
-      this.resultado.emit({ gano: false, descuento: 10 });
+
+    if (!this.esAnonimo && !this.yaJugo) {
+      this.mensajeFinal = "No lograste el descuento esta vez.";
+      this.resultado.emit({ gano: false, descuento: 0, porDiversion: false });
     } else {
-      this.mensajeFinal = "Intentalo de nuevo.";
+      this.mensajeFinal = "Jugaste por diversión.";
+      this.resultado.emit({ gano: false, descuento: 0, porDiversion: true });
     }
   }
 }

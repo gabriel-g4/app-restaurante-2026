@@ -138,7 +138,7 @@ export class PedidoService {
 
   async crearPedidoDelivery(pedidoData: any, direccion: string): Promise<string> {
     try {
-      
+
       if (!this.usuario) throw new Error('Usuario no autenticado para pedido delivery');
 
       const idPedido = await this.databaseService.generarIdSecuencial('pedidos');
@@ -521,6 +521,50 @@ export class PedidoService {
       console.error('Error al obtener estado del pedido:', error);
       this.mostrarToast('Error al obtener estado del pedido', 'danger');
       return null;
+    }
+  }
+
+  // Obtiene el pedido activo actual del usuario
+  async obtenerPedidoActivo(uid: string): Promise<any> {
+    try {
+      const pedidosRef = collection(this.firestore, 'pedidos');
+      const q = query(pedidosRef, where('idUsuario', '==', uid));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) return null;
+
+      const estadosFinales = ['pago confirmado', 'cancelado', 'rechazado'];
+      const pedidosActivos = querySnapshot.docs
+        .map(docSnap => ({ id: docSnap.id, ...docSnap.data() } as any))
+        .filter(p => !estadosFinales.includes(p.estado));
+
+      if (pedidosActivos.length > 0) {
+        pedidosActivos.sort((a, b) => {
+          const fechaA = a.fecha?.toDate ? a.fecha.toDate().getTime() : new Date(a.fecha).getTime();
+          const fechaB = b.fecha?.toDate ? b.fecha.toDate().getTime() : new Date(b.fecha).getTime();
+          return fechaB - fechaA;
+        });
+        return pedidosActivos[0];
+      }
+      return null;
+    } catch (error) {
+      console.error('Error al obtener el pedido activo:', error);
+      return null;
+    }
+  }
+
+  // Modifica exclusivamente las variables del juego
+  async actualizarJuegoPedido(pedidoId: string, jugo: boolean, descuento: number): Promise<void> {
+    try {
+      const pedidoRef = doc(this.firestore, `pedidos/${pedidoId}`);
+      await updateDoc(pedidoRef, {
+        jugo: jugo,
+        descuento: descuento
+      });
+      console.log(`✅ Juego actualizado en el pedido ${pedidoId}. Descuento: ${descuento}%`);
+    } catch (error) {
+      console.error('Error al actualizar el juego en el pedido:', error);
+      throw error;
     }
   }
 

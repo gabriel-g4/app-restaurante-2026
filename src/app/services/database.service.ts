@@ -177,38 +177,6 @@ export class DatabaseService {
 
     return collectionData(q, { idField: 'id' });
   }
-
-
-  // --- JUEGOS Y DESCUENTOS ---
-
-  obtenerDescuentoCliente(clienteId: string): Observable<any> {
-    const userDocRef = doc(this.firestore, `usuarios/${clienteId}`);
-    return docData(userDocRef);
-  }
-
-  async guardarDescuentoGanado(clienteId: string, porcentaje: number) {
-    try {
-      const userDocRef = doc(this.firestore, `usuarios/${clienteId}`);
-      await updateDoc(userDocRef, {
-        descuentoGanado: porcentaje,
-        juegoJugado: true
-      });
-    } catch (error) {
-      console.error("Error guardando descuento:", error);
-    }
-  }
-
-  async registrarIntentoFallido(clienteId: string) {
-    try {
-      const userDocRef = doc(this.firestore, `usuarios/${clienteId}`);
-      await updateDoc(userDocRef, {
-        juegoJugado: true
-      });
-    } catch (error) {
-      console.error("Error registrando intento:", error);
-    }
-  }
-
   // MESAS
 
   async verificarExistenciaMesa(numero: number): Promise<boolean> {
@@ -379,7 +347,7 @@ export class DatabaseService {
     // Ejecutamos todas las operaciones del batch
     await batch.commit();
     console.log(`Se procesaron y cancelaron ${snapshot.size} reservas vencidas.`);
-}
+  }
 
   async traerColeccion(nombreColeccion: string) {
     console.log("collectionData:");
@@ -387,7 +355,7 @@ export class DatabaseService {
 
     console.log("traer coleccion")
     console.log(this.firestore)
-    
+
     if (nombreColeccion == "mesas") {
       await this.actualizarEstadoMesasPorReservasVencidas().catch(err => console.error("Error al actualizar estado de mesas:", err));
     }
@@ -397,9 +365,9 @@ export class DatabaseService {
     console.log("Query path:", (col as any)._query.path.segments);
 
     return collectionData(col, { idField: 'id' });
-}
+  }
 
-   async modificarUsuario(usuario: any, coleccion: string) {
+  async modificarUsuario(usuario: any, coleccion: string) {
     try {
       const docRef = doc(this.firestore, `${coleccion}/${usuario.id}`);
       await updateDoc(docRef, { ...usuario });
@@ -454,7 +422,7 @@ export class DatabaseService {
     }
   }
 
-    async obtenerEncuestasPorPedido(idPedido: string): Promise<any[]> {
+  async obtenerEncuestasPorPedido(idPedido: string): Promise<any[]> {
     try {
       const snapshot = await getDocs(
         query(collection(this.firestore, 'encuestas'),

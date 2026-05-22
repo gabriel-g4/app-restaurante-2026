@@ -1,24 +1,11 @@
 <div class="juego-container">
+
   <div class="header-juego">
     <p>Ronda: <strong>{{ rondaActual }} / {{ maxRondas }}</strong></p>
-
-    <div class="estado-turno" [class.turno-app]="estado === 'mostrando'" [class.turno-jugador]="estado === 'jugando'">
-      {{ estado === 'mostrando' ? 'Atento al Chef...' : (estado === 'jugando' ? '¡Te toca!' : '') }}
-    </div>
-
     <span class="badge veinte">Premio: 20% OFF</span>
   </div>
 
-  @if (estado === 'preparacion') {
-  <div class="instrucciones-card">
-    <ion-icon name="restaurant-outline"></ion-icon>
-    <h2>La Receta del Chef</h2>
-    <p>Memoriza el orden de los ingredientes y repite la secuencia exacta.</p>
-    <ion-button class="btn-comenzar" expand="block" (click)="iniciarJuego()">
-      <ion-icon slot="start" name="play-outline"></ion-icon> Comenzar
-    </ion-button>
-  </div>
-  } @else if (estado === 'mostrando' || estado === 'jugando') {
+  @if (estado === 'preparacion' || estado === 'mostrando' || estado === 'jugando') {
 
   <div class="tablero-simon">
     @for (item of ingredientes; track item.id) {
@@ -29,16 +16,67 @@
     }
   </div>
 
-  } @else {
+  <ion-button class="btn-dinamico" expand="block"
+    [color]="estado === 'preparacion' ? 'primary' : (estado === 'mostrando' ? 'danger' : 'success')"
+    [disabled]="estado !== 'preparacion'" (click)="iniciarJuego()">
 
-  <div class="resultado-card" [class.ganado]="estado === 'ganado'">
-    <ion-icon [name]="estado === 'ganado' ? 'restaurant-outline' : 'refresh-outline'"></ion-icon>
-    <h2>{{ estado === 'ganado' ? '¡Plato Exquisito!' : '¡Oops! Te equivocaste' }}</h2>
-    <p>{{ mensajeFinal }}</p>
-    <ion-button class="btn-reiniciar" expand="block" (click)="iniciarJuego()">
-      Jugar otra vez
-    </ion-button>
+    @if (estado === 'preparacion') {
+    <ion-icon slot="start" name="play-outline"></ion-icon> COMENZAR
+    } @else if (estado === 'mostrando') {
+    TURNO DE LA ABUELA...
+    } @else if (estado === 'jugando') {
+    ¡TU TURNO!
+    }
+  </ion-button>
+
+  <div class="reglas-card">
+    <h3><ion-icon name="information-circle-outline"></ion-icon> ¿Cómo jugar?</h3>
+    <p>Prestá atención y repetí la secuencia exacta de ingredientes. Sobreviví <b>5 rondas</b> necesarias para
+      llevarte un 20% de descuento.</p>
   </div>
 
+  } @else {
+  <div class="pantalla-resultados" [class.victoria]="estado === 'ganado'" [class.derrota]="estado === 'perdido'">
+    <div class="contenido-resultados">
+
+      <div class="icono-gigante">
+        <ion-icon [name]="estado === 'ganado' ? 'trophy' : 'close-circle'"></ion-icon>
+      </div>
+
+      <h1 class="titulo-resultado">
+        {{ estado === 'ganado' ? '¡Excelente Chef!' : '¡Plato Rechazado!' }}
+      </h1>
+
+      <div class="estadisticas">
+        <div class="stat-item">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <span>¡Felicitaciones!</span>
+        </div>
+
+        @if (estado === 'ganado') {
+        <div class="stat-item premio">
+          <ion-icon name="ticket-outline"></ion-icon>
+
+          @if (!teniaDescuentoPreviamente) {
+          <span>¡Descuento de {{ descuentoGanado || 20 }}% ganado!</span>
+          } @else {
+          <span>Ya tenías un descuento del {{ descuentoGanado }}%</span>
+          }
+
+        </div>
+        }
+      </div>
+
+      <p class="mensaje-feedback">{{ mensajeFinal }}</p>
+
+      <div class="acciones-finales">
+        <ion-button class="btn-gigante btn-reiniciar" expand="block" (click)="iniciarJuego()">
+          <ion-icon slot="start" name="refresh-outline"></ion-icon>
+          Volver a jugar
+        </ion-button>
+      </div>
+
+    </div>
+  </div>
   }
 </div>

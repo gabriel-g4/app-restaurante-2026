@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { CommonModule } from '@angular/common';
+import { PedidoService } from 'src/app/services/pedido.service';
 import {
   IonContent, IonHeader, IonToolbar, IonTitle,
   IonButtons, IonBackButton, IonIcon, IonButton
@@ -32,30 +33,34 @@ export class JuegosPage implements OnInit {
   descuentoGanado: number = 0;
   yaJugo: boolean = false;
 
+  pedidoActualId: string | null = null;
+
   vistaActual: string = 'menu';
   tituloHeader: string = 'Juegos y Descuentos';
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private dbService: DatabaseService
+    private dbService: DatabaseService,
+    private pedidoService: PedidoService
   ) {
     addIcons({ gameControllerOutline, trophyOutline, starOutline, arrowBackOutline });
   }
 
   ngOnInit() {
-    this.authService.usuario$.subscribe(user => {
+    this.authService.usuario$.subscribe(async user => {
       if (user) {
         this.esAnonimo = user.email?.includes('anonimo') || false;
         this.usuarioActual = user;
 
         if (!this.esAnonimo) {
-          this.dbService.obtenerDescuentoCliente(user.uid).subscribe(data => {
-            if (data) {
-              this.descuentoGanado = data.descuentoGanado || 0;
-              this.yaJugo = data.juegoJugado || false;
-            }
-          });
+          const pedido = await this.pedidoService.obtenerPedidoActivo(user.uid);
+
+          if (pedido) {
+            this.pedidoActualId = pedido.id;
+            this.yaJugo = pedido.jugo || false;
+            this.descuentoGanado = pedido.descuento || 0;
+          }
         }
       }
     });
@@ -71,12 +76,30 @@ export class JuegosPage implements OnInit {
     this.tituloHeader = 'Juegos y Descuentos';
   }
 
-  async procesarResultadoJuego(resultado: { gano: boolean, descuento: number }) {
-    if (!this.esAnonimo && !this.yaJugo && this.descuentoGanado === 0) {
-      if (resultado.gano) {
-        await this.dbService.guardarDescuentoGanado(this.usuarioActual.uid, resultado.descuento);
-      } else {
-        await this.dbService.registrarIntentoFallido(this.usuarioActual.uid);
+  async procesarResultadoJuego(resultado: any) {
+    console.log('Resultado del juego:', resultado);
+
+    if (resultado.porDiversion) {
+      return;
+    }
+
+    this.yaJugo = true;
+
+    if (resultado.gano) {
+      this.descuentoGanado = resultado.descuento;
+    } else {
+      this.descuentoGanado = 0;
+    }
+
+    if (!this.esAnonimo && this.pedidoActualId) {
+      try {
+        await this.pedidoService.actualizarJuegoPedido(
+          this.pedidoActualId,
+          true,
+          this.descuentoGanado
+        );
+      } catch (error) {
+        console.error('No se pudo guardar el descuento en el pedido.');
       }
     }
   }

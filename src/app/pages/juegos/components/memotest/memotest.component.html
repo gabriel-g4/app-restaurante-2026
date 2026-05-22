@@ -15,12 +15,55 @@
     </div>
     }
   </div>
+
+  <div class="reglas-card">
+    <h3><ion-icon name="information-circle-outline"></ion-icon> ¿Cómo jugar?</h3>
+    <p>Encontrá todos los pares de cartas iguales. Tenés un límite de <b>18 movimientos</b>. Si lo lográs, ganás un 15%
+      de descuento en tu pedido.</p>
+  </div>
   } @else {
-  <div class="resultado-card" [class.ganado]="estado === 'ganado'">
-    <ion-icon [name]="estado === 'ganado' ? 'restaurant-outline' : 'refresh-outline'"></ion-icon>
-    <h2>{{ estado === 'ganado' ? '¡Memoria de Elefante!' : '¡Plato Quemado!' }}</h2>
-    <p>{{ mensajeFinal }}</p>
-    <ion-button class="btn-reiniciar" expand="block" (click)="iniciarJuego()">Jugar de nuevo</ion-button>
+  <div class="pantalla-resultados" [class.victoria]="estado === 'ganado'" [class.derrota]="estado === 'perdido'">
+    <div class="contenido-resultados">
+
+      <div class="icono-gigante">
+        <ion-icon [name]="estado === 'ganado' ? 'trophy' : 'close-circle'"></ion-icon>
+      </div>
+
+      <h1 class="titulo-resultado">
+        {{ estado === 'ganado' ? '¡Excelente Chef!' : '¡Plato Rechazado!' }}
+      </h1>
+
+      <div class="estadisticas">
+        <div class="stat-item">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <span>Intentos: <strong>{{ movimientos }}</strong> / 18</span>
+        </div>
+
+        @if (estado === 'ganado') {
+        <div class="stat-item premio">
+          <ion-icon name="ticket-outline"></ion-icon>
+
+          @if (!teniaDescuentoPreviamente) {
+          <span>¡Descuento de {{ descuentoGanado || 15 }}% ganado!</span>
+          } @else {
+          <span>Ya tenías un descuento del {{ descuentoGanado }}%</span>
+          }
+
+        </div>
+        }
+      </div>
+
+      <p class="mensaje-feedback">{{ mensajeFinal }}</p>
+
+      <div class="acciones-finales">
+        <ion-button class="btn-gigante btn-reiniciar" expand="block" (click)="iniciarJuego()">
+          <ion-icon slot="start" name="refresh-outline"></ion-icon>
+          Volver a jugar
+        </ion-button>
+      </div>
+
+    </div>
   </div>
   }
+
 </div>
