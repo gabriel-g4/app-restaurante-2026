@@ -24,7 +24,6 @@ export class AuthService {
   }
 
   async cerrarSesion() {
-    this.pushNotificationService.clearToken();
     const user = this.auth.currentUser;
 
     if (user) {

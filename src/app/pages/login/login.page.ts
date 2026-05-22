@@ -122,16 +122,23 @@ export class LoginPage implements OnInit {
 
         this.loginForm.reset();
 
-        await this.pushNotificationService.initPush();
+        // await this.pushNotificationService.initPush();
 
-        this.pushNotificationService.tokenReady.subscribe(async tokenMobile => {
+        // this.pushNotificationService.tokenReady.subscribe(async tokenMobile => {
 
-          console.log('Token de notificación:', tokenMobile);
+        //   console.log('Token de notificación:', tokenMobile);
 
+        //   user!['push_token'] = tokenMobile;
+
+        //   await this.databaseService.modificarUsuario(user, 'usuarios');
+        // });
+
+        
+        const tokenMobile = await this.pushNotificationService.obtenerToken();
+        if (tokenMobile) {
           user!['push_token'] = tokenMobile;
-
           await this.databaseService.modificarUsuario(user, 'usuarios');
-        });
+        }
 
         loading.dismiss();
         this.router.navigate(['/home']);

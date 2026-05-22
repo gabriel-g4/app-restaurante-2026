@@ -11,9 +11,13 @@ import { isPlatform, AlertController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class PushNotificationService {
-  public push_token: string | null = null;
+  private currentToken: string | null = null;
   private initialized = false;
-  public tokenReady = new EventEmitter<string>();
+  private tokenReadyResolver!: (token: string) => void;
+
+  private tokenReady = new Promise<string>((resolve) => {
+    this.tokenReadyResolver = resolve;
+  });
 
   constructor(private alertController: AlertController, private router : Router) {}
 
@@ -53,8 +57,8 @@ export class PushNotificationService {
     // Listener: token obtenido
     PushNotifications.addListener('registration', (token: Token) => {
       console.log("[13] ✅ Listener registration → Token FCM obtenido:", token.value);
-      this.push_token = token.value;
-      this.tokenReady.emit(token.value);
+      this.currentToken = token.value;
+      this.tokenReadyResolver(token.value);
     });
 
     // Listener: error en el registro
@@ -157,6 +161,15 @@ export class PushNotificationService {
   }
 }
 
+async obtenerToken(): Promise<string> {
+
+    if (this.currentToken) {
+      return this.currentToken;
+    }
+
+    return this.tokenReady;
+  }
+
 
   // async initPush() {
   //   // Solo ejecuta en dispositivos con Capacitor
@@ -218,12 +231,4 @@ export class PushNotificationService {
   //     }
   //   );
   // }
-
-  async clearToken() {
-    this.push_token = null;
-    this.initialized = false;
-    await PushNotifications.removeAllListeners();
-     
-    // Si tenés backend, avisale que se limpió
-  }
 }
