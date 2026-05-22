@@ -72,6 +72,7 @@ export class MenuEncuestaPage implements OnInit {
 
 
   async completarEncuesta() {
+    console.log("Pedido actual", this.pedidoActual)
     if (!this.pedidoActual || !this.pedidoActual.idPedido) {
       const toast = await this.toastCtrl.create({
         message: 'No hay un pedido seleccionado',
