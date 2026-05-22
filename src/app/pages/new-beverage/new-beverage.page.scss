@@ -128,6 +128,10 @@ ion-content {
   cursor: pointer;
   color: #{global.$text-light};
   transition: all 0.3s ease;
+  align-items: center;
+  background: #2a3d52; 
+  border-radius: 12px;
+  border: 2px dashed rgba(255, 255, 255, 0.5); 
 
   ion-icon {
     font-size: 64px;
@@ -154,6 +158,8 @@ ion-content {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  gap: 12px; 
+  flex-wrap: wrap; 
 }
 
 .button-area {

@@ -128,41 +128,31 @@ ion-content {
   }
 }
 
-#img-tomar,
 .img-tomar {
-  width: 100%;
-  max-width: 150px;
-  height: 150px;
-  border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.08);
-  border: 1px dashed rgba(255, 255, 255, 0.4);
-  margin: 0 auto;
+  width: 100px;
+  height: 100px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  background: #2a3d52; /* Usa el color de fondo de tu app */
+  border-radius: 12px;
+  border: 2px dashed rgba(255, 255, 255, 0.5); /* Borde punteado */
   cursor: pointer;
-  color: #{global.$text-light};
-  transition: all 0.3s ease;
-
+  
   ion-icon {
-    font-size: 64px;
-    margin-bottom: 5px;
-  }
-
-  &:active {
-    background: rgba(255, 255, 255, 0.2);
+    font-size: 2.5rem;
+    color: white;
   }
 }
 
 #img-preview,
 .img-preview {
   width: 100%;
-  height: 180px;
+  height: 100px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 12px;
   margin: 0 auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .container-imagenes {
@@ -170,6 +160,8 @@ ion-content {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  gap: 12px; 
+  flex-wrap: wrap; /* Si hay muchas, bajan a la siguiente línea */
 }
 
 .button-area {
