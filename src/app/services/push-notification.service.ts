@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   PushNotifications,
@@ -13,6 +13,7 @@ import { isPlatform, AlertController } from '@ionic/angular';
 export class PushNotificationService {
   public push_token: string | null = null;
   private initialized = false;
+  public tokenReady = new EventEmitter<string>();
 
   constructor(private alertController: AlertController, private router : Router) {}
 
@@ -44,13 +45,8 @@ export class PushNotificationService {
       return;
     }
 
-    console.log("[9] Permiso otorgado → registrando en FCM...");
-    await PushNotifications.register();
-    console.log("[10] ✔ PushNotifications.register() → COMPLETADO (si ves este log, NO crasheó)");
-
-    // Marca como inicializado
-    this.initialized = true;
-    console.log("[11] this.initialized = true");
+    console.log("[9] Permiso otorgado");
+   
 
     console.log("[12] Registrando listeners…");
 
@@ -58,6 +54,7 @@ export class PushNotificationService {
     PushNotifications.addListener('registration', (token: Token) => {
       console.log("[13] ✅ Listener registration → Token FCM obtenido:", token.value);
       this.push_token = token.value;
+      this.tokenReady.emit(token.value);
     });
 
     // Listener: error en el registro
@@ -146,6 +143,13 @@ export class PushNotificationService {
       }
     );
 
+     await PushNotifications.register();
+    console.log("[18] ✔ PushNotifications.register() → COMPLETADO (si ves este log, NO crasheó)");
+
+    // Marca como inicializado
+    this.initialized = true;
+    console.log("[19] this.initialized = true");
+
     console.log("---- [17] initPush() FINALIZADO SIN ERRORES ----");
 
   } catch (err) {
@@ -215,8 +219,11 @@ export class PushNotificationService {
   //   );
   // }
 
-  clearToken() {
+  async clearToken() {
     this.push_token = null;
+    this.initialized = false;
+    await PushNotifications.removeAllListeners();
+     
     // Si tenés backend, avisale que se limpió
   }
 }

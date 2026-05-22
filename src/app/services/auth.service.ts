@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, signOut, authState, createUserWithEmailAndPassword, onAuthStateChanged,  } from '@angular/fire/auth';
 import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
+import { PushNotificationService } from './push-notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AuthService {
 
   user: any | null = null;
 
-  constructor(private auth: Auth, private firestore: Firestore) { }
+  constructor(private auth: Auth, private firestore: Firestore, private pushNotificationService: PushNotificationService) { }
 
   iniciarSesionConContrasenia(correo: string, contrasenia: string) {
     return signInWithEmailAndPassword(this.auth, correo, contrasenia);
@@ -23,6 +24,7 @@ export class AuthService {
   }
 
   async cerrarSesion() {
+    this.pushNotificationService.clearToken();
     const user = this.auth.currentUser;
 
     if (user) {
