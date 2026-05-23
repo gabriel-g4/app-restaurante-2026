@@ -7,6 +7,7 @@ import {
 } from '@ionic/angular/standalone';
 import { QRCodeComponent } from 'angularx-qrcode'; //module
 import { Camera } from '@capacitor/camera';
+import { Capacitor } from '@capacitor/core';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { DatabaseService } from 'src/app/services/database.service';
 import { camera } from 'ionicons/icons';
@@ -29,12 +30,13 @@ import { DialogService } from 'src/app/services/dialog.service';
 export class NewTablePage implements OnInit {
 
   mesaForm!: FormGroup;
-  fotoTomada: string | undefined | null;
+  selectedFile: File | null = null;
+  imagenPreview: string | null = null;
 
   qrDataString: string = '';
 
-  constructor(private fb: FormBuilder, private toastController: ToastController, private databaseService: DatabaseService, private storageService: StorageService, private modalController: ModalController, private dialogService: DialogService) {
-    addIcons({ camera })
+  constructor(private fb: FormBuilder, private storage: StorageService, private toastController: ToastController, private databaseService: DatabaseService, private modalController: ModalController, private dialogService: DialogService) {
+    addIcons({ camera });
   }
 
   ngOnInit() {
@@ -57,21 +59,24 @@ export class NewTablePage implements OnInit {
   async tomarFoto() {
     try {
       const image = await Camera.takePhoto({
-        quality: 90,
-        editable: "no"
+        quality: 80,
+        editable: "no",
       });
 
-      this.fotoTomada = image.uri || image.webPath;
+      const response = await fetch(image.webPath!);
+      const blob = await response.blob();
+      this.selectedFile = new File([blob], image.uri || image.webPath || "empleado.jpg", { type: blob.type });
+      this.imagenPreview = URL.createObjectURL(blob);
 
-      this.mesaForm.patchValue({ foto: this.fotoTomada });
+      this.mesaForm.patchValue({ foto: this.imagenPreview });
 
     } catch (error) {
-      console.log('Error o cancelación al tomar foto', error);
+      console.log('El usuario canceló la foto o hubo un error', error);
     }
   }
 
   async registrarMesa() {
-    if (this.mesaForm.invalid) {
+    if (this.mesaForm.invalid || !this.selectedFile) {
       this.mesaForm.markAllAsTouched();
       await Haptics.impact({ style: ImpactStyle.Heavy });
       this.mostrarError('Revisá los campos marcados del formulario.');
@@ -103,15 +108,11 @@ export class NewTablePage implements OnInit {
         return;
       }
 
-      // const photoURL = await this.storageService.uploadImage(this.fotoTomada!);
-      const response = await fetch(this.fotoTomada!);
-      const blob = await response.blob();
-
-      const photoURL = await this.storageService.uploadImage(blob);
+      const urlFoto = await this.storage.uploadImage(this.selectedFile);
 
       const newTable = {
         ...mesaData,
-        foto: photoURL,
+        foto: urlFoto,
         estado: 'libre'
       };
 
@@ -121,7 +122,8 @@ export class NewTablePage implements OnInit {
       this.dialogService.presentToast('Mesa agregada exitosamente. Se ha generado el código QR.', 'success');
 
       this.mesaForm.reset();
-      this.fotoTomada = null;
+      this.selectedFile = null;
+      this.imagenPreview = null;
 
     } catch (error) {
       loading.dismiss();

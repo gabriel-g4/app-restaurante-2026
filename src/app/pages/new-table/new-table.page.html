@@ -41,8 +41,8 @@
 
           <label class="column">
             Foto de la Mesa
-            @if (fotoTomada) {
-            <img [src]="fotoTomada" id="img-preview" (click)="tomarFoto()" />
+            @if (selectedFile) {
+            <img [src]="imagenPreview" id="img-preview" (click)="tomarFoto()" />
             }
             @else{
             <div id="img-tomar" (click)="tomarFoto()"
