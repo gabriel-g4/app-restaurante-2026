@@ -1,13 +1,11 @@
-import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA, AfterViewInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuController, AlertController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import {
-  ToastController, IonContent, IonHeader, IonTitle, IonToolbar,
+  IonContent, IonHeader, IonTitle, IonToolbar,
   IonIcon,
   IonCard,
-  IonCardHeader,
   IonCardTitle,
-  IonCardSubtitle,
   IonCardContent,
   IonButton,
   IonButtons,
@@ -15,13 +13,10 @@ import {
   IonSpinner,
   ModalController
 } from '@ionic/angular/standalone';
-import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { menuOutline, logOutOutline, peopleOutline, personCircleOutline } from 'ionicons/icons';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { DatabaseService } from 'src/app/services/database.service';
 import { register } from 'swiper/element/bundle';
 import { DialogService } from 'src/app/services/dialog.service';
 import { MaitreService } from 'src/app/services/maitre.service';
@@ -74,11 +69,6 @@ export class WaitListMaitrePage implements OnInit, AfterViewInit {
   currentIndex = 0;
 
   constructor(
-    private menuCtrl: MenuController,
-    private auth: AuthService,
-    private router: Router,
-    private toastCtrl: ToastController,
-    private db: DatabaseService,
     private alertCtrl: AlertController,
     private dialogService: DialogService,
     private maitreService: MaitreService,
@@ -236,23 +226,11 @@ export class WaitListMaitrePage implements OnInit, AfterViewInit {
   }
 
   private async mostrarError(mensaje: string) {
-    const toast = await this.toastCtrl.create({
-      message: mensaje,
-      duration: 3000,
-      position: 'middle',
-      color: 'danger'
-    });
-    await toast.present();
+    this.dialogService.presentToast(mensaje, "danger");
   }
 
   private async mostrarExito(mensaje: string) {
-    const toast = await this.toastCtrl.create({
-      message: mensaje,
-      duration: 3000,
-      position: 'middle',
-      color: 'success'
-    });
-    await toast.present();
+    this.dialogService.presentToast(mensaje, "success");
   }
 
 

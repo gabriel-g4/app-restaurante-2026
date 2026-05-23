@@ -1,5 +1,5 @@
 import { Component, Input} from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular/standalone';
+import { ModalController } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PedidoService } from '../../services/pedido.service';
@@ -13,6 +13,7 @@ import {
   IonSpinner
 } from '@ionic/angular/standalone';
 import { NotificationSenderService } from 'src/app/services/notification-sender.service';
+import { DialogService } from 'src/app/services/dialog.service';
 
 
 
@@ -41,8 +42,8 @@ export class DetallePedidoModalComponent {
     private modalCtrl: ModalController,
     private pedidoService: PedidoService,
     private router: Router,
-    private toastCtrl: ToastController,
-    private notificationSenderService: NotificationSenderService
+    private notificationSenderService: NotificationSenderService,
+    private dialogService: DialogService
   ) {
     addIcons({ closeOutline, cartOutline });
   }
@@ -82,25 +83,13 @@ export class DetallePedidoModalComponent {
             });
         
 
-      const toast = await this.toastCtrl.create({
-        message: `Pedido realizado con éxito`,
-        duration: 3000,
-        color: 'success',
-        position: 'top'
-      });
-      await toast.present();
+      this.dialogService.presentToast("Pedido realizado con éxito", "success");
 
       this.modalCtrl.dismiss({ ordenRealizada: true });
       this.router.navigate(['/menu-principal']);
     } catch (error) {
       console.error('Error al ordenar pedido:', error);
-      const toast = await this.toastCtrl.create({
-        message: 'Error al realizar el pedido',
-        duration: 3000,
-        color: 'danger',
-        position: 'top'
-      });
-      await toast.present();
+      this.dialogService.presentToast("Error al realizar el pedido", "danger");
     } finally {
       this.cargando = false;
     }

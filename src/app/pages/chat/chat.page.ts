@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild, NgZone } from '@angular/core'; // <-- Imp
 import { DatabaseService } from 'src/app/services/database.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonFooter, IonIcon, ToastController } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonFooter, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { send } from 'ionicons/icons';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { NotificationSenderService } from 'src/app/services/notification-sender.service';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-chat',
@@ -33,8 +34,8 @@ export class ChatPage implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private ngZone: NgZone,
-    private toastCtrl: ToastController,
-    private notificationSenderService: NotificationSenderService
+    private notificationSenderService: NotificationSenderService,
+    private dialogService: DialogService
   ) {
     addIcons({ send });
 
@@ -125,12 +126,6 @@ export class ChatPage implements OnInit {
   }
 
   async mostrarError(mensaje: string) {
-    const toast = await this.toastCtrl.create({
-      message: mensaje,
-      duration: 5000,
-      color: 'danger',
-      position: 'top',
-    });
-    await toast.present();
+    this.dialogService.presentToast(mensaje, "danger");
   }
 }

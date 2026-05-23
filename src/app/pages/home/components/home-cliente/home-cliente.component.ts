@@ -435,7 +435,7 @@ export class HomeClienteComponent implements OnInit, OnDestroy {
 
     if (!this.pedidoActual) {
       await Haptics.impact({ style: ImpactStyle.Heavy });
-      this.dialogService.presentToast('No tiene un pedido asignado', 'danger');
+      this.dialogService.presentToast('Ingresa a la lista de espera', 'danger');
       return;
     }
 

@@ -5,7 +5,7 @@ import { IonContent, IonInput, IonHeader, IonTitle, IonToolbar, IonSelect, IonBu
 import { addIcons } from 'ionicons';
 import { cameraOutline, camera, qrCodeOutline } from 'ionicons/icons';
 import { Router } from '@angular/router';
-import { ToastController, ModalController } from '@ionic/angular/standalone';
+import { ModalController } from '@ionic/angular/standalone';
 
 import { Camera } from '@capacitor/camera';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
@@ -39,7 +39,6 @@ export class NewEmployeePage implements OnInit {
     private router: Router,
     private dialogService: DialogService,
     private fb: FormBuilder,
-    private toastController: ToastController,
     private modalController: ModalController,
     private db: DatabaseService,
     private storage: StorageService,

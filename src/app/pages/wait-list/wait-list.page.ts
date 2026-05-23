@@ -42,14 +42,15 @@ export class WaitListPage {
     await loading.present();
 
     try {
-      const user = this.authService.getCurrentUser();
-      if (!user) {
+      const userAuth = this.authService.getCurrentUser();
+      const userDb = await this.databaseService.obtenerUsuarioPorId(userAuth.uid);
+      if (!userAuth) {
         await loading.dismiss();
         this.dialogService.presentToast('Usuario no autenticado. Vuelva a intentar');
         return;
       }
 
-      const puedePedir = await this.databaseService.puedeHacerNuevoPedido(user.uid);
+      const puedePedir = await this.databaseService.puedeHacerNuevoPedido(userAuth.uid);
       
       if (!puedePedir) {
         await loading.dismiss();
@@ -59,10 +60,10 @@ export class WaitListPage {
 
       const pedidoData = {
         idPedido: await this.databaseService.generarIdSecuencial('pedidos'),
-        idUsuario: user.uid,
+        idUsuario: userAuth.uid,
         estado: 'esperando mesa',
         fecha: new Date().toISOString(),
-        emailUsuario: user.email || '',
+        emailUsuario: userAuth.email || '',
         descuento: 0,
         jugo: false
       };
@@ -72,7 +73,7 @@ export class WaitListPage {
       this.dialogService.presentToast('Ya está en lista de espera, dentro de poco se le asigna una mesa.', "success" , 5000)
       this.notificationSenderService.enviarNotificacion({
               title: 'Cliente en lista de espera',
-              body: `El cliente: ${user.email} esta esperando una mesa.`,
+              body: `El cliente: ${userDb.nombre} ${userDb.apellido || ''} esta esperando una mesa.`,
               roles: ['metre'],
               path: 'wait-list-maitre',
               collection: 'usuarios',

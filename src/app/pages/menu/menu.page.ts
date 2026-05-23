@@ -188,56 +188,8 @@ segment: string = 'comida';
         this.router.navigate([path]);
     }
     
-/*
-  async realizarPedidoDelivery() {
-    const currentUser = this.auth.user;
 
-    if (!currentUser) {
-      console.error('Error: No hay un usuario autenticado para realizar el pedido.');
-      // Aquí podrías mostrar un Toast al usuario indicando que debe iniciar sesión.
-      return;
-    }
-
-    const pedido = {
-      clienteId: currentUser.uid,
-      clienteEmail: currentUser.email,
-      productos: this.carrito,
-      total: this.calcularTotal(),
-      tiempoEstimadoPreparacion: this.calcularTiempoMaximo(),
-      direccion: this.deliveryAddress,
-      estado: 'pendiente_confirmacion', // Estado inicial
-      fecha: new Date().toISOString()
-    };
-
-    if (pedido.productos.length === 0) {
-      // Lógica para mostrar un toast de que no hay productos
-      return;
-    }
-
-    try {
-      this.loading = true;
-      await this.db.crear('pedidos_delivery', pedido);
-      // Lógica para mostrar un toast de éxito
-      // this.toastController.create...
-      this.router.navigate(['/home']); // Volver al home
-    } catch (error) {
-      // Lógica para mostrar un toast de error
-    } finally {
-      this.loading = false;
-    }
-  }
-*/
-    async cerrarSesion() {
-    const user = this.auth.user;
-    if (user && user.uid) {
-      const dataToUpdate = {
-        push_token: ''
-      };
-      await this.db.modificarUsuario(user.uid, 'clientes');
-    }
-    this.auth.cerrarSesion();
-    this.router.navigate(['/login']);
-  }
+    
 
 
 }

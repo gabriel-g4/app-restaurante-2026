@@ -1,11 +1,13 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatabaseService } from 'src/app/services/database.service';
-import { ToastController, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent, IonIcon, IonButton } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent, IonIcon, IonButton, ModalController } from '@ionic/angular/standalone';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { checkmark, checkmarkCircleOutline, close } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { register } from 'swiper/element/bundle';
 import { EmailService } from 'src/app/services/email.service';
+import { DialogService } from 'src/app/services/dialog.service';
+import { SpinnerModalComponent } from 'src/app/components/spinner-modal/spinner-modal.component';
 // register Swiper custom elements
 register();
 
@@ -24,8 +26,9 @@ export class GestionarClientesPage implements OnInit {
 
   constructor(
     private dbService: DatabaseService,
-    private toastCtrl: ToastController,
-    private email: EmailService
+    private dialogService: DialogService,
+    private email: EmailService,
+    private modalController: ModalController
   ) { 
     addIcons({ checkmark, close, checkmarkCircleOutline})
     //https://i.imgur.com/Mlwfs3F.png
@@ -38,26 +41,43 @@ export class GestionarClientesPage implements OnInit {
   }
 
   async confirmarRechazo(cliente: any) {
+    const loading = await this.modalController.create({
+      component: SpinnerModalComponent,
+      cssClass: 'spinner-modal',
+      backdropDismiss: false
+    });
+
+    loading.present();
     await Haptics.impact({ style: ImpactStyle.Heavy });
 
     try {
       await this.dbService.rechazarCliente(cliente.id);
       await this.mailRechazado(cliente);
-      this.mostrarToast(`El cliente ${cliente.nombre} ha sido rechazado.`, 'warning');
+      loading.dismiss();
+      this.dialogService.presentToast(`El cliente ${cliente.nombre} ha sido rechazado.`, 'warning')
     } catch (error) {
-      this.mostrarToast('Hubo un error al rechazar al cliente.', 'danger');
+      loading.dismiss();
+      this.dialogService.presentToast('Hubo un error al rechazar al cliente.', 'danger')
     }
   }
 
   async confirmarAceptacion(cliente: any) {
+    const loading = await this.modalController.create({
+      component: SpinnerModalComponent,
+      cssClass: 'spinner-modal',
+      backdropDismiss: false
+    });
+    loading.present();
     await Haptics.impact({ style: ImpactStyle.Light });
 
     try {
       await this.dbService.aceptarCliente(cliente.id);
       await this.mailAceptado(cliente);
-      this.mostrarToast(`El cliente ${cliente.nombre} ha sido aceptado.`, 'success');
+      loading.dismiss();
+      this.dialogService.presentToast(`El cliente ${cliente.nombre} ha sido aceptado.`, 'success')
     } catch (error) {
-      this.mostrarToast('Hubo un error al aceptar al cliente.', 'danger');
+      loading.dismiss();
+      this.dialogService.presentToast('Hubo un error al aceptar al cliente.', 'danger')
     }
   }
 
@@ -89,13 +109,4 @@ export class GestionarClientesPage implements OnInit {
     }, "template_pipcjju")
   }
 
-  async mostrarToast(mensaje: string, color: string) {
-    const toast = await this.toastCtrl.create({
-      message: mensaje,
-      duration: 3000,
-      color: color,
-      position: 'middle'
-    });
-    await toast.present();
-  }
 }

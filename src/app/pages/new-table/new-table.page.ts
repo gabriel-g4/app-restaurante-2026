@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   IonContent, IonHeader, IonTitle, IonToolbar, IonButton,
-  IonButtons, IonBackButton, IonIcon, ToastController, ModalController
+  IonButtons, IonBackButton, IonIcon, ModalController
 } from '@ionic/angular/standalone';
 import { QRCodeComponent } from 'angularx-qrcode'; //module
 import { Camera } from '@capacitor/camera';
@@ -35,7 +35,7 @@ export class NewTablePage implements OnInit {
 
   qrDataString: string = '';
 
-  constructor(private fb: FormBuilder, private storage: StorageService, private toastController: ToastController, private databaseService: DatabaseService, private modalController: ModalController, private dialogService: DialogService) {
+  constructor(private fb: FormBuilder, private storage: StorageService, private databaseService: DatabaseService, private modalController: ModalController, private dialogService: DialogService) {
     addIcons({ camera });
   }
 
@@ -79,14 +79,14 @@ export class NewTablePage implements OnInit {
     if (this.mesaForm.invalid || !this.selectedFile) {
       this.mesaForm.markAllAsTouched();
       await Haptics.impact({ style: ImpactStyle.Heavy });
-      this.mostrarError('Revisá los campos marcados del formulario.');
+      this.dialogService.presentToast('Revisá los campos marcados del formulario.', "danger");
       return;
     }
 
     const numeroMesa = this.mesaForm.get('numero')?.value;
 
     const existe = await this.databaseService.verificarExistenciaMesa(numeroMesa);
-    if (existe) { this.mostrarError("La mesa ya existe"); return; }
+    if (existe) { this.dialogService.presentToast("La mesa ya existe", "danger"); return; }
 
     console.log('Mesa válida lista para guardar:', this.mesaForm.value);
     console.log('QR Generado con la data:', this.qrDataString);
@@ -132,13 +132,5 @@ export class NewTablePage implements OnInit {
     }
   }
 
-  async mostrarError(mensaje: string) {
-    const toast = await this.toastController.create({
-      message: mensaje,
-      duration: 3000,
-      color: 'danger',
-      position: 'bottom',
-    });
-    await toast.present();
-  }
+  
 }

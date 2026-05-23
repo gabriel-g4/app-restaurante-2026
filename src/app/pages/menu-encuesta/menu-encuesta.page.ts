@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonIcon, IonButton, IonBackButton } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { ModalController, ToastController } from '@ionic/angular/standalone';
+import { ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { 
   homeOutline, 
@@ -13,10 +13,8 @@ import {
   documentTextOutline,
   eyeOutline
 } from 'ionicons/icons';
-import { MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/database.service';
 import { RespuestaEncuestaModal } from 'src/app/components/respuesta-encuesta/respuesta-encuesta.modal';
-import { AuthService } from 'src/app/services/auth.service';
 import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({

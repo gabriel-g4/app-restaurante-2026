@@ -14,9 +14,9 @@ import {
 } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { DatabaseService } from './database.service';
-import { ToastController } from '@ionic/angular';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { NotificationSenderService } from './notification-sender.service';
+import { DialogService } from './dialog.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -28,7 +28,7 @@ export class PedidoService {
     private firestore: Firestore,
     private authService: AuthService,
     private databaseService: DatabaseService,
-    private toastCtrl: ToastController,
+    private dialogService: DialogService,
     private notificationSenderService: NotificationSenderService
   ) { }
 
@@ -127,13 +127,7 @@ export class PedidoService {
   }
 
   async mostrarToast(mensaje: string, color: string) {
-    const toast = await this.toastCtrl.create({
-      message: mensaje,
-      duration: 3000,
-      color: color,
-      position: 'middle',
-    });
-    await toast.present();
+    this.dialogService.presentToast(mensaje, color);
   }
 
   async crearPedidoDelivery(pedidoData: any, direccion: string): Promise<string> {

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { 
   IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, 
-  IonIcon, IonContent, IonList, IonItem, IonLabel, IonText, ToastController } from '@ionic/angular/standalone';
+  IonIcon, IonContent, IonList, IonItem, IonLabel, IonText } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { closeOutline } from 'ionicons/icons';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { PedidoService } from '../../services/pedido.service';
 import { NotificationSenderService } from 'src/app/services/notification-sender.service';
 import { SpinnerModalComponent } from '../spinner-modal/spinner-modal.component';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-realizar-pago-modal',
@@ -33,7 +34,7 @@ export class RealizarPagoModalComponent  implements OnInit {
     private modalController: ModalController,
     private pedidoService: PedidoService,
     private router: Router,
-    private toastCtrl: ToastController,
+    private dialogService: DialogService,
     private notificationSenderService: NotificationSenderService
   ) {
     addIcons({ closeOutline });
@@ -46,7 +47,7 @@ export class RealizarPagoModalComponent  implements OnInit {
 private validarDatosPedido() {
     if (!this.pedido) {
       console.error('Error: Pedido no definido');
-      this.mostrarError('Pedido no válido');
+      this.dialogService.presentToast("Pedido no válido", "danger");
       this.modalController.dismiss();
       return;
     }
@@ -54,7 +55,7 @@ private validarDatosPedido() {
     if (typeof this.pedido.precioTotal === 'undefined') {
       console.error('Error: precioTotal no definido en el pedido');
       console.log('Estructura del pedido recibido:', this.pedido);
-      this.mostrarError('Datos del pedido incompletos');
+      this.dialogService.presentToast("Datos del pedido incompletos", "danger");
       this.modalController.dismiss();
     }
   }
@@ -144,26 +145,17 @@ private validarDatosPedido() {
       
       loading.dismiss();
       
-      const toast = await this.toastCtrl.create({
-        message: 'Pago realizado con éxito',
-        duration: 2000,
-        position: 'bottom',
-        color: 'success'
-      });
-      await toast.present();
+      this.dialogService.presentToast("Pago realizado con éxito", "success");
+      
       
       await this.modalController.dismiss();
       this.router.navigate(['/home']);
     } catch (error) {
       loading.dismiss();
       console.error('Error al realizar el pago:', error);
-      const toast = await this.toastCtrl.create({
-        message: 'Error al procesar el pago',
-        duration: 2000,
-        position: 'bottom',
-        color: 'danger'
-      });
-      await toast.present();
+
+      this.dialogService.presentToast("Error al procesar el pago", "danger");
+
     }
   }
 
@@ -171,13 +163,4 @@ private validarDatosPedido() {
     this.modalController.dismiss();
   }
 
-    private async mostrarError(mensaje: string) {
-    const toast = await this.toastCtrl.create({
-      message: mensaje,
-      duration: 3000,
-      position: 'bottom',
-      color: 'danger'
-    });
-    await toast.present();
-  }
 }
