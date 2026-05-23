@@ -146,7 +146,7 @@ export class PedidosMozoPage implements OnInit {
       body: `El mozo ha confirmado tu pedido #${pedido.idPedido}. Ya está en preparación.`,
       roles: ['cliente'],
       path: 'menu-principal',
-      collection: 'clientes',
+      collection: 'usuarios',
     });
     this.dialogService.presentToast(`Pedido de Mesa ${pedido.idMesa} aceptado con éxito.`);
   }
@@ -170,7 +170,7 @@ export class PedidosMozoPage implements OnInit {
       body: `Su pedido ${pedido.idPedido} fue rechazado por un mozo.`,
       roles: ['cliente'],
       path: 'menu',
-      collection: 'clientes',
+      collection: 'usuarios',
     });
 
     // Mensaje
@@ -215,7 +215,7 @@ export class PedidosMozoPage implements OnInit {
         body: `Nuevo pedido para preparar: ${pedido.idPedido}`,
         roles: ['cocinero', 'bartender'],
         path: 'home',
-        collection: 'clientes',
+        collection: 'usuarios',
       });
     }
 
@@ -230,7 +230,7 @@ export class PedidosMozoPage implements OnInit {
         body: `Se transfirieron ${pedido.precioFinal} a la cuenta.`,
         roles: ['dueño', 'supervisor'],
         path: 'home',
-        collection: 'clientes',
+        collection: 'usuarios',
       });
       console.log('Notificación de pago confirmado enviada.');
 

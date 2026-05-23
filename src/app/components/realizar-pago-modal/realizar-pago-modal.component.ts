@@ -139,7 +139,7 @@ private validarDatosPedido() {
               body: `Mesa ${this.pedido.idMesa} quiere pagar.`,
               roles: ['mozo', 'dueño', 'supervisor'],
               path: 'home',
-              collection: 'clientes',
+              collection: 'usuarios',
             });
       
       loading.dismiss();

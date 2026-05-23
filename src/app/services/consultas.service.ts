@@ -60,7 +60,7 @@ export class ConsultasService {
               body: `Hay una nueva consulta del cliente: ${cliente?.nombre}`,
               roles: ['mozo'],
               path: 'client-approval',
-              collection: 'clientes',
+              collection: 'usuarios',
             });
 
     }

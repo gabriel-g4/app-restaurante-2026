@@ -191,7 +191,7 @@ export class MenuPrincipalPage implements OnInit, OnDestroy {
         body: body,
         roles: roles,
         path: 'client-approval',
-        collection: 'clientes',
+        collection: 'usuarios',
       });
     } catch (error) {
       console.error('Error al actualizar estado:', error);

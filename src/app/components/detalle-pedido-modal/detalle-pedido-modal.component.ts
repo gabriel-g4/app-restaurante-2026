@@ -78,7 +78,7 @@ export class DetallePedidoModalComponent {
               body: `Hay un nuevo pedido pendiente.`,
               roles: ['mozo'],
               path: 'home',
-              collection: 'clientes',
+              collection: 'usuarios',
             });
         
 
