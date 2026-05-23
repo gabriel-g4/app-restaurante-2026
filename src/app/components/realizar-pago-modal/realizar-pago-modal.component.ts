@@ -9,6 +9,7 @@ import { closeOutline } from 'ionicons/icons';
 import { Router } from '@angular/router';
 import { PedidoService } from '../../services/pedido.service';
 import { NotificationSenderService } from 'src/app/services/notification-sender.service';
+import { SpinnerModalComponent } from '../spinner-modal/spinner-modal.component';
 
 @Component({
   selector: 'app-realizar-pago-modal',
@@ -29,7 +30,7 @@ export class RealizarPagoModalComponent  implements OnInit {
   isLoading: boolean = false;
 
   constructor(
-    private modalCtrl: ModalController,
+    private modalController: ModalController,
     private pedidoService: PedidoService,
     private router: Router,
     private toastCtrl: ToastController,
@@ -46,7 +47,7 @@ private validarDatosPedido() {
     if (!this.pedido) {
       console.error('Error: Pedido no definido');
       this.mostrarError('Pedido no válido');
-      this.modalCtrl.dismiss();
+      this.modalController.dismiss();
       return;
     }
 
@@ -54,7 +55,7 @@ private validarDatosPedido() {
       console.error('Error: precioTotal no definido en el pedido');
       console.log('Estructura del pedido recibido:', this.pedido);
       this.mostrarError('Datos del pedido incompletos');
-      this.modalCtrl.dismiss();
+      this.modalController.dismiss();
     }
   }
 
@@ -112,6 +113,13 @@ private validarDatosPedido() {
   }
 
   async pagar() {
+    const loading = await this.modalController.create({
+      component: SpinnerModalComponent,
+      cssClass: 'spinner-modal',
+      backdropDismiss: false
+    });
+
+    loading.present();
     try {
       // Actualizamos el pedido con la propina y precio final
       const pedidoActualizado = {
@@ -134,6 +142,8 @@ private validarDatosPedido() {
               collection: 'clientes',
             });
       
+      loading.dismiss();
+      
       const toast = await this.toastCtrl.create({
         message: 'Pago realizado con éxito',
         duration: 2000,
@@ -142,9 +152,10 @@ private validarDatosPedido() {
       });
       await toast.present();
       
-      await this.modalCtrl.dismiss();
+      await this.modalController.dismiss();
       this.router.navigate(['/home']);
     } catch (error) {
+      loading.dismiss();
       console.error('Error al realizar el pago:', error);
       const toast = await this.toastCtrl.create({
         message: 'Error al procesar el pago',
@@ -157,7 +168,7 @@ private validarDatosPedido() {
   }
 
   cerrar() {
-    this.modalCtrl.dismiss();
+    this.modalController.dismiss();
   }
 
     private async mostrarError(mensaje: string) {

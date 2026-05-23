@@ -17,6 +17,7 @@ import { MenuController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/database.service';
 import { RespuestaEncuestaModal } from 'src/app/components/respuesta-encuesta/respuesta-encuesta.modal';
 import { AuthService } from 'src/app/services/auth.service';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-menu-encuesta',
@@ -36,11 +37,9 @@ export class MenuEncuestaPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private menuCtrl: MenuController,
-    private toastCtrl: ToastController,
-    //private authService: AuthService,
     private modalCtrl: ModalController,
-    private db: DatabaseService
+    private db: DatabaseService,
+    private dialogService: DialogService
   ) {
     addIcons({ 
       homeOutline, 
@@ -74,12 +73,7 @@ export class MenuEncuestaPage implements OnInit {
   async completarEncuesta() {
     console.log("Pedido actual", this.pedidoActual)
     if (!this.pedidoActual || !this.pedidoActual.idPedido) {
-      const toast = await this.toastCtrl.create({
-        message: 'No hay un pedido seleccionado',
-        duration: 2000,
-        position: 'middle'
-      });
-      await toast.present();
+      this.dialogService.presentToast("No hay un pedido seleccionado");
       return;
     }
 
@@ -92,12 +86,8 @@ export class MenuEncuestaPage implements OnInit {
     
     if (encuestas && encuestas.length > 0) {
       // Mostrar toast si ya existe una encuesta
-      const toast = await this.toastCtrl.create({
-        message: 'Ya respondiste esta encuesta',
-        duration: 2000,
-        position: 'middle'
-      });
-      await toast.present();
+      this.dialogService.presentToast('Ya respondiste esta encuesta');
+      
     } else {
       // Navegar a la página de encuesta con el idPedido
       this.router.navigate(['/client-survey'], {

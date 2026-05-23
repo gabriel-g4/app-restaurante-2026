@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, Validators, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonIcon, ModalController } from '@ionic/angular/standalone';
 import { soloLetras, soloNumeros } from 'src/utils/helpers';
 import { DatabaseService } from 'src/app/services/database.service';
 import { DialogService } from 'src/app/services/dialog.service';
@@ -9,6 +9,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { addIcons } from 'ionicons';
 import { qrCodeOutline, camera } from 'ionicons/icons';
+import { SpinnerModalComponent } from 'src/app/components/spinner-modal/spinner-modal.component';
 
 
 interface Imagen {
@@ -44,7 +45,8 @@ export class NewBeveragePage implements OnInit {
 
   constructor(private dialogService: DialogService,
     private db: DatabaseService,
-    private storage: StorageService) {
+    private storage: StorageService,
+    private modalController: ModalController) {
 
 
     addIcons({
@@ -93,11 +95,20 @@ export class NewBeveragePage implements OnInit {
 
   async agregarBebida() {
     if (this.botonDeshabilitado) {
-      await this.dialogService.presentToast('Complete todos los campos e imágenes antes de registrar el plato.');
+      await this.dialogService.presentToast('Complete todos los campos e imágenes antes de registrar la bebida.');
       return;
     }
 
+    const loading = await this.modalController.create({
+      component: SpinnerModalComponent,
+      cssClass: 'spinner-modal',
+      backdropDismiss: false
+    });
+
+    loading.present();
+
     try {
+
       const fotosUrls: string[] = []; //subir imagenes
       for (let i = 0; i < this.imagenes.length; i++) {
         const img = this.imagenes[i];
@@ -130,10 +141,13 @@ export class NewBeveragePage implements OnInit {
         { file: null, preview: null },
       ];
 
-      await this.dialogService.presentToast('El plato ha sido registrado correctamente.', 'success');
+      loading.dismiss();
+
+      await this.dialogService.presentToast('La bebida ha sido registrado correctamente.', 'success');
     } catch (error) {
+      loading.dismiss();
       console.error('Error al registrar plato:', error);
-      await this.dialogService.presentToast('Error al registrar el plato.', 'danger');
+      await this.dialogService.presentToast('Error al registrar la bebida.', 'danger');
     }
   }
 

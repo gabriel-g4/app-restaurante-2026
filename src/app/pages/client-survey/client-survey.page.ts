@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonItem, IonLabel, IonRadio,  
          IonRange, IonRadioGroup, IonCheckbox, IonCardContent, IonCard, AlertController, 
-         IonTextarea, IonRow, IonCol, IonImg, IonBackButton, IonButtons } from '@ionic/angular/standalone';
+         IonTextarea, IonRow, IonCol, IonImg, IonBackButton, IonButtons, ModalController } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ActivatedRoute } from '@angular/router';
 import { DialogService } from 'src/app/services/dialog.service';
+import { SpinnerModalComponent } from 'src/app/components/spinner-modal/spinner-modal.component';
 
 @Component({
   selector: 'app-client-survey',
@@ -39,7 +40,8 @@ export class ClientSurveyPage implements OnInit {
               private storage: StorageService,
               private alertController: AlertController,
               private route: ActivatedRoute,
-              private dialogService: DialogService
+              private dialogService: DialogService,
+              private modalController: ModalController
               ) { }
 
 idPedido: string = '';
@@ -64,6 +66,14 @@ ngOnInit() {
 
       return;
     }
+
+    const loading = await this.modalController.create({
+      component: SpinnerModalComponent,
+      cssClass: 'spinner-modal',
+      backdropDismiss: false
+    });
+
+    loading.present();
 
     const datos = this.formularioEncuesta.value;
 
@@ -97,8 +107,13 @@ ngOnInit() {
         this.fotos = [];
         this.blobs = [];
         this.formularioEncuesta.reset({ comida: 1, recomendacion: false });
+
+        loading.dismiss();
+
         await this.dialogService.presentToast("Encuesta enviada con éxito.", "success")
         this.router.navigate(['menu-principal']);
+    } else {
+      loading.dismiss();
     }
     
   }
