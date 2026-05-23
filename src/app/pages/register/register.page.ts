@@ -20,11 +20,9 @@ import {
   IonButton,
   IonIcon,
   Platform,
-  IonCheckbox,
-  IonLabel,
   ModalController
 } from '@ionic/angular/standalone';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { qrCodeOutline, camera } from 'ionicons/icons';
 import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
@@ -62,8 +60,6 @@ export const passwordsMatchValidator: ValidatorFn = (group: AbstractControl): Va
     IonToolbar,
     IonBackButton,
     IonIcon,
-    IonCheckbox,
-    IonLabel,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -72,16 +68,8 @@ export const passwordsMatchValidator: ValidatorFn = (group: AbstractControl): Va
 
 export class RegisterPage implements OnInit {
 
-  formularioAlta = new FormGroup({
-    nombre: new FormControl('', [Validators.required]),
-    apellido: new FormControl('', [Validators.required]),
-    dni: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
-    repeatPassword: new FormControl('', [Validators.required]),
-    esAnonimo: new FormControl(false),
-    push_token: new FormControl('')
-  }, { validators: passwordsMatchValidator });
+  esAnonimo: boolean = false;
+  formularioAlta!: FormGroup;
 
   soloLetras = soloLetras;
   soloNumeros = soloNumeros;
@@ -98,13 +86,11 @@ export class RegisterPage implements OnInit {
     private db: DatabaseService,
     private storage: StorageService,
     private auth: AuthService,
+    private route: ActivatedRoute,
     private notificationSenderService: NotificationSenderService,
     private modalController: ModalController
   ) {
-    addIcons({
-      qrCodeOutline,
-      camera
-    })
+    addIcons({ qrCodeOutline, camera });
   }
 
   ngOnInit() {
@@ -113,26 +99,62 @@ export class RegisterPage implements OnInit {
       BarcodeScanner.checkPermissions().then();
       BarcodeScanner.removeAllListeners();
     }
+
+    this.formularioAlta = new FormGroup({
+      nombre: new FormControl('', [Validators.required]),
+      apellido: new FormControl('', [Validators.required]),
+      dni: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+      repeatPassword: new FormControl('', [Validators.required]),
+      push_token: new FormControl('')
+    }, { validators: passwordsMatchValidator });
+
+    this.route.queryParams.subscribe(params => {
+      this.esAnonimo = params['modo'] === 'anonimo';
+
+      this.toggleAnonimo();
+    });
   }
 
-  generarEmailRandom() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const array = new Uint8Array(12);
-    crypto.getRandomValues(array);
+  private toggleAnonimo() {
 
-    const hash = Array.from(array, n => chars[n % chars.length]).join('');
-    return hash + '@mail.com';
+    if (this.esAnonimo) {
+      this.formularioAlta.get('apellido')?.setValue('');
+      this.formularioAlta.get('dni')?.setValue('');
+      this.formularioAlta.get('email')?.setValue('');
+      this.formularioAlta.get('password')?.setValue('');
+      this.formularioAlta.get('repeatPassword')?.setValue('');
+
+      this.formularioAlta.get('apellido')?.removeValidators([Validators.required])
+      this.formularioAlta.get('dni')?.removeValidators([Validators.required, Validators.pattern('^[0-9]*$')])
+      this.formularioAlta.get('email')?.removeValidators([Validators.required, Validators.email])
+      this.formularioAlta.get('password')?.removeValidators([Validators.required])
+      this.formularioAlta.get('repeatPassword')?.removeValidators([Validators.required])
+
+    } else {
+      this.formularioAlta.get('apellido')?.addValidators([Validators.required])
+      this.formularioAlta.get('dni')?.addValidators([Validators.required, Validators.pattern('^[0-9]*$')])
+      this.formularioAlta.get('email')?.addValidators([Validators.required, Validators.email])
+      this.formularioAlta.get('password')?.addValidators([Validators.required])
+      this.formularioAlta.get('repeatPassword')?.addValidators([Validators.required])
+    }
+
+    this.formularioAlta.get('apellido')?.updateValueAndValidity()
+    this.formularioAlta.get('dni')?.updateValueAndValidity()
+    this.formularioAlta.get('email')?.updateValueAndValidity()
+    this.formularioAlta.get('password')?.updateValueAndValidity()
+    this.formularioAlta.get('repeatPassword')?.updateValueAndValidity()
   }
 
   async handleRegister() {
     if (this.formularioAlta.valid && this.selectedFile) {
-      const { nombre, email, password, esAnonimo } = this.formularioAlta.value;
+      const { nombre, email, password } = this.formularioAlta.value;
 
       if (
         typeof nombre === 'string' &&
         typeof email === 'string' &&
-        typeof password === 'string' &&
-        typeof esAnonimo === 'boolean'
+        typeof password === 'string'
       ) {
 
         // 1. CREAMOS VARIABLES VALIDADAS PARA EL EMAIL Y PASS DEFINITIVOS
@@ -140,7 +162,7 @@ export class RegisterPage implements OnInit {
         let passwordDefinitiva = password;
 
         // Si es anónimo, generamos el correo UNA SOLA VEZ y lo guardamos en la variable
-        if (esAnonimo) {
+        if (this.esAnonimo) {
           emailDefinitivo = this.generarEmailRandom();
           passwordDefinitiva = '111111';
         }
@@ -164,21 +186,21 @@ export class RegisterPage implements OnInit {
             const client: Client = new Client(
               userId,
               nombre,
-              esAnonimo ? '' : (this.formularioAlta.get('apellido')?.value || ''),
-              esAnonimo ? '' : (this.formularioAlta.get('dni')?.value || ''),
+              this.esAnonimo ? '' : (this.formularioAlta.get('apellido')?.value || ''),
+              this.esAnonimo ? '' : (this.formularioAlta.get('dni')?.value || ''),
               emailDefinitivo.toLowerCase(),
               url,
-              esAnonimo ? 'aceptado' : 'pendiente',
+              this.esAnonimo ? 'aceptado' : 'pendiente',
               'cliente',
               '',
-              esAnonimo
+              this.esAnonimo
             );
 
             await this.db.agregarUsuario(client, 'usuarios');
 
             this.auth.setRol('cliente');
 
-            if (!esAnonimo) {
+            if (!this.esAnonimo) {
               this.notificationSenderService.enviarNotificacion({
                 title: 'Nuevo Cliente Registrado',
                 body: `Cliente: ${nombre} ${this.formularioAlta.get('apellido')?.value} esperando aceptación.`,
@@ -195,7 +217,7 @@ export class RegisterPage implements OnInit {
           this.selectedFile = null;
           this.imagenPreview = null;
 
-          if (esAnonimo) {
+          if (this.esAnonimo) {
             this.router.navigate(['/home']);
           } else {
             await this.dialogService.presentToast(
@@ -236,7 +258,6 @@ export class RegisterPage implements OnInit {
     }
   }
 
-
   onScanQrCode() {
     const qrString = this.qrCode;
     this.parsedDniData = this.scannerService.parseDniQrCode(qrString);
@@ -257,39 +278,6 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  toggleAnonimo() {
-    const esAnonimo = this.formularioAlta.get('esAnonimo')?.value;
-
-    if (esAnonimo) {
-      this.formularioAlta.get('apellido')?.setValue('');
-      this.formularioAlta.get('dni')?.setValue('');
-      this.formularioAlta.get('email')?.setValue('');
-      this.formularioAlta.get('password')?.setValue('');
-      this.formularioAlta.get('repeatPassword')?.setValue('');
-
-      this.formularioAlta.get('apellido')?.removeValidators([Validators.required])
-      this.formularioAlta.get('dni')?.removeValidators([Validators.required, Validators.pattern('^[0-9]*$')])
-      this.formularioAlta.get('email')?.removeValidators([Validators.required, Validators.email])
-      this.formularioAlta.get('password')?.removeValidators([Validators.required])
-      this.formularioAlta.get('repeatPassword')?.removeValidators([Validators.required])
-
-    } else {
-      this.formularioAlta.get('apellido')?.addValidators([Validators.required])
-      this.formularioAlta.get('dni')?.addValidators([Validators.required, Validators.pattern('^[0-9]*$')])
-      this.formularioAlta.get('email')?.addValidators([Validators.required, Validators.email])
-      this.formularioAlta.get('password')?.addValidators([Validators.required])
-      this.formularioAlta.get('repeatPassword')?.addValidators([Validators.required])
-    }
-
-    this.formularioAlta.get('apellido')?.updateValueAndValidity()
-    this.formularioAlta.get('dni')?.updateValueAndValidity()
-    this.formularioAlta.get('email')?.updateValueAndValidity()
-    this.formularioAlta.get('password')?.updateValueAndValidity()
-    this.formularioAlta.get('repeatPassword')?.updateValueAndValidity()
-
-    console.log(this.formularioAlta)
-  }
-
   async tomarFoto() {
     const image = await Camera.takePhoto({
       quality: 80,
@@ -301,5 +289,14 @@ export class RegisterPage implements OnInit {
     const blob = await response.blob();
     this.selectedFile = new File([blob], image.uri || image.webPath || "imagen.jpg", { type: blob.type });
     this.imagenPreview = URL.createObjectURL(blob);
+  }
+
+  generarEmailRandom() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const array = new Uint8Array(12);
+    crypto.getRandomValues(array);
+
+    const hash = Array.from(array, n => chars[n % chars.length]).join('');
+    return hash + '@mail.com';
   }
 }

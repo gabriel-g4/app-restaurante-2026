@@ -81,7 +81,7 @@ export class LoginPage implements OnInit {
   }
 
   irALoginAnonimo() {
-    this.router.navigate(['/login-anonimo']);
+    this.router.navigate(['/register'], { queryParams: { modo: 'anonimo' } });
   }
 
   async IniciarSesion() {

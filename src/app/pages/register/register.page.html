@@ -21,10 +21,6 @@
       <div class="row">
         <div class="cart cart2">
           <div style="z-index: 1" class="column">
-            <div class="anonimo-checkbox">
-              <ion-checkbox formControlName="esAnonimo" (ionChange)="toggleAnonimo()"></ion-checkbox>
-              <ion-label>¿Cliente anónimo?</ion-label>
-            </div>
             <div class="log-in-area column">
 
               <label class="column">
@@ -33,7 +29,7 @@
                   [class.input-error]="formularioAlta.get('nombre')?.invalid && formularioAlta.get('nombre')?.touched" />
               </label>
 
-              @if (!formularioAlta.get('esAnonimo')?.value) {
+              @if (!this.esAnonimo) {
 
               <label class="column">
                 Apellido
@@ -87,7 +83,7 @@
 
             <div class="button-area column">
               <button (click)="handleRegister()">
-                Registrarse
+                {{ this.esAnonimo ? 'Ingresar como Anónimo' : 'Registrarse' }}
               </button>
             </div>
           </div>
