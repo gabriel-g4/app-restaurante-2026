@@ -151,7 +151,7 @@ export class DatabaseService {
   }
 
   // --- CHAT CLIENTE - MOZO ---
-  async enviarMensajeChat(emisorId: string, emisorPerfil: string, texto: string, mesaId: string) {
+  async enviarMensajeChat(emisorId: string, emisorPerfil: string, texto: string, mesaId: string, nombreEmisor: string) {
     try {
       const chatRef = collection(this.firestore, 'chat');
       await addDoc(chatRef, {
@@ -159,6 +159,7 @@ export class DatabaseService {
         emisorPerfil: emisorPerfil,
         texto: texto,
         mesaId: mesaId,
+        nombreEmisor: nombreEmisor,
         fecha: new Date().getTime()
       });
     } catch (error) {

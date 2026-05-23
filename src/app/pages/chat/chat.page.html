@@ -14,9 +14,17 @@
     <div class="mensaje-wrapper" [class.mio]="msg.emisorId === usuarioActual.id">
 
       <div class="mensaje-burbuja">
-        <span class="remitente">{{ msg.emisorPerfil | titlecase }}</span>
+        <span class="remitente">
+          @if (msg.emisorPerfil === 'mozo') {
+          {{ msg.nombreEmisor ? ('mozo - ' + msg.nombreEmisor | titlecase) : 'Mozo' }}
+          } @else {
+          {{ formatearMesa(mesaActualId) }}
+          }
+        </span>
+
         <p>{{ msg.texto }}</p>
-        <small class="hora">{{ msg.fecha | date:'HH:mm' }}</small>
+
+        <small class="hora">{{ msg.fecha | date:'dd/MM - HH:mm' }}</small>
       </div>
 
     </div>

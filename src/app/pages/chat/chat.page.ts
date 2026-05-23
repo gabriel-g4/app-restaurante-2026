@@ -7,6 +7,7 @@ import { addIcons } from 'ionicons';
 import { send } from 'ionicons/icons';
 import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
+import { NotificationSenderService } from 'src/app/services/notification-sender.service';
 
 @Component({
   selector: 'app-chat',
@@ -24,7 +25,7 @@ export class ChatPage implements OnInit {
 
   mensajes: any[] = [];
   chatForm: FormGroup;
-  usuarioActual: any;
+  usuarioActual: any = { id: '', rol: '', nombre: '' };
   mesaActualId: string = 'MESA-1';
 
   constructor(
@@ -32,7 +33,8 @@ export class ChatPage implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private ngZone: NgZone,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private notificationSenderService: NotificationSenderService
   ) {
     addIcons({ send });
 
@@ -41,14 +43,17 @@ export class ChatPage implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.authService.usuario$.subscribe(usuarioAuth => {
+  async ngOnInit() {
+    this.authService.usuario$.subscribe(async usuarioAuth => {
       if (usuarioAuth) {
 
-        this.usuarioActual = {
-          id: usuarioAuth.uid,
-          perfil: this.authService.getRol()
-        };
+        this.usuarioActual.id = usuarioAuth.uid;
+        this.usuarioActual.rol = this.authService.getRol();
+
+        const userDoc = await this.dbService.obtenerUsuarioPorId(this.usuarioActual.id)
+        if (userDoc) {
+          this.usuarioActual.nombre = userDoc.nombre + (userDoc.apellido ? ' ' + userDoc.apellido : '');
+        }
 
         this.dbService.obtenerMensajesMesa(this.mesaActualId).subscribe({
           next: (msgs) => {
@@ -72,20 +77,47 @@ export class ChatPage implements OnInit {
     });
   }
 
+  formatearMesa(codigoMesa: string): string {
+    if (!codigoMesa) return 'Mesa';
+    return codigoMesa.replace('-', ' ').toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+  }
+
   async enviarMensaje() {
     if (this.chatForm.invalid) return;
 
     const textoMensaje = this.chatForm.get('texto')?.value;
+    const rolEmisor = this.usuarioActual.rol;
+    const nombreMesaFormateada = this.formatearMesa(this.mesaActualId);
 
     try {
       this.chatForm.reset();
 
       await this.dbService.enviarMensajeChat(
         this.usuarioActual.id,
-        this.usuarioActual.perfil,
+        rolEmisor,
         textoMensaje,
-        this.mesaActualId
+        this.mesaActualId,
+        this.usuarioActual.nombre
       );
+
+      if (rolEmisor === 'cliente') {
+        await this.notificationSenderService.enviarNotificacion({
+          title: 'Nuevo Mensaje de ' + nombreMesaFormateada,
+          body: textoMensaje,
+          roles: ['mozo'],
+          path: 'chat',
+          collection: 'usuarios'
+        });
+      }
+      else if (rolEmisor === 'mozo') {
+        await this.notificationSenderService.enviarNotificacion({
+          title: 'Nuevo Mensaje de Mozo: ' + this.usuarioActual.nombre,
+          body: textoMensaje,
+          roles: ['cliente'],
+          path: 'chat',
+          collection: 'usuarios'
+        });
+      }
     } catch (error) {
       console.error("Error al enviar", error);
       this.mostrarError("No se pudo enviar el mensaje");
