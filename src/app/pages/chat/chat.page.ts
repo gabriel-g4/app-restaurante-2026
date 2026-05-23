@@ -65,7 +65,6 @@ export class ChatPage implements OnInit {
           error: async (err) => {
             console.error("❌ ERROR CRÍTICO DE FIREBASE:", err);
             await Haptics.impact({ style: ImpactStyle.Heavy });
-            this.mostrarError("Falta índice Firebase. Mirá la consola (chrome://inspect).");
           }
         });
 

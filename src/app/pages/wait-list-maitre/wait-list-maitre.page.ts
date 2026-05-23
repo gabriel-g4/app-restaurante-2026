@@ -217,8 +217,7 @@ export class WaitListMaitrePage implements OnInit, AfterViewInit {
         this.notificationSender.enviarNotificacion({
           title: 'Mesa asignada',
           body: `Su mesa es la numero: ${resultado.mesaNumero}, ya se puede ir a sentar`,
-          roles: [],
-          userId: cliente.idUsuario,
+          roles: ['cliente'],
           path: 'home',
           collection: 'usuarios'
         });

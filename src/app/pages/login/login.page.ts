@@ -80,6 +80,10 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/register']);
   }
 
+  irALoginAnonimo() {
+    this.router.navigate(['/login-anonimo']);
+  }
+
   async IniciarSesion() {
     if (this.loginForm.valid) {
       const loading = await this.modalController.create({
@@ -133,7 +137,7 @@ export class LoginPage implements OnInit {
         //   await this.databaseService.modificarUsuario(user, 'usuarios');
         // });
 
-        
+
         const tokenMobile = await this.pushNotificationService.obtenerToken();
         if (tokenMobile) {
           user!['push_token'] = tokenMobile;

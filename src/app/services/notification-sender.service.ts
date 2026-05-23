@@ -29,11 +29,6 @@ export class NotificationSenderService {
       // Creamos una copia del payload para no modificar el original
       const finalPayload = { ...payload };
 
-      // Si tenemos un userId, priorizamos el envío directo eliminando los roles
-      if (finalPayload.userId) {
-        delete finalPayload.roles;
-      }
-
       const response = await lastValueFrom(
         this.http.post(this.apiUrl, finalPayload, { headers: this.headers })
       );
