@@ -18,6 +18,7 @@ import {
   IonSpinner,
   IonButtons,
   IonBackButton,
+  ModalController
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
@@ -33,6 +34,7 @@ import { register } from 'swiper/element/bundle';
 // register Swiper custom elements
 register();
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { SpinnerModalComponent } from 'src/app/components/spinner-modal/spinner-modal.component';
 
 @Component({
   selector: 'app-orders-cocinero',
@@ -68,7 +70,8 @@ export class OrdersCocineroPage implements OnInit {
   constructor(
     private auth: AuthService,
     private dbService: DatabaseService,
-    private pedidoService: PedidoService
+    private pedidoService: PedidoService,
+    private modalController: ModalController
   ) {
     addIcons({
       logOutOutline,
@@ -221,6 +224,13 @@ export class OrdersCocineroPage implements OnInit {
   }
 
   async marcarPedidoEntregado(pedidoId: string, idMesa: string) {
+    const loading = await this.modalController.create({
+      component: SpinnerModalComponent,
+      cssClass: 'spinner-modal',
+      backdropDismiss: false
+    });
+
+    loading.present();
     console.log(
       `[MARK] Marcando pedido ${pedidoId} como entregado. Mesa: ${idMesa}`
     );
@@ -232,8 +242,10 @@ export class OrdersCocineroPage implements OnInit {
         tipo,
         idMesa
       );
+      loading.dismiss();
       console.log('[MARK] Pedido marcado como listo para entregar.');
     } catch (error) {
+      loading.dismiss();
       console.error('Error al marcar pedido como listo:', error);
     }
   }

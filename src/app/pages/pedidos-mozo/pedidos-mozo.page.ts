@@ -17,12 +17,13 @@ import {
   ModalController,
   IonSegment,
   IonSegmentButton,
-  IonBackButton
+  IonBackButton,
 } from '@ionic/angular/standalone'
 import { addIcons } from 'ionicons';
 import { chatbubblesOutline, checkmarkSharp, closeSharp, informationCircleOutline, logOutOutline, power, receiptOutline } from 'ionicons/icons';
 // import { ConsultaModal } from 'src/app/components/consulta-modal/consulta-modal.modal';
 import { DescripcionPedidoModal } from 'src/app/components/descripcion-pedido-modal/descripcion-pedido-modal.modal';
+import { SpinnerModalComponent } from 'src/app/components/spinner-modal/spinner-modal.component';
 // import { FacturaComponent } from 'src/app/components/factura/factura.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -80,7 +81,6 @@ export class PedidosMozoPage implements OnInit {
     private pedidoService: PedidoService,
     private db: DatabaseService,
     private notificationSenderService: NotificationSenderService,
-    // private emailService: EmailService
   ) {
     addIcons({ chatbubblesOutline, logOutOutline, informationCircleOutline, receiptOutline, power, checkmarkSharp, closeSharp });
   }
@@ -153,6 +153,14 @@ export class PedidosMozoPage implements OnInit {
 
   async rechazarPedido(pedido: any) {
 
+    const loading = await this.modalCtrl.create({
+      component: SpinnerModalComponent,
+      cssClass: 'spinner-modal',
+      backdropDismiss: false
+    });
+
+    loading.present();
+
     // Estado y mensaje específicos para rechazo
     const nuevoEstado = 'rechazado';
     // const mensaje = 'Pedido rechazado con éxito.';
@@ -173,6 +181,7 @@ export class PedidosMozoPage implements OnInit {
       collection: 'usuarios',
     });
 
+    loading.dismiss();
     // Mensaje
     // this.dialogService.presentToast(`Pedido de Mesa ${pedido.idMesa} rechazado con éxito.`);
   }
@@ -205,6 +214,13 @@ export class PedidosMozoPage implements OnInit {
   }
 
   async cambiarEstado(pedido: any) {
+    const loading = await this.modalCtrl.create({
+      component: SpinnerModalComponent,
+      cssClass: 'spinner-modal',
+      backdropDismiss: false
+    });
+
+    loading.present();
     const { estado: nuevoEstado, mensaje } = this.getNuevoEstado(pedido.estado);
     await this.pedidoService.actualizarEstadoPedido(pedido.id, nuevoEstado, mensaje);
 
@@ -242,113 +258,10 @@ export class PedidosMozoPage implements OnInit {
       this.crearFactura = true;
       console.log('Variables de factura preparadas:', { pedidoFactura: this.pedidoFactura, usuarioFactura: this.usuarioFactura });
 
-      await new Promise(resolve => setTimeout(resolve, 300)); // Test 2: esperar al render
-
-//       if (this.facturaComponent) {
-//         try {
-//           console.log('Intentando generar PDF...');
-//           const pdfLink = await this.facturaComponent.generarPDF();  // Obtener la URL del PDF desde Cloudinary
-//           console.log('PDF generado, link obtenido:', pdfLink);
-
-//           if (pdfLink) {
-//             console.log("uSERDATA: ", userData)
-//             if (userData.esAnonimo) {
-//               // push
-//               console.log('Usuario anónimo: enviando notificación push...');
-
-//               const redir = encodeURIComponent(pdfLink);
-
-//               console.log("📤 ENVIANDO PUSH");
-// console.log("🔗 URL original =", pdfLink);
-// console.log("🔐 URL encodeada =", redir);
-// console.log("📦 Path final enviado =", `redirect/${redir}`);
-              
-//               this.notificationSenderService.enviarNotificacion({
-//                 title: 'Descargar factura',
-//                 body: `Su factura ${pedido.idPedido} en formato pdf.`,
-//                 roles: ['cliente'],
-//                 path: `redirect/${redir}`,
-//                 collection: 'clientes',
-//               });
-//               console.log('Notificación push enviada.');
-//             } else {
-//               console.log('Usuario registrado: enviando email...');
-//               this.emailService.enviarCorreo({
-//                 nombre: userData.nombre,
-//                 estado: "",
-//                 mensaje: "Te agradecemos por elegir a nuestro restaurante. En este enlace de descarga está la factura de tu pedido en formato PDF.",
-//                 email: userData.email,
-//                 foto: pdfLink,
-//                 foto_portada: 'https://i.imgur.com/LFpCnic.png/',
-//                 color_portada: "crimson",
-//                 fuente: 'Arial',
-//                 size_mensaje: 45
-//               }, "template_7ch87x6");
-//               console.log('Email enviado a', userData.email);
-//             }
-//           } else {
-//             console.warn('No se obtuvo link del PDF.');
-//           }
-//         } catch (error) {
-//           console.error('Error al generar o subir el PDF:', error);
-//         }
-//       } else {
-//         console.warn('FacturaComponent no está disponible.');
-//       }
+  
     }
 
-    //agregar aca para cambiar el estado de la mesa a disponible si el pedido es pago confirmado
-    // if (nuevoEstado === 'pago confirmado') {
-    //   await this.pedidoService.liberarMesa(pedido.idMesa);
-    //   this.notificationSenderService.enviarNotificacion({
-    //     title: 'Pago confirmado',
-    //     body: `Se transfirieron ${pedido.precioFinal} a la cuenta.`,
-    //     roles: ['dueño', 'supervisor'],
-    //     path: 'home',
-    //     collection: 'clientes',
-    //   });
-
-    //   const userData = await this.db.obtenerUsuarioPorId(pedido.idUsuario, 'clientes');
-    //   this.pedidoFactura = pedido;
-    //   this.usuarioFactura = userData;
-    //   this.crearFactura = true;
-
-    //   if (this.facturaComponent) {
-    //     try {
-    //       const pdfLink = await this.facturaComponent.generarPDF();  // Obtener la URL del PDF desde Cloudinary
-    //       if (pdfLink) {
-    //         if (userData.esAnonimo) {
-    //           // push
-    //           // to do descargar factura 
-    //           this.notificationSenderService.enviarNotificacion({
-    //           title: 'Descargar factura',
-    //           body: `Su factura ${pedido.idPedido} en formato pdf.`,
-    //           roles: ['cliente'],
-    //           path: pdfLink,
-    //           collection: 'clientes',
-    //         });
-
-
-    //         } else {
-    //           // email
-    //           this.emailService.enviarCorreo({
-    //             nombre: userData.nombre,
-    //             estado: "",
-    //             mensaje: "Te agradecemos por elegir a nuestro restaurante. En este enlace de descarga está la factura de tu pedido en formato PDF.",
-    //             email: userData.email,
-    //             foto: pdfLink,
-    //             foto_portada: 'https://i.imgur.com/LFpCnic.png/',
-    //             color_portada: "crimson"
-    //           }, "template_7ch87x6")
-    //         }
-    //       }
-    //     } catch (error) {
-    //       console.error('Error al generar o subir el PDF:', error);
-    //     }
-
-    //   }
-    // }
-
+    loading.dismiss();
 
   }
 }
