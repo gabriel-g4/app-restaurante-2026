@@ -1,7 +1,9 @@
+@use "../../../global.scss";
+
 :host {
-    --ion-color-primary: #1d2f41;
+    --ion-color-primary: #{global.$card-background};
     --ion-color-secondary: #4a8bfc;
-    --fondo-card: #1d2f41;
+    --fondo-card: #{global.$card-background};
     --color-texto: #ffffff;
     --color-texto-secundario: rgba(255, 255, 255, 0.8);
     --color-excelente: #2dd36f;
@@ -15,15 +17,12 @@
     font-size: 2rem;
 }
 
-.resumen-item {
-  ion-label {
-    font-size: 1.5rem;
-  }
-}
 
 .pagar-button {
-  margin: 0 auto;
-  padding-bottom: 50px;
+   --padding-top: 20px;
+  --padding-bottom: 20px;
+  --background: #{global.$app-background};
+  margin-bottom: 50px;
 }
 
 /* Estilos generales */
@@ -132,12 +131,12 @@ ion-icon[name="close-outline"] {
       align-items: flex-end;
 
       .cantidad {
-        font-size: 0.9rem;
+        font-size: 1.15rem;
         color: var(--color-texto-secundario);
       }
 
       .subtotal {
-        font-size: 1rem;
+        font-size: 1.25rem;
         font-weight: 500;
         color: var(--color-texto);
       }
@@ -161,7 +160,7 @@ ion-icon[name="close-outline"] {
     
     ion-label {
       color: var(--color-texto);
-      font-size: 0.95rem;
+      font-size: 1.15rem;
       
       &[slot="end"] {
         font-weight: 500;
@@ -200,14 +199,7 @@ ion-icon[name="close-outline"] {
   margin-top: 24px;
 
   ion-button {
-    margin: 0;
-    height: 48px;
-    width: 328px;
-    font-weight: 500;
     font-size: 1.6rem;
-    border-radius: 30px; ;
-    
-    background-color:#1d2f41 !important;
     color: white !important;
     ion-icon {
       font-size: 1.5rem;
@@ -263,9 +255,7 @@ ion-icon[name="close-outline"] {
     .resumen-item {
       --min-height: 32px;
       
-      ion-label {
-        font-size: 0.9rem;
-      }
+      
     }
   }
 }

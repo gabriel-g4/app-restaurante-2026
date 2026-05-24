@@ -7,9 +7,11 @@
     <ion-title class="ion-text-center">Registro</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="escanearQR()">
-        <ion-icon slot="icon-only" name="qr-code-outline"></ion-icon>
-      </ion-button>
+      @if (!esAnonimo) {
+        <ion-button (click)="escanearQR()">
+          <ion-icon slot="icon-only" name="qr-code-outline"></ion-icon>
+        </ion-button>
+      }
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

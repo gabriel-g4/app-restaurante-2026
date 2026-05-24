@@ -1,7 +1,9 @@
+@use "../../../global.scss";
+
 :host {
-  --ion-color-primary: #1d2f41;
+  --ion-color-primary: #{global.$card-background};
   --ion-color-secondary: #4a8bfc;
-  --fondo-card: #1d2f41;
+  --fondo-card: #{global.$card-background};
   --color-texto: #ffffff;
   --color-texto-secundario: #ffffff;
 }
@@ -18,7 +20,7 @@
 
 /* Estilos generales */
 ion-content {
-  --background: #4A4E69;
+  --background: #{global.$app-background};
   --color: var(--color-texto);
 }
 

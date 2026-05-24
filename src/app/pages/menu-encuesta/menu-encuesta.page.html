@@ -12,13 +12,17 @@
     <!-- Botones principales -->
     <div class="action-buttons">
       <ion-button expand="block" class="action-button" (click)="completarEncuesta()">
-        <ion-icon slot="start" name="document-text-outline"></ion-icon>
-        Completar encuesta
+        <div class="contenido-button">
+          <ion-icon class="icono-personalizado" slot="start" name="document-text-outline"></ion-icon>
+          <span>Completar encuesta</span>
+        </div>
       </ion-button>
 
       <ion-button expand="block" class="action-button" (click)="verEncuesta()">
-        <ion-icon slot="start" name="eye-outline"></ion-icon>
-        Ver resultados encuesta
+        <div class="contenido-button">
+          <ion-icon class="icono-personalizado" slot="start" name="eye-outline"></ion-icon>
+          <span>Ver resultados encuesta</span>
+        </div>
       </ion-button>
     </div>
   </div>
