@@ -59,7 +59,9 @@ export class NewTablePage implements OnInit {
   async tomarFoto() {
     try {
       const image = await Camera.takePhoto({
-        quality: 80,
+        quality: 60,
+        targetWidth: 1280,
+        targetHeight: 1280,
         editable: "no",
       });
 

@@ -93,7 +93,9 @@ export class NewDishPage implements OnInit {
     const image = await Camera.getPhoto({
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Prompt,
-      quality: 90,
+      quality: 60,
+      width: 1280,
+      height: 1280,
     });
 
     const base64 = image.dataUrl!.split(',')[1];

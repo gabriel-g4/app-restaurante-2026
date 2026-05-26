@@ -66,7 +66,9 @@ export class NewBeveragePage implements OnInit {
       const image = await Camera.getPhoto({
         resultType: CameraResultType.DataUrl,
         source: CameraSource.Prompt,
-        quality: 90,
+        quality: 60,
+        width: 1280,
+        height: 1280,
 
       });
 

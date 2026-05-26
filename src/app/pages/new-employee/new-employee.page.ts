@@ -80,7 +80,9 @@ export class NewEmployeePage implements OnInit {
   async tomarFoto() {
     try {
       const image = await Camera.takePhoto({
-        quality: 80,
+        quality: 60,
+        targetHeight: 1280,
+        targetWidth: 1280,
         editable: "no",
       });
 

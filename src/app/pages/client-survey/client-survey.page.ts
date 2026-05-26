@@ -122,7 +122,9 @@ ngOnInit() {
  async tomarFotos() {
     while (this.fotos.length < 3) {
       const imagen = await Camera.getPhoto({
-        quality: 80,
+        quality: 60,
+        width: 1280,
+        height: 1280,
         resultType: CameraResultType.DataUrl,
         source: CameraSource.Camera
       });

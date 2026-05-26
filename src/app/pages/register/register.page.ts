@@ -280,7 +280,9 @@ export class RegisterPage implements OnInit {
 
   async tomarFoto() {
     const image = await Camera.takePhoto({
-      quality: 80,
+      quality: 60,
+      targetWidth: 1280,
+      targetHeight: 1280,
       editable: 'no'
     });
 
