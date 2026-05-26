@@ -1,10 +1,13 @@
+@use "../../../global.scss";
+
+
 :host {
   /*display: block;
   height: 100vh;*/
-  background: #4A4E69;
+  background: #{global.$app-background};
   color: white;
-  --swiper-theme-color: #4A4E69;
-  --swiper-pagination-color: #4A4E69;
+  --swiper-theme-color: #{global.$app-background};
+  --swiper-pagination-color: #{global.$app-background};
 }
 
 swiper-container::part(scrollbar) {
@@ -13,7 +16,7 @@ swiper-container::part(scrollbar) {
   margin: 0 auto;
   padding: 0.1rem;
   position: relative;
-  --swiper-scrollbar-drag-bg-color: #4A4E69; 
+  --swiper-scrollbar-drag-bg-color: #{global.$app-background}; 
   --swiper-scrollbar-size: 8px; 
 }
 
@@ -38,7 +41,7 @@ ion-back-button {
 /* Header */
 .custom-header {
   ion-toolbar {
-    --background: #1d2f41;
+    --background: #{global.$card-background};
     --color: white;
     padding-top: 30px;
 
@@ -72,7 +75,7 @@ ion-back-button {
 /* Menú lateral */
 ion-menu {
   --width: 280px;
-  --background: #1d2f41;
+  --background: #{global.$card-background};
 
   ion-header.custom-header {
 
@@ -101,7 +104,7 @@ ion-menu {
   }
 
   ion-content {
-    --background: #4A4E69;
+    --background: #{global.$app-background};
     --padding-top: 20px;
 
     ion-list {
@@ -110,7 +113,7 @@ ion-menu {
     }
 
     ion-item {
-      --background: #1d2f41;
+      --background: #{global.$card-background};
       --color: white;
       --padding-start: 20px;
       --min-height: 56px;
@@ -141,7 +144,7 @@ ion-menu {
 }
 
 ion-content {
-    --background: #4A4E69;
+    --background: #{global.$app-background};
 }
 
 /* Segmento categorías */
@@ -149,14 +152,14 @@ ion-content {
   padding: 12px;
 
   ion-segment {
-    --background: #1d2f41;
+    --background: #{global.$card-background};
     border-radius: 8px;
 
     ion-segment-button {
       --color: white;
       --color-checked: white;
       --indicator-color: white;
-      --background-checked: #2a3d52;
+      --background-checked: #{global.$button-primary-text};
       font-weight: 500;
 
       .segment-label {
@@ -180,7 +183,7 @@ ion-content {
 
 /* Cards de productos */
 .product-card {
-  background: #1d2f41;
+  background: #{global.$card-background};
   border-radius: 12px;
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -199,7 +202,7 @@ ion-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #2a3d52;
+    background: #{global.$button-primary-text};
 
     /* Swiper interno (fotos del producto) */
     .image-slider {
@@ -211,7 +214,7 @@ ion-content {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: #2a3d52;
+        background: #{global.$button-primary-text};
 
         img {
           // width: auto;
@@ -332,7 +335,7 @@ ion-content {
   }
 
   .detail-button {
-    --background: #1d2f41;
+    --background: #{global.$card-background};
     --color: white !important;
     --border-radius: 12px;
     --border: 1px solid rgba(255, 255, 255, 0.2);
@@ -349,7 +352,7 @@ ion-content {
     }
 
     &:hover {
-      --background: #2a3d52;
+      --background: #{global.$button-primary-text};
     }
   }
 }
