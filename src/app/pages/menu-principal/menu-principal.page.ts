@@ -190,7 +190,7 @@ export class MenuPrincipalPage implements OnInit, OnDestroy {
         title: 'Pedir cuenta',
         body: body,
         roles: roles,
-        path: 'client-approval',
+        path: 'pedidos-mozo',
         collection: 'usuarios',
       });
     } catch (error) {
