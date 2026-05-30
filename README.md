@@ -26,32 +26,51 @@ Primer cuatrimestre 2026
   alt="GIF Animación" 
   width="40%">
 
+<img src="imgs/login.png" alt="Pantalla de login" width="40%"> <img src="imgs/inicio-rapido.png" alt="Perfiles de inicio rápido" width="40%">
 
-<img src="imgs/login.png" alt="Pantalla de login" width="40%"><img src="imgs/login-cargando.png" alt="Pantalla de carga del login" width="40%">
+<img src="imgs/registro.png" alt="Pantalla de registro" width="40%"> <img src="imgs/registro-anonimo.png" alt="Pantalla de registro anónimo" width="40%">
 
-<img src="imgs/registro.png" alt="Pantalla de registro" width="40%"><img src="imgs/registro-anonimo.png" alt="Pantalla de registro anónimo" width="40%">
+<img src="imgs/login-cargando.png" alt="Pantalla de carga del login" width="40%"> <img src="imgs/admin-home.png" alt="Pantalla principal del administrador" width="40%">
 
-<img src="imgs/admin-home.png" alt="Pantalla principal del administrador" width="40%"><img src="imgs/admin-aprobar-clientes.png" alt="Pantalla de aprobar clientes del administrador" width="40%">
+<img src="imgs/admin-aprobar-clientes.png" alt="Pantalla de aprobar clientes del administrador" width="40%"> <img src="imgs/info-mesa.png" alt="Pantalla de información de mesa" width="40%">
 
-<img src="imgs/info-mesa.png" alt="Pantalla de información de mesa" width="40%"><img src="imgs/admin-nuevo-empleado.png" alt="Pantalla de nuevo empleado del administrador" width="40%">
+<img src="imgs/mail-aceptacion.png" alt="Pantalla de aprobar clientes del administrador" width="40%"> <img src="imgs/mail-rechazo.png" alt="Pantalla de información de mesa" width="40%">
 
-<img src="imgs/admin-nueva-mesa.png" alt="Pantalla de nueva mesa del administrador" width="40%"><img src="imgs/cantinero-home.png" alt="Pantalla principal del cantinero" width="40%">
+<img src="imgs/admin-nuevo-empleado.png" alt="Pantalla de nuevo empleado del administrador" width="40%"> <img src="imgs/admin-nueva-mesa.png" alt="Pantalla de nueva mesa del administrador" width="40%">
 
-<img src="imgs/cantinero-nueva-bebida.png" alt="Pantalla de nueva bebida del cantinero" width="40%"><img src="imgs/cocinero-home.png" alt="Pantalla principal del cocinero" width="40%">
+<img src="imgs/cantinero-home.png" alt="Pantalla principal del cantinero" width="40%"> <img src="imgs/cantinero-nueva-bebida.png" alt="Pantalla de nueva bebida del cantinero" width="40%">
 
-<img src="imgs/cocinero-nuevo-plato.png" alt="Pantalla de nuevo plato del cocinero" width="40%"><img src="imgs/cocinero-pedidos.png" alt="Pantalla de pedidos del cocinero" width="40%">
+<img src="imgs/cantinero-pedidos.png" alt="Pantalla de pedidos del cocinero" width="40%"> <img src="imgs/cocinero-home.png" alt="Pantalla principal del cocinero" width="40%">
 
-<img src="imgs/cocinero-pedidos-2.png" alt="Pantalla de pedidos del cocinero" width="40%"><img src="imgs/cliente-home.png" alt="Pantalla principal del cliente" width="40%">
+<img src="imgs/cocinero-pedidos.png" alt="Pantalla de nuevo plato del cocinero" width="40%"> <img src="imgs/cocinero-pedidos-2.png" alt="Pantalla de pedidos del cocinero" width="40%">
 
-<img src="imgs/cliente-wait-list.png" alt="Pantalla de lista de espera del cliente" width="40%"><img src="imgs/chat.png" alt="Pantalla de chat" width="40%">
+<img src="imgs/cocinero-nuevo-plato.png" alt="Pantalla de pedidos del cocinero" width="40%"> <img src="imgs/cliente-wait-list.png" alt="Pantalla principal del cliente" width="40%">
 
-<img src="imgs/juegos.png" alt="Pantalla de juegos" width="40%"><img src="imgs/juego-calorimetro.png" alt="Juego del calorímetro" width="40%">
+<img src="imgs/cliente-home.png" alt="Pantalla de lista de espera del cliente" width="40%"> <img src="imgs/detalle-pedido.png" alt="Pantalla de chat" width="40%">
 
-<img src="imgs/juego-memotest.png" alt="Juego memotest" width="40%"><img src="imgs/juego-receta.png" alt="Juego de receta" width="40%">
+<img src="imgs/chat.png" alt="Pantalla de juegos" width="40%"> <img src="imgs/juegos.png" alt="Juego del calorímetro" width="40%">
 
-<img src="imgs/metre-home.png" alt="Pantalla principal del metre" width="40%"><img src="imgs/metre-lista-espera.png" alt="Pantalla de lista de espera del metre" width="40%">
+<img src="imgs/juego-calorimetro.png" alt="Juego memotest" width="40%"> <img src="imgs/juego-memotest.png" alt="Juego de receta" width="40%">
 
-<img src="imgs/mozo-home.png" alt="Pantalla principal del mozo" width="40%"><img src="imgs/mozo-pedidos.png" alt="Pantalla de pedidos del mozo" width="40%">
+<img src="imgs/juego-receta.png" alt="Juego memotest" width="40%"> <img src="imgs/encuestas-menu.png" alt="Juego de receta" width="40%">
+
+<img src="imgs/encuestas-1.png" alt="Juego memotest" width="40%"> <img src="imgs/encuestas-2.png" alt="Juego de receta" width="40%">
+
+<img src="imgs/encuestas-3.png" alt="Juego memotest" width="40%"> <img src="imgs/encuestas-4.png" alt="Juego de receta" width="40%">
+
+<img src="imgs/encuestas-enviar.png" alt="Pantalla principal del metre" width="40%"> <img src="imgs/metre-home.png" alt="Pantalla de lista de espera del metre" width="40%">
+
+<img src="imgs/metre-lista-espera.png" alt="Pantalla principal del metre" width="40%"> <img src="imgs/metre-lista-espera-2.png" alt="Pantalla de lista de espera del metre" width="40%">
+
+<img src="imgs/menu-productos.png" alt="Pantalla principal del metre" width="40%"> <img src="imgs/menu-detalle.png" alt="Pantalla de lista de espera del metre" width="40%">
+
+<img src="imgs/mozo-home.png" alt="Pantalla principal del mozo" width="40%"> <img src="imgs/mozo-pedidos.png" alt="Pantalla de pedidos del mozo" width="40%">
+
+<img src="imgs/mozo-pedidos-2.png" alt="Pantalla principal del mozo" width="40%"> <img src="imgs/mozo-pedidos-3.png" alt="Pantalla de pedidos del mozo" width="40%">
+
+<img src="imgs/cuenta-final.png" alt="Pantalla principal del mozo" width="40%"> <img src="imgs/mozo-pedidos-4.png" alt="Pantalla de pedidos del mozo" width="40%">
+
+<img src="imgs/push-notification.png" alt="Pantalla de pedidos del mozo" width="40%"> <img src="imgs\splash.png" alt="Splashscreen de la aplicacion" width="40%">
 
 ##  Tareas a desarrollar
 
@@ -76,28 +95,30 @@ Primer cuatrimestre 2026
 | Mariano Novak                                 | Aceptar clientes pendientes (funcionalidad)   | 01/05  | 01/05        | main                  | :white_check_mark: |
 | Gabriel García                                | Listado clientes metre (funcionalidad)        | 07/05  | 07/05        | main                  | :white_check_mark: |
 | Gabriel García                                | Listado clientes metre (diseño)               | 07/05  | 07/05        | main                  | :white_check_mark: |
-| Anahí González                                | Menú de productos (diseño)                    | 14/05  | 19/05        | -                     | :white_check_mark:      |
-| Anahí González                                | Pedido de productos (funcionalidad)           | 14/05  | 18/05        | -                     | :white_check_mark:      |
-| Mariano Novak                                 | Chat cliente-mozo (diseño)                    | 02/05  | -            | -                     | :construction:     |
-| Mariano Novak                                 | Chat cliente-mozo (funcionalidad)             | 02/05  | -            | -                     | :construction:     |
+| Anahí González                                | Menú de productos (diseño)                    | 14/05  | 19/05        | main                  | :white_check_mark: |
+| Anahí González                                | Pedido de productos (funcionalidad)           | 14/05  | 18/05        | main                  | :white_check_mark: |
+| Mariano Novak                                 | Chat cliente-mozo (diseño)                    | 02/05  | 23/05        | main                  | :white_check_mark: |
+| Mariano Novak                                 | Chat cliente-mozo (funcionalidad)             | 02/05  | 02/05        | main                  | :white_check_mark: |
 | Gabriel García                                | Listado de pedidos (mozo) (funcionalidad)     | 08/05  | 08/05        | main                  | :white_check_mark: |
 | Gabriel García                                | Listado de pedidos (mozo) (diseño)            | 08/05  | 08/05        | main                  | :white_check_mark: |
-| Anahí González                                | Rechazar pedido (funcionalidad)               | -      | -            | -                     | :red_circle:       |
-| Anahí González                                | Confirmar pedido (funcionalidad)              | -      | -            | -                     | :red_circle:       |
-| Anahí González                                | Listado pedidos bar (diseño)                  | -      | -            | -                     | :red_circle:       |
-| Anahí González                                | Listado pedidos bar (funcionalidad)           | -      | -            | -                     | :red_circle:       |
+| Anahí González                                | Rechazar pedido (funcionalidad)               | 14/05  | 18/05        | main                  | :white_check_mark: |
+| Anahí González                                | Confirmar pedido (funcionalidad)              | 14/05  | 18/05        | main                  | :white_check_mark: |
+| Anahí González                                | Listado pedidos bar (diseño)                  | 08/05  | 08/05        | main                  | :white_check_mark: |
+| Anahí González                                | Listado pedidos bar (funcionalidad)           | 08/05  | 08/05        | main                  | :white_check_mark: |
 | Gabriel García                                | Listado pedidos cocina (diseño)               | 08/05  | 08/05        | main                  | :white_check_mark: |
 | Gabriel García                                | Listado pedidos cocina (funcionalidad)        | 08/05  | 08/05        | main                  | :white_check_mark: |
 | Mariano Novak                                 | Juego 1                                       | 03/05  | 03/05        | main                  | :white_check_mark: |
 | Mariano Novak                                 | Juego 2                                       | 09/05  | 09/05        | main                  | :white_check_mark: |
 | Mariano Novak                                 | Juego 3                                       | 09/05  | 09/05        | main                  | :white_check_mark: |
-| Anahí González                                | Listado pedidos listos (mozo) (funcionalidad) | -      | -            | -                     | :red_circle:       |
-| Anahí González                                | Listado pedidos listos (mozo) (diseño)        | -      | -            | -                     | :red_circle:       |
-| Gabriel García                                | Recepcion pedido del cliente (funcionalidad)  | -      | -            | -                     | :red_circle:       |
-| Gabriel García                                | Encuestas (funcionalidad)                     | -      | -            | -                     | :red_circle:       |
-| Anahí González                                | Encuestas (diseño)                            | 19/05  | 19/05        | -                     | :white_check_mark: |
-| Anahí González                                | Solicitar cuenta (funcionalidad)              | -      | -            | -                     | :red_circle:       |
-| Gabriel García                                | Confirmar pago (funcionalidad)                | -      | -            | -                     | :red_circle:       |
+| Anahí González                                | Listado pedidos listos (mozo) (funcionalidad) | 08/05  | 08/05        | main                  | :white_check_mark: |
+| Anahí González                                | Listado pedidos listos (mozo) (diseño)        | 08/05  | 08/05        | main                  | :white_check_mark: |
+| Gabriel García                                | Recepcion pedido del cliente (funcionalidad)  | 21/05  | 21/05        | main                  | :white_check_mark: |
+| Gabriel García                                | Encuestas (funcionalidad)                     | 22/05  | 22/05        | main                  | :white_check_mark: |
+| Anahí González                                | Encuestas (diseño)                            | 19/05  | 19/05        | main                  | :white_check_mark: |
+| Anahí González                                | Formulario encuesta (diseño)                  | 19/05  | 27/05        | main                  | :white_check_mark: |
+| Anahí González, Gabriel García                | Solicitar cuenta (funcionalidad)              | 24/05  | 24/05        | main                  | :white_check_mark: |
+| Gabriel García, Anahí González                | Confirmar pago (funcionalidad)                | 21/05  | 29/05        | main                  | :white_check_mark: |
+
 
 ## Códigos QR
 
