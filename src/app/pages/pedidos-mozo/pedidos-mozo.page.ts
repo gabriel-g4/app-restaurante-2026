@@ -243,7 +243,7 @@ export class PedidosMozoPage implements OnInit {
 
       this.notificationSenderService.enviarNotificacion({
         title: 'Pago confirmado',
-        body: `Se transfirieron ${pedido.precioFinal} a la cuenta.`,
+        body: `Se transfirieron $${pedido.precioFinal} a la cuenta.`,
         roles: ['dueño', 'supervisor'],
         path: 'home',
         collection: 'usuarios',

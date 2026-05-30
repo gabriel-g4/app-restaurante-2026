@@ -73,7 +73,7 @@ export class WaitListPage {
       this.dialogService.presentToast('Ya está en lista de espera, dentro de poco se le asigna una mesa.', "success" , 5000)
       this.notificationSenderService.enviarNotificacion({
               title: 'Cliente en lista de espera',
-              body: `El cliente: ${userDb.nombre} ${userDb.apellido || ''} esta esperando una mesa.`,
+              body: `El cliente: ${userDb.nombre} ${userDb.apellido || ''} está esperando una mesa.`,
               roles: ['metre'],
               path: 'wait-list-maitre',
               collection: 'usuarios',
