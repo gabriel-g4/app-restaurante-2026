@@ -13,9 +13,19 @@
     --color-mala: #eb445a;
 }
 
-.total-precio {
-    font-size: 2rem;
+.sticky {
+  position: sticky !important;
+  bottom: 0 !important;
+  z-index: 999 !important;
+
 }
+
+ion-label.total-precio {
+  strong {
+font-size: 2rem;
+  }
+}
+ 
 
 
 .pagar-button {
@@ -58,7 +68,7 @@ ion-icon[name="close-outline"] {
 /* Contenedor principal */
 .pedido-container {
   max-width: 600px;
-  
+
 }
 
 /* Encabezado del pedido */
@@ -144,10 +154,20 @@ ion-icon[name="close-outline"] {
   }
 }
 
+.total-item {
+  font-size: 1.6rem;
+}
+
+.precio-final {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
 /* Sección de resumen */
 .resumen-section {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
+  background-color:  #{global.$app-background};
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   padding: 12px;
   margin-top: 16px;
 
@@ -160,7 +180,7 @@ ion-icon[name="close-outline"] {
     
     ion-label {
       color: var(--color-texto);
-      font-size: 1.15rem;
+      font-size: 1.5rem;
       
       &[slot="end"] {
         font-weight: 500;
@@ -184,8 +204,12 @@ ion-icon[name="close-outline"] {
         font-size: 1.1rem;
       }
     }
-    strong {
-        font-size: 1.6rem !important;
+
+    ion-label.total-precio {
+      
+      strong {
+          font-size: 2rem ;
+      }
     }
   }
 

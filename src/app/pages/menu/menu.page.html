@@ -95,14 +95,14 @@
   <ion-toolbar>
     <div class="detail-section">
       <div class="summary-info">
-        <div class="max-time">Tiempo estimado: <span>{{calcularTiempoMaximo()}} min</span></div>
+        <div class="max-time">Tiempo Estimado: <span>{{calcularTiempoMaximo()}} min</span></div>
         <div class="total-price">Total: <span>${{calcularTotal()}}</span></div>
       </div>
 
       @if (!deliveryMode) {
         <ion-button class="detail-button" expand="block" (click)="verDetallePedido()">
           <ion-icon name="information-circle-outline" slot="start"></ion-icon>
-          Ver Detalles del Pedido
+          REVISAR Y CONFIRMAR
         </ion-button>
       }
 

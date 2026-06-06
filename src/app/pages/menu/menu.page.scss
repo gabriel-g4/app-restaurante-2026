@@ -252,15 +252,19 @@ ion-content {
 
       .price-label,
       .time-label {
-        font-size: 1.8rem;
+        font-size: 1.55rem;
         color: white;
         display: flex;
         justify-content: space-between;
       }
 
-      .product-price,
+      .product-price {
+        font-size: 1.75rem;
+        color: white;
+        font-weight: bold;
+      }
       .product-time {
-        font-size: 1.5rem;
+        font-size: 1.55rem;
         color: white;
         font-weight: bold;
       }
@@ -319,9 +323,8 @@ ion-content {
     gap: 8px;
     padding: 0 16px;
 
-    .total-price,
-    .max-time {
-      font-size: 1.8rem;
+    .total-price {
+      font-size: 2rem;
       color: white;
       display: flex;
       justify-content: space-between;
@@ -329,7 +332,20 @@ ion-content {
       span {
         color: white;
         font-weight: bold;
-        font-size: 2rem;
+        font-size: 2.2rem;
+      }
+    }
+
+    .max-time {
+      font-size: 1.55rem;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+
+      span {
+        color: white;
+        font-weight: bold;
+        font-size: 1.75rem;
       }
     }
   }
@@ -343,7 +359,7 @@ ion-content {
     margin: 0;
     --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     height: 50px;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
 
     ion-icon {
       margin-right: 8px;

@@ -70,14 +70,14 @@ ion-icon[name="close-outline"] {
     .producto-info {
       h3 {
         color: white;
-        font-size: 1.1rem;
+        font-size: 1.25rem;
         font-weight: 500;
         margin-bottom: 6px;
       }
       
       .precio-unitario {
         color: rgba(255, 255, 255, 0.8);
-        font-size: 0.9rem;
+        font-size: 1.1rem;
         display: block;
         margin-bottom: 6px;
       }
@@ -99,13 +99,14 @@ ion-icon[name="close-outline"] {
       
       .cantidad {
         color: rgba(255, 255, 255, 0.9);
-        font-size: 1rem;
+        font-size: 1.1rem;
+        font-weight: 600;
       }
       
       .precio-total {
         color: white;
         font-weight: 600;
-        font-size: 1.1rem;
+        font-size: 1.25rem;
       }
     }
   }
@@ -113,9 +114,11 @@ ion-icon[name="close-outline"] {
 
 /* Sección de resumen */
 .resumen-section {
-  background: var(--ion-color-primary);
+  background: black;
+  // background: var(--ion-color-primary);
   border-radius: 12px;
   padding: 0 16px;
+  width: 100%;
   margin-bottom: 24px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 
@@ -173,14 +176,20 @@ ion-icon[name="close-outline"] {
   }
 }
 
+.sticky {
+  position: sticky;
+  bottom: 0;
+  z-index: 999;
+}
+
 /* Responsive */
 @media (max-width: 576px) {
   .producto-item {
     --padding-start: 12px !important;
     --padding-end: 12px !important;
     
-    .producto-info h3 {
-      font-size: 1rem !important;
-    }
+    // .producto-info h3 {
+    //   // font-size: 1rem !important;
+    // }
   }
 }

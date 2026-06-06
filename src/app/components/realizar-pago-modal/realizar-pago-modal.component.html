@@ -37,57 +37,57 @@
         </ion-item>
       </ion-list>
 
-      <div class="resumen-section">
-        <ion-item lines="none" class="resumen-item">
-          <ion-label>Subtotal:</ion-label>
-          <ion-label slot="end">${{pedido.precioTotal | number:'1.2-2'}}</ion-label>
-        </ion-item>
-
-        @if (pedido.descuento) {
-          @if (pedido.descuento > 0) {
-              <ion-item lines="none" class="resumen-item">
-              <ion-label>Porcentaje descuento:</ion-label>
-              <ion-label slot="end" >
-                {{pedido.descuento | number:'1.0-0'}}%
-              </ion-label>
-            </ion-item>
-            <ion-item lines="none" class="resumen-item">
-              <ion-label>Descuento:</ion-label>
-              <ion-label slot="end" >
-                ${{pedido.precioTotal * (pedido.descuento/ 100) | number:'1.2-2'}}
-              </ion-label>
-            </ion-item>
-            <ion-item lines="none" class="resumen-item total-item">
-              <ion-label>Subtotal con descuento</ion-label>
-              <ion-label slot="end" >
-                ${{pedido.precioTotal - pedido.precioTotal * (pedido.descuento/ 100)| number:'1.2-2'}}
-              </ion-label>
-            </ion-item>
-          }
-        }
-        
-        <ion-item lines="none" class="resumen-item">
-          <ion-label>Propina ({{porcentajePropina}}%):</ion-label>
-          <ion-label slot="end">
-             ${{ ((pedido.precioTotal * (1 - (pedido.descuento ?? 0) / 100)) * (porcentajePropina / 100)) | number:'1.2-2' }}
-          </ion-label>
-        </ion-item>
-        
-        <ion-item lines="none" class="resumen-item">
-          <ion-label>Evaluación propina:</ion-label>
-          <ion-label slot="end" [class]="getClaseEvaluacion()">
-            {{getMensajePropina()}}
-          </ion-label>
-        </ion-item>
-        
-        <ion-item lines="none" class="resumen-item total-item">
-          <ion-label><strong>Total final:</strong></ion-label>
-          <ion-label slot="end" class="total-precio">
-            <strong>${{ precioFinal | number:'1.2-2' }}</strong>
-          </ion-label>
-        </ion-item>
-      </div>
     </div>
+    <div class="resumen-section">
+      <ion-item lines="none" class="resumen-item">
+        <ion-label>Subtotal:</ion-label>
+        <ion-label slot="end">${{pedido.precioTotal | number:'1.2-2'}}</ion-label>
+      </ion-item>
+
+      @if (pedido.descuento) {
+        @if (pedido.descuento > 0) {
+            <ion-item lines="none" class="resumen-item">
+            <ion-label>Porcentaje descuento:</ion-label>
+            <ion-label slot="end" >
+              {{pedido.descuento | number:'1.0-0'}}%
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none" class="resumen-item">
+            <ion-label>Descuento:</ion-label>
+            <ion-label slot="end" >
+              ${{pedido.precioTotal * (pedido.descuento/ 100) | number:'1.2-2'}}
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none" class="resumen-item total-item">
+            <ion-label>Subtotal con descuento</ion-label>
+            <ion-label slot="end" >
+              ${{pedido.precioTotal - pedido.precioTotal * (pedido.descuento/ 100)| number:'1.2-2'}}
+            </ion-label>
+          </ion-item>
+        }
+      }
+      
+      <ion-item lines="none" class="resumen-item">
+        <ion-label>Propina ({{porcentajePropina}}%):</ion-label>
+        <ion-label slot="end">
+           ${{ ((pedido.precioTotal * (1 - (pedido.descuento ?? 0) / 100)) * (porcentajePropina / 100)) | number:'1.2-2' }}
+        </ion-label>
+      </ion-item>
+      
+      <ion-item lines="none" class="resumen-item">
+        <ion-label>Evaluación propina:</ion-label>
+        <ion-label slot="end" [class]="getClaseEvaluacion()">
+          {{getMensajePropina()}}
+        </ion-label>
+      </ion-item>
+      
+    </div>
+    <ion-item lines="none" class="resumen-item total-item sticky precio-final">
+      <ion-label><strong>Total final:</strong></ion-label>
+      <ion-label slot="end" class="total-precio">
+        <strong>${{ precioFinal | number:'1.2-2' }}</strong>
+      </ion-label>
+    </ion-item>
     
     <div class="acciones-container">
       <ion-button expand="block" (click)="pagar()" class="pagar-button" >
