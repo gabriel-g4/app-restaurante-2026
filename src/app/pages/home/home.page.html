@@ -1,6 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Inicio - {{ rolUsuario }}</ion-title>
+    @if (userData) {
+      <ion-avatar slot="start">
+        <img [src]="userData.foto" [alt]="userData.nombre">
+      </ion-avatar>
+      <ion-title>{{ userData.nombre | titlecase }} {{ userData.apellido || ""  | titlecase }} - <span class="span-rol">{{ userData.rol | titlecase }}</span></ion-title>
+    } @else {
+      <ion-title>Inicio</ion-title>
+    }
   </ion-toolbar>
 </ion-header>
 

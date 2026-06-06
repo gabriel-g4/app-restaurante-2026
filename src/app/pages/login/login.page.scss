@@ -137,19 +137,19 @@ ion-input {
       --background-activated: rgba(255, 255, 255, 0.08);
 
       ion-avatar {
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 60px;
       }
 
       h3 {
         font-weight: bold;
-        font-size: 1rem;
+        font-size: 1.2rem;
         color: #{global.$text-light};
         margin: 0 0 2px 0;
       }
 
       p {
-        font-size: 0.8rem;
+        font-size: 1rem;
         color: #{global.$button-primary-bg};
       }
     }

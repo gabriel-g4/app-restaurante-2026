@@ -42,14 +42,15 @@
         </div>
 
         <ion-list lines="none" class="perfiles-list">
-          @for (perfil of perfilesPrueba; track perfil.email) {
+          <!-- {{perfilesPrueba | json }} -->
+          @for (perfil of perfilesPrueba; track $index) {
           <ion-item button (click)="seleccionarPerfil(perfil)" detail="false">
             <ion-avatar slot="start">
-              <img [src]="perfil.foto" [alt]="perfil.nombre">
+              <img [src]="perfil.foto" [alt]="perfil.rol">
             </ion-avatar>
             <ion-label>
-              <h3>{{ perfil.nombre }}</h3>
-              <p>{{ perfil.email }}</p>
+              <h3>{{ perfil.rol | titlecase }}</h3>
+              <p>{{ perfil.nombre | titlecase }}</p>
             </ion-label>
           </ion-item>
           }

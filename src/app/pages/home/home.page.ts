@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonIcon, IonSpinner, Platform } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonIcon, IonSpinner, Platform, IonAvatar } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -13,6 +13,7 @@ import { HomeClienteComponent } from './components/home-cliente/home-cliente.com
 import { HomeBartenderComponent } from "./components/home-bartender/home-bartender.component";
 import { HomeMaitreComponent } from './components/home-maitre/home-maitre.component';
 import { App } from '@capacitor/app';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -23,7 +24,7 @@ import { App } from '@capacitor/app';
   imports: [
     HomeAdminComponent, HomeCocineroComponent, HomeMozoComponent, HomeClienteComponent,
     IonFooter, IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, HomeBartenderComponent, HomeMaitreComponent,
-    IonSpinner
+    IonSpinner, CommonModule, IonAvatar
   ]
 })
 export class HomePage implements OnInit, OnDestroy {

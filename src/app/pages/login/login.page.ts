@@ -30,15 +30,16 @@ import { peopleCircleOutline } from 'ionicons/icons';
 })
 export class LoginPage implements OnInit {
   @ViewChild(IonModal) modalAcceso!: IonModal;
-  perfilesPrueba = [
-    { nombre: 'Dueño', email: 'duenio@apprestaurante.com', foto: 'https://ui-avatars.com/api/?name=Due%C3%B1o&background=23395B&color=CBF7ED&rounded=true&bold=true' },
-    { nombre: 'Supervisor', email: 'supervisor@apprestaurante.com', foto: 'https://ui-avatars.com/api/?name=Supervisor&background=23395B&color=CBF7ED&rounded=true&bold=true' },
-    { nombre: 'Mozo', email: 'mozo@apprestaurante.com', foto: 'https://ui-avatars.com/api/?name=Mozo&background=23395B&color=CBF7ED&rounded=true&bold=true' },
-    { nombre: 'Cocinero', email: 'cocinero@apprestaurante.com', foto: 'https://ui-avatars.com/api/?name=Cocinero&background=23395B&color=CBF7ED&rounded=true&bold=true' },
-    { nombre: 'Cantinero', email: 'cantinero@apprestaurante.com', foto: 'https://ui-avatars.com/api/?name=Cantinero&background=23395B&color=CBF7ED&rounded=true&bold=true' },
-    { nombre: 'Maître', email: 'metre@apprestaurante.com', foto: 'https://ui-avatars.com/api/?name=Maitre&background=23395B&color=CBF7ED&rounded=true&bold=true' },
-    { nombre: 'Cliente', email: 'cliente@cliente.com', foto: 'https://ui-avatars.com/api/?name=Cliente&background=23395B&color=CBF7ED&rounded=true&bold=true' },
-  ];
+  perfilesPrueba: any;
+  // perfilesPrueba = [
+  //   { nombre: 'Dueño', email: 'duenio@apprestaurante.com', foto: 'https://ui-avatars.com/api/?name=Due%C3%B1o&background=23395B&color=CBF7ED&rounded=true&bold=true' },
+  //   { nombre: 'Supervisor', email: 'supervisor@apprestaurante.com', foto: 'https://ui-avatars.com/api/?name=Supervisor&background=23395B&color=CBF7ED&rounded=true&bold=true' },
+  //   { nombre: 'Mozo', email: 'mozo@apprestaurante.com', foto: 'https://ui-avatars.com/api/?name=Mozo&background=23395B&color=CBF7ED&rounded=true&bold=true' },
+  //   { nombre: 'Cocinero', email: 'cocinero@apprestaurante.com', foto: 'https://ui-avatars.com/api/?name=Cocinero&background=23395B&color=CBF7ED&rounded=true&bold=true' },
+  //   { nombre: 'Cantinero', email: 'cantinero@apprestaurante.com', foto: 'https://ui-avatars.com/api/?name=Cantinero&background=23395B&color=CBF7ED&rounded=true&bold=true' },
+  //   { nombre: 'Maître', email: 'metre@apprestaurante.com', foto: 'https://ui-avatars.com/api/?name=Maitre&background=23395B&color=CBF7ED&rounded=true&bold=true' },
+  //   { nombre: 'Cliente', email: 'cliente@cliente.com', foto: 'https://ui-avatars.com/api/?name=Cliente&background=23395B&color=CBF7ED&rounded=true&bold=true' },
+  // ];
 
 
   constructor(
@@ -74,7 +75,14 @@ export class LoginPage implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  ngOnInit() { }
+  async ngOnInit() {
+    console.log("ENTRANDO PERFILES PRIBA")
+    this.perfilesPrueba = await this.databaseService.obtenerUsuariosInicioRapido();
+        console.log("RESULTADO")
+        console.log(this.perfilesPrueba)
+        
+
+   }
 
   irARegistro() {
     this.router.navigate(['/register']);

@@ -58,6 +58,32 @@ export class DatabaseService {
     }
   }
 
+  async obtenerUsuariosInicioRapido() {
+    try {
+      const usersRef = collection(this.firestore, 'usuarios');
+
+      const q = query(usersRef, where('inicioRapido', '==', true));
+
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        return null;
+      }
+
+      querySnapshot.docs.forEach((doc, index) => {
+        console.log(`🔍 Doc ${index}: id=${doc.id}, data=`, doc.data());
+      });
+
+      const usersData = querySnapshot.docs.map(doc => doc.data());
+
+      return usersData;
+
+    } catch (error) {
+      console.error("🛑 Error en obtenerUsuariosInicioRapido:", error);
+      throw error;
+    }
+  }
+
   async obtenerUsuarioPorId(uid: string): Promise<any> {
     try {
 
